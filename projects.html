@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-red-700">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="images/logo1.png" />
+  <title>Projects | Ruslan's Hacker Space</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    /* Glitch animation for the text */
+    .glitch {
+      position: relative;
+      color: #ff0000;
+      font-weight: bold;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #ff1a1a;
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch::before {
+      animation: glitchTop 2s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      animation: glitchBottom 2s infinite linear alternate-reverse;
+      color: #ff4d4d;
+    }
+    @keyframes glitchTop {
+      0%, 100% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(0, 9999px, 10px, 0); }
+      20% { clip: rect(0, 9999px, 5px, 0); }
+      40% { clip: rect(0, 9999px, 7px, 0); }
+    }
+    @keyframes glitchBottom {
+      0%, 100% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(15px, 9999px, 20px, 0); }
+      20% { clip: rect(10px, 9999px, 30px, 0); }
+      30% { clip: rect(5px, 9999px, 25px, 0); }
+    }
+
+    /* Project card styles */
+    .project-card {
+      background-color: #111;
+      border: 1px solid #ff0000;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+    }
+    
+    .project-image {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+    
+    .project-content {
+      padding: 15px;
+    }
+    
+    .project-content h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #ff4d4d;
+    }
+    
+    .project-content p {
+      font-size: 0.85rem;
+      color: #ff6666;
+      margin-bottom: 10px;
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .project-tags span {
+      background: rgba(255, 0, 0, 0.2);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+    
+    .project-links .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #ff0000;
+      color: #000;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    
+    .project-links .btn:hover {
+      background: #ff3333;
+      box-shadow: 0 0 10px #ff0000;
+    }
+
+    /* Custom styles for left panel */
+    .left-panel {
+      width: 280px;
+      min-width: 280px;
+      border-right: 1px solid #ff000055;
+    }
+    
+    .nav-link {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      color: #ff6666;
+    }
+    
+    .nav-link::before {
+      content: ">";
+      position: absolute;
+      left: 0.5rem;
+      color: #ff0000;
+      font-weight: bold;
+    }
+    
+    .nav-link:hover {
+      color: #ff0000;
+      transform: translateX(5px);
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    }
+    
+    .nav-link.active {
+      color: #ff0000;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff0000;
+    }
+    
+    .nav-link.active::before {
+      color: #ff0000;
+      text-shadow: 0 0 5px #ff0000;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1rem;
+      background: #ff0000;
+      margin-left: 4px;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px dashed #ff000055;
+    }
+    
+    .footer-icons a {
+      color: #ff0000;
+      font-size: 1.25rem;
+      transition: color 0.3s;
+    }
+    
+    .footer-icons a:hover {
+      color: #ff4d4d;
+    }
+    
+    /* Section title */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #ff0000, transparent);
+    }
+    
+    /* Grid layout */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+  </style>
+</head>
+<body class="bg-black text-red-500 font-mono h-screen overflow-hidden">
+
+  <!-- Ulduzlar -->
+  <canvas id="starsCanvas" class="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"></canvas>
+
+  <div class="flex h-screen relative z-10">
+
+    <!-- Sol Panel -->
+    <aside class="left-panel bg-black p-6 flex flex-col h-full">
+      <div class="flex-grow">
+        <a href="terminal.html" class="block mb-6">
+          <div class="glitch text-2xl" data-text="> Ruslan">
+            > Ruslan<span class="cursor"></span>
+          </div>
+        </a>
+        <!-- <div id="typed" class="text-sm text-red-400 h-16 mb-8"></div> -->
+        
+        <nav class="space-y-3">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="projects.html" class="nav-link active">Projects</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="certificates.html" class="nav-link">Certificates</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <!-- Footer hissəsi -->
+      <footer class="mt-auto">
+        <div class="footer-icons">
+          <a href="https://github.com/ruslanemrahov" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/ruslan-amrahov-75b297285" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://medium.com/@ruslanemrahov001" target="_blank" aria-label="Medium">
+            <i class="fab fa-medium"></i>
+          </a>
+        </div>
+      </footer>
+    </aside>
+
+    <!-- Sağ Panel (Projects) -->
+    <main class="flex-1 p-10 overflow-auto">
+      <h1 class="section-title text-red-400">My Projects</h1>
+      
+      <div class="projects-grid">
+        <!-- V CTF Challenge -->
+        <div class="project-card">
+          <div class="project-image">
+            <img src="images/V_THM_CTF.jpeg" alt="V CTF Challenge">
+          </div>
+          <div class="project-content">
+            <h3>V CTF Challenge</h3>
+            <p>CTF challenge created for TryHackMe platform</p>
+            <div class="project-tags">
+              <span>Linux</span>
+              <span>Privilege Escalation</span>
+              <span>Web Exploitation</span>
+            </div>
+            <div class="project-links">
+              <a href="https://tryhackme.com/jr/V" class="btn" target="_blank">Try Room</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MILLISEC CTF Challenge -->
+        <div class="project-card">
+          <div class="project-image">
+            <img src="images/MILLISEC_THM_CTF.jpeg" alt="MILLISEC CTF Challenge">
+          </div>
+          <div class="project-content">
+            <h3>MILLISEC CTF Challenge</h3>
+            <p>CTF challenge created for TryHackMe platform</p>
+            <div class="project-tags">
+              <span>Linux</span>
+              <span>Privilege Escalation</span>
+              <span>Web Exploitation</span>
+            </div>
+            <div class="project-links">
+              <a href="https://tryhackme.com/jr/millisec" class="btn" target="_blank">Try Room</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add more projects here following the same structure -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Typed.js
+    new Typed("#typed", {
+      strings: ["CTF Creator", "Security Researcher", "Bug Hunter", "Red Teamer"],
+      typeSpeed: 40,
+      backSpeed: 25,
+      loop: true
+    });
+
+    // ⭐ Ulduz Animasiya Scripti
+    const canvas = document.getElementById("starsCanvas");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+    const starCount = 250;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: 0.2 + Math.random() * 0.5,
+        brightness: 0.4 + Math.random() * 0.5,
+        colorPhase: Math.random()
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        star.x += star.speed;
+        if (star.x > canvas.width) {
+          star.x = 0;
+          star.y = Math.random() * canvas.height;
+        }
+        star.colorPhase += 0.01;
+        const red = Math.floor(139 + 116 * Math.sin(star.colorPhase));
+        const alpha = star.brightness;
+        ctx.fillStyle = `rgba(${red}, 0, 0, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, 1.5, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+</body>
+</html>

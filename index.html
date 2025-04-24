@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-red-700">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruslan | Hacker Space</title>
+  <link rel="icon" type="image/png" href="images/logo1.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    .glitch {
+      position: relative;
+      color: #ff0000;
+      font-weight: bold;
+      font-size: 3rem;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #ff1a1a;
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch::before {
+      animation: glitchTop 2s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      animation: glitchBottom 2s infinite linear alternate-reverse;
+      color: #ff4d4d;
+    }
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(0, 9999px, 10px, 0); }
+      20% { clip: rect(0, 9999px, 5px, 0); }
+      30% { clip: rect(0, 9999px, 0, 0); }
+      40% { clip: rect(0, 9999px, 7px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(15px, 9999px, 20px, 0); }
+      20% { clip: rect(10px, 9999px, 30px, 0); }
+      30% { clip: rect(5px, 9999px, 25px, 0); }
+      40% { clip: rect(0, 9999px, 15px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+    
+    /* Navigation Lines */
+    .nav-lines {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .nav-line {
+      position: relative;
+      height: 2px;
+      width: 60px;
+      background: #ff0000;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .nav-line:hover {
+      transform: scaleY(2);
+    }
+    .nav-line::before {
+      content: attr(data-text);
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ff0000;
+      font-family: monospace;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-shadow: 0 0 5px #ff0000;
+    }
+    .nav-line:hover::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-black text-red-600 font-mono">
+
+  <!-- Ulduzlar üçün Canvas -->
+  <div class="absolute top-0 left-0 w-full h-[40vh] overflow-hidden pointer-events-none z-10">
+    <canvas id="starsCanvas" class="w-full h-full"></canvas>
+  </div>
+
+  <div class="h-screen flex flex-col justify-center items-center text-center p-4 z-20 relative">
+    <div class="text-xl">
+      <span id="typed" class="text-red-500"></span>
+    </div>
+
+    <!-- Navigation Lines -->
+    <div class="nav-lines">
+      <div class="nav-line" data-text="About" onclick="window.location.href='about.html'"></div>
+      <div class="nav-line" data-text="Projects" onclick="window.location.href='projects.html'"></div>
+      <div class="nav-line" data-text="Terminal" onclick="window.location.href='terminal.html'"></div>
+      <div class="nav-line" data-text="Certificates" onclick="window.location.href='certificates.html'"></div>
+      <div class="nav-line" data-text="Contact" onclick="window.location.href='contact.html'"></div>
+    </div>
+  </div>
+
+  <script>
+    new Typed("#typed", {
+      strings: [
+        "Initializing cyber shell...",
+        "Loading identity: Ruslan Amrahov...",
+        "Access granted.",
+        "Welcome to Hacker Space."
+      ],
+      typeSpeed: 45,
+      backSpeed: 30,
+      loop: true
+    });
+
+    // ⭐ Ulduz Animasiya Scripti
+    const canvas = document.getElementById("starsCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let stars = [];
+    const starCount = 300;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight * 0.4;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: 0.3 + Math.random() * 0.5,
+        brightness: 1 - (Math.random() * 0.7),
+        colorPhase: Math.random()
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let star of stars) {
+        star.x += star.speed;
+        if (star.x > canvas.width) {
+          star.x = 0;
+          star.y = Math.random() * canvas.height;
+        }
+
+        star.colorPhase += 0.01;
+        const red = Math.floor(139 + 116 * Math.sin(star.colorPhase));
+        const alpha = star.brightness;
+
+        ctx.fillStyle = `rgba(${red}, 0, 0, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, 1.5, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+</body>
+</html>

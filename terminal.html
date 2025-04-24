@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-red-400">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="images/logo1.png" />
+  <title>Terminal | Ruslan's Hacker Space</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+    .terminal {
+      border: 1px solid #ff0000;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+    .prompt {
+      color: #ff0000;
+    }
+    .command {
+      color: #ffffff;
+    }
+    .output {
+      color: #ff0000;
+    }
+    .cursor {
+      animation: blink 1s infinite;
+      color: #ff0000;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .header {
+      background: linear-gradient(90deg, #000, #330000, #000);
+      border-bottom: 1px solid #ff0000;
+    }
+    #command-input {
+      caret-color: #ff0000;
+      min-width: 10px;
+      flex-grow: 1;
+    }
+    .input-line {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    #terminal-body::-webkit-scrollbar {
+      width: 8px;
+    }
+    #terminal-body::-webkit-scrollbar-track {
+      background: #000;
+    }
+    #terminal-body::-webkit-scrollbar-thumb {
+      background: #ff0000;
+      border-radius: 4px;
+    }
+    .prompt-line {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .prompt-user {
+      color: #ff0000;
+    }
+    .prompt-path {
+      color: #ff00ff;
+    }
+    .prompt-symbol {
+      color: #ff5555;
+    }
+  </style>
+</head>
+<body class="h-screen">
+  <!-- Ulduzlar üçün Canvas -->
+  <canvas id="starsCanvas" class="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"></canvas>
+
+  <div class="terminal h-full flex flex-col relative z-10">
+    <!-- Terminal Header -->
+    <div class="header p-2 text-red-400 flex justify-between items-center">
+      <div>Terminal#</div>
+      <div class="flex space-x-2">
+        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+      </div>
+    </div>
+    
+    <!-- Terminal Body -->
+    <div id="terminal-body" class="flex-grow p-4 overflow-auto">
+      <div class="output mb-4">
+        Ruslan's Hacker Terminal v1.0<br><br>
+        Type <span class="text-yellow-300">'help'</span> to list available commands<br>
+      </div>
+      <div id="command-history"></div>
+      <div class="prompt-line">
+        <span class="text-red-400">┌──(</span>
+        <span class="prompt-user">root</span>
+        <span class="text-red-400">㉿</span>
+        <span class="prompt-user">ruslan</span>
+        <span class="text-red-400">)-[</span>
+        <span class="prompt-path">/root</span>
+        <span class="text-red-400">]</span>
+      </div>
+      <div class="input-line">
+        <span class="text-red-400">└─</span>
+        <span class="prompt-symbol">#</span>
+        <div class="flex items-center flex-grow" style="position: relative;">
+          <input type="text" id="command-input" class="bg-transparent border-none outline-none text-red-400" autofocus>
+          <span class="cursor absolute left-0" id="input-cursor">█</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Command definitions
+    const commands = {
+      home: {
+        description: "Return to index.html",
+        execute: () => {
+          window.location.href = "index.html";
+          return "";
+        }
+      },
+      help: {
+        description: "Show available commands",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Available commands:</span><br><br>
+              <span class='text-yellow-300'>about</span>       - Show information about Ruslan<br>
+              <span class='text-yellow-300'>skills</span>      - Show technical skills<br>
+              <span class='text-yellow-300'>education</span>   - Show education background<br>
+              <span class='text-yellow-300'>experience</span>  - Show work experience<br>
+              <span class='text-yellow-300'>contact</span>     - Show contact information<br>
+              <span class='text-yellow-300'>clear</span>       - Clear the terminal<br>
+              <span class='text-yellow-300'>home</span>        - Return to homepage (index.html)<br>
+            </div>
+          `;
+        }
+      },
+      about: {
+        description: "Show information about Ruslan",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Name:</span> Ruslan Amrahov<br>
+              <span class='text-yellow-300'>Title:</span> Cybersecurity | Pentester | CTF Creator<br>
+              <span class='text-yellow-300'>Skills:</span> Web Exploitation, Network Attacks, Reverse Engineering<br>
+              <span class='text-yellow-300'>Passion:</span> Breaking systems to build better ones<br>
+            </div>
+          `;
+        }
+      },
+      skills: {
+        description: "Show technical skills",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Technical Skills:</span><br><br>
+              - Penetration Testing<br>
+              - Kali Linux<br>
+              - Network Security<br>
+              - Web Application Security<br>
+              - Reverse Engineering<br>
+              - Python, HTML/CSS Scripting<br>
+            </div>
+          `;
+        }
+      },
+      education: {
+        description: "Show education background",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Education:</span><br><br>
+              Azerbaijan State Oil and Industry University<br>
+              Computer Engineering (2023-Present)<br><br>
+              
+              <span class='text-yellow-300'>Certifications:</span><br>
+              - eJPT (eLearnSecurity Junior Penetration Tester)<br>
+              - TryHackMe Top 1%<br>
+              - HTB Certified Bug Bounty Hunter<br>
+            </div>
+          `;
+        }
+      },
+      experience: {
+        description: "Show work experience",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Work Experience:</span><br><br>
+              MilliSec MMC (2024-Present)<br>
+              
+              Freelance Security Researcher (2024-Present)<br>
+              - Bug Bounty Hunting<br>
+              - CTF Competitions<br>
+            </div>
+          `;
+        }
+      },
+      clear: {
+        description: "Clear the terminal",
+        execute: () => {
+          document.getElementById('command-history').innerHTML = '';
+          return '';
+        }
+      },
+      contact: {
+        description: "Show contact information",
+        execute: () => {
+          return `
+            <div class='mb-4'>
+              <span class='text-yellow-300'>Contact Information:</span><br><br>
+              GitHub: <a href="https://github.com/ruslanemrahov" class="text-blue-400 hover:underline">https://github.com/ruslanemrahov</a><br>
+              LinkedIn: <a href="https://linkedin.com/in/yourusername" class="text-blue-400 hover:underline">https://linkedin.com/in/yourusername</a><br>
+              GitHub: <a href="https://medium.com/@ruslanemrahov001" class="text-blue-400 hover:underline">https://medium.com/@ruslanemrahov001</a><br>
+              Email: <span class='text-yellow-300'>ruslanemrahov6002@gmail.com</span><br>
+            </div>
+          `;
+        }
+      }
+    };
+
+    // Terminal functionality
+    const commandInput = document.getElementById('command-input');
+    const commandHistory = document.getElementById('command-history');
+    const terminalBody = document.getElementById('terminal-body');
+    const cursor = document.getElementById('input-cursor');
+
+    // Position cursor at the end of input text
+    function updateCursorPosition() {
+      const inputWidth = commandInput.value.length * 8; // Approximate character width
+      cursor.style.left = `${inputWidth}px`;
+    }
+
+    commandInput.addEventListener('input', () => {
+      updateCursorPosition();
+    });
+
+    function scrollToBottom() {
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    commandInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const command = commandInput.value.trim();
+        commandInput.value = '';
+        cursor.style.left = '0';
+        
+        // Add command to history with the new prompt style
+        commandHistory.innerHTML += `
+          <div class="prompt-line">
+            <span class="text-red-400">┌──(</span>
+            <span class="prompt-user">root</span>
+            <span class="text-red-400">㉿</span>
+            <span class="prompt-user">ruslan</span>
+            <span class="text-red-400">)-[</span>
+            <span class="prompt-path">/root</span>
+            <span class="text-red-400">]</span>
+          </div>
+          <div class="input-line">
+            <span class="text-red-400">└─</span>
+            <span class="prompt-symbol">#</span>
+            <span class="command ml-1">${command}</span>
+          </div>
+        `;
+        
+        // Process command
+        let output = '';
+        if (command in commands) {
+          output = commands[command].execute();
+        } else if (command) {
+          output = `<div class="output mb-4">Command not found: ${command}<br>Type 'help' for available commands</div>`;
+        }
+        
+        commandHistory.innerHTML += output;
+        scrollToBottom();
+      }
+    });
+
+    // Initialize with empty terminal
+    scrollToBottom();
+    commandInput.focus();
+
+    // ⭐ Ulduz Animasiya Scripti
+    const starsCanvas = document.getElementById("starsCanvas");
+    const ctx = starsCanvas.getContext("2d");
+    let stars = [];
+    const starCount = 250;
+
+    function resizeCanvas() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * starsCanvas.width,
+        y: Math.random() * starsCanvas.height,
+        speed: 0.2 + Math.random() * 0.5,
+        brightness: 0.4 + Math.random() * 0.5,
+        colorPhase: Math.random(),
+        size: Math.random() * 1.5 + 0.5
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      for (let star of stars) {
+        star.x += star.speed;
+        if (star.x > starsCanvas.width) {
+          star.x = 0;
+          star.y = Math.random() * starsCanvas.height;
+        }
+        star.colorPhase += 0.01;
+        const red = Math.floor(139 + 116 * Math.sin(star.colorPhase));
+        const alpha = star.brightness;
+        ctx.fillStyle = `rgba(${red}, 0, 0, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+</body>
+</html>
