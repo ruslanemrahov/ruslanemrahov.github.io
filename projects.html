@@ -288,27 +288,36 @@
       position: relative;
       display: inline-block;
       margin-bottom: 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.5rem; /* Mobile font size (24px) */
+      text-align: right;
+      padding-right: 10px;
     }
-    @media (min-width: 768px) {
-      .section-title {
-        margin-bottom: 2rem;
-        font-size: 1.8rem;
-      }
-    }
-    
+
     .section-title::after {
       content: "";
       position: absolute;
       bottom: -8px;
-      left: 0;
-      width: 100%;
+      right: 10px;
+      width: calc(100% - 10px);
       height: 2px;
-      background: linear-gradient(90deg, #ff0000, transparent);
+      background: linear-gradient(90deg, transparent, #ff0000);
     }
+
     @media (min-width: 768px) {
+      .section-title {
+        text-align: left;
+        padding-right: 0;
+        padding-left: 10px;
+        font-size: 2.5rem; /* Desktop font size (40px) - Increased from original */
+        margin-bottom: 2rem; /* Increased spacing below title */
+      }
       .section-title::after {
-        bottom: -10px;
+        right: auto;
+        left: 10px;
+        width: calc(100% - 10px);
+        background: linear-gradient(90deg, #ff0000, transparent);
+        height: 3px; /* Thicker underline on desktop */
+        bottom: -12px; /* Adjusted position for larger text */
       }
     }
     
@@ -436,7 +445,7 @@
 
     <!-- Sağ Panel (Projects) -->
     <main class="main-content">
-      <h1 class="section-title text-red-400 ml-10">Projects</h1>
+      <h1 class="section-title text-red-400 text-right pl-10 md:pl-0">Projects</h1>
 
       
       <div class="projects-grid">
