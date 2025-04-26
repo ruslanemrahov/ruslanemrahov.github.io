@@ -306,27 +306,32 @@
       position: relative;
       display: inline-block;
       margin-bottom: 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.5rem; /* Mobil üçün standart ölçü (24px) */
+      text-align: right; /* Əsas düzülüşü sağa */
     }
-    @media (min-width: 768px) {
-      .section-title {
-        margin-bottom: 2rem;
-        font-size: 1.8rem;
-      }
-    }
-    
+
     .section-title::after {
       content: "";
       position: absolute;
       bottom: -8px;
-      left: 0;
-      width: 100%;
+      right: 0; /* Xətti sağa yanaşdırın */
+      width: 100%; /* Tam enində */
       height: 2px;
-      background: linear-gradient(90deg, #ff0000, transparent);
+      background: linear-gradient(90deg, transparent, #ff0000); /* Qradienti tərsinə çevirin */
     }
+
     @media (min-width: 768px) {
+      .section-title {
+        text-align: left; /* Desktopda sola düz */
+        font-size: 2.2rem; /* Desktop üçün böyük ölçü (35px) */
+        margin-bottom: 2rem; /* Daha çox aşağı boşluq */
+      }
       .section-title::after {
-        bottom: -10px;
+        right: auto; /* Desktopda normal vəziyyət */
+        left: 0;
+        background: linear-gradient(90deg, #ff0000, transparent);
+        height: 3px; /* Desktopda xətt daha qalın */
+        bottom: -10px; /* Xətti aşağı salmaq */
       }
     }
     
@@ -454,8 +459,7 @@
 
     <!-- Sağ Panel (Certificates) -->
     <main class="main-content">
-      <h1 class="section-title text-red-400 ml-10 md:text-right">Certificates</h1>
-
+      <h1 class="section-title text-red-400 text-right pl-10 md:pl-0">Certificates</h1>
       
       <div class="certificates-grid">
         <!-- HCS Certificate -->
