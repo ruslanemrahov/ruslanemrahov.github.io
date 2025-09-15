@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruslan Əmrahov - Cybersecurity Expert</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">R.Ə</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link" data-translate="nav-home">Ana Səhifə</a>
+                <a href="#about" class="nav-link" data-translate="nav-about">Haqqında</a>
+                <a href="#experience" class="nav-link" data-translate="nav-experience">Təcrübə</a>
+                <a href="#skills" class="nav-link" data-translate="nav-skills">Bacarıqlar</a>
+                <a href="#projects" class="nav-link" data-translate="nav-projects">Layihələr</a>
+                <a href="#contact" class="nav-link" data-translate="nav-contact">Əlaqə</a>
+            </div>
+            <div class="nav-controls">
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="az">AZ</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="matrix-rain"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="typing-text" data-translate="hero-title">Ruslan Əmrahov</span>
+                </h1>
+                <p class="hero-subtitle" data-translate="hero-subtitle">
+                    Cybersecurity Analyst | Penetration Tester | Red Teamer
+                </p>
+                <p class="hero-description" data-translate="hero-description">
+                    Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary" data-translate="hero-contact">Əlaqə saxla</a>
+                    <button class="btn btn-secondary" id="downloadCV" data-translate="hero-cv">CV yüklə</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <img src="/placeholder.svg?height=300&width=300" alt="Ruslan Əmrahov" class="profile-img">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span data-translate="status-available">Əlçatan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-translate="about-title">Haqqında</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-translate="about-description">
+                        Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm.
+                    </p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>None</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>ruslanemrahov001@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bakı, Azərbaycan</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label" data-translate="years-experience">İl Təcrübə</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label" data-translate="certifications">Sertifikat</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label" data-translate="projects-completed">Tamamlanmış Layihə</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title" data-translate="experience-title">Təcrübə</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Cyber Club ASOIU</h3>
+                            <span class="timeline-date">08/2025 - Present</span>
+                        </div>
+                        <h4 class="timeline-role" data-translate="role-red-teamer">Red Teamer</h4>
+                        <ul class="timeline-achievements">
+                            <li data-translate="achievement-phishing">Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadçi davranışlarını analiz etdi</li>
+                            <li data-translate="achievement-osint">OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
+                            <li data-translate="achievement-network">Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>AzInTelecom</h3>
+                            <span class="timeline-date">06/2025 - 08/2025</span>
+                        </div>
+                        <h4 class="timeline-role" data-translate="role-cyber-engineer">Kiber Təhlükəsizlik Mühəndisi</h4>
+                        <ul class="timeline-achievements">
+                            <li data-translate="achievement-waf">Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
+                            <li data-translate="achievement-elk">Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
+                            <li data-translate="achievement-cicd">CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>MilliSec</h3>
+                            <span class="timeline-date">10/2024 - 04/2025</span>
+                        </div>
+                        <h4 class="timeline-role" data-translate="role-red-teamer">Red Teamer</h4>
+                        <ul class="timeline-achievements">
+                            <li data-translate="achievement-web-security">Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
+                            <li data-translate="achievement-privilege">Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
+                            <li data-translate="achievement-tools">Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title" data-translate="skills-title">Rəqəmsal Biliklər</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="category-title" data-translate="penetration-testing">Penetration Testing</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>Web/API Pentesting</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Active Directory Pentest</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Red Teaming</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title" data-translate="network-admin">Network Administration</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>Network Monitoring</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Cloud Networking</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Wireless Security</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">SOC</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>SIEM (Splunk, QRadar)</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>EDR/XDR</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="87"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>IDS/IPS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="83"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title" data-translate="programming">Programming</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>SQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="78"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="certifications">
+                <h3 class="section-subtitle" data-translate="certifications-title">Sertifikatlar</h3>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>eWPTXv3</h4>
+                        <p>INE Security</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h4>CRTA</h4>
+                        <p>CyberWarFare Labs</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h4>C3SA</h4>
+                        <p>CyberWarfare Labs</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4>FCAC</h4>
+                        <p>Fortinet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title" data-translate="projects-title">Layihələr</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-rocket"></i>
+                        <h3 data-translate="project-space-title">Space Cybersecurity Research</h3>
+                    </div>
+                    <p data-translate="project-space-desc">
+                        The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Space Security</span>
+                        <span class="tag">Research</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-flag"></i>
+                        <h3>MilliSec CTF Challenge</h3>
+                    </div>
+                    <p data-translate="project-ctf-desc">
+                        Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">CTF</span>
+                        <span class="tag">Penetration Testing</span>
+                        <span class="tag">TryHackMe</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-trophy"></i>
+                        <h3>V CTF Challenge</h3>
+                    </div>
+                    <p data-translate="project-vctf-desc">
+                        Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Web Security</span>
+                        <span class="tag">System Exploitation</span>
+                        <span class="tag">CTF</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-search"></i>
+                        <h3>MilliSec 1.0 CTF</h3>
+                    </div>
+                    <p data-translate="project-millisec-desc">
+                        Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Vulnerability Assessment</span>
+                        <span class="tag">Exploitation</span>
+                        <span class="tag">Security Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title" data-translate="education-title">Təhsil</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</h3>
+                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliği</p>
+                        <p class="education-period">2023 - 2027</p>
+                        <p class="education-location">Bakı, Azərbaycan</p>
+                    </div>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>SABAH qrupları</h3>
+                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliyi</p>
+                        <p class="education-period">2024 - 2027</p>
+                        <p class="education-location">Bakı, Azərbaycan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-translate="contact-title">Əlaqə</h2>
+            <div class="contact-content">
+                <div class="contact-info-section">
+                    <h3 data-translate="get-in-touch">Əlaqə saxlayın</h3>
+                    <p data-translate="contact-description">
+                        Kiber təhlükəsizlik layihələri və ya əməkdaşlıq üçün mənimlə əlaqə saxlaya bilərsiniz
+                    </p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4 data-translate="phone">Telefon</h4>
+                                <p>None</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>ruslanemrahov001@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4 data-translate="location">Yer</h4>
+                                <p>Bakı, Azərbaycan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/ruslanemrahov" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form-section">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name" data-translate="form-name">Ad</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" required>
+                            <label for="subject" data-translate="form-subject">Mövzu</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" required></textarea>
+                            <label for="message" data-translate="form-message">Mesaj</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-translate="form-send">Göndər</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2025 Ruslan Əmrahov. <span data-translate="footer-rights">Bütün hüquqlar qorunur.</span></p>
+                </div>
+                <div class="footer-right">
+                    <p data-translate="footer-made">❤️ ilə hazırlanmışdır</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
