@@ -83,6 +83,7 @@ const translations = {
 
     // Footer
     "footer-rights": "Bütün hüquqlar qorunur.",
+    "footer-made": "❤️ ilə hazırlanmışdır",
   },
 
   en: {
@@ -166,6 +167,7 @@ const translations = {
 
     // Footer
     "footer-rights": "All rights reserved.",
+    "footer-made": "Made with ❤️",
   },
 
   ru: {
@@ -249,6 +251,7 @@ const translations = {
 
     // Footer
     "footer-rights": "Все права защищены.",
+    "footer-made": "Сделано с ❤️",
   },
 }
 
@@ -487,10 +490,10 @@ window.addEventListener("load", () => {
 
 // Console welcome message
 console.log(`
-Welcome to Ruslan Əmrahov's Portfolio
-Cybersecurity Expert | Red Teamer | Penetration Tester
-Contact: ruslanemrahov001@gmail.com
-LinkedIn: linkedin.com/in/amrahov
+🔒 Welcome to Ruslan Əmrahov's Portfolio
+🛡️ Cybersecurity Expert | Red Teamer | Penetration Tester
+📧 Contact: ruslanemrahov001@gmail.com
+🔗 LinkedIn: linkedin.com/in/amrahov
 `)
 
 // CV Download functionality
