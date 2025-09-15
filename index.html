@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruslan Amrahov - Cybersecurity Expert</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --accent: #00ff88;
+            --accent-secondary: #0066ff;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #808080;
+            --border: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0066ff);
+            --gradient-card: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 255, 136, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .language-switcher {
+            position: relative;
+        }
+
+        .language-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            position: relative;
+            background: var(--gradient-primary);
+            padding: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* Experience Section */
+        .experience-item {
+            border-left: 3px solid var(--accent);
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .experience-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Skills Section */
+        .skills-category {
+            margin-bottom: 2rem;
+        }
+
+        .skills-category h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-avatar {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Ruslan Amrahov
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <div class="language-switcher">
+                        <button class="language-btn" id="langBtn">
+                            <i class="fas fa-globe"></i> EN
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMUExQTFBIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjgwIiByPSIzMCIgZmlsbD0iIzAwRkY4OCIvPgo8cGF0aCBkPSJNNjAgMTQwQzYwIDEyMCA4MCA5NSAxMDAgOTVTMTQwIDEyMCAxNDAgMTQwVjE2MEg2MFYxNDBaIiBmaWxsPSIjMDBGRjg4Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQjBCMEIwIiBmb250LXNpemU9IjEyIj5SdXNsYW48L3RleHQ+Cjwvc3ZnPg==" alt="Ruslan Amrahov">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i> Red Teamer
+                </div>
+            </div>
+            <h1>Ruslan Amrahov</h1>
+            <p class="subtitle">Cybersecurity Expert & Penetration Tester</p>
+            <p class="description">
+                Passionate cybersecurity professional specializing in penetration testing, red team operations, 
+                and security analysis. Currently working as a Penetration Tester at AzInTelecom with expertise 
+                in web application security, OSINT, and DevSecOps.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+                <a href="#" class="btn btn-outline">
+                    <i class="fas fa-download"></i> Download CV
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/ruslanemrahov"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amrahov"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Professional Experience</h2>
+                <p>My journey in cybersecurity through various roles and responsibilities</p>
+            </div>
+            
+            <div class="experience-item fade-in">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Penetration Tester</div>
+                        <div class="experience-company">
+                            <i class="fas fa-building"></i> AzInTelecom · Intern
+                        </div>
+                    </div>
+                    <div class="experience-meta">
+                        <div><i class="fas fa-calendar"></i> Jul 2025 - Present · 2 months</div>
+                        <div><i class="fas fa-map-marker-alt"></i> Azerbaijan · Hybrid</div>
+                        <span class="badge">Current</span>
+                    </div>
+                </div>
+                <p class="description">
+                    Conducting comprehensive penetration tests to identify web application vulnerabilities, 
+                    testing attack vectors such as cookie hijacking, SQL Injection, XSS, and preparing detailed reports. 
+                    Collecting and mapping open source intelligence about company infrastructure using OSINT methods.
+                </p>
+                <div class="skills-list">
+                    <span class="skill-item">Red Teaming</span>
+                    <span class="skill-item">Web Application Security</span>
+                    <span class="skill-item">OSINT</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">CI/CD</span>
+                    <span class="skill-item">Buffer Overflow</span>
+                </div>
+            </div>
+
+            <div class="experience-item fade-in">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Red Teamer</div>
+                        <div class="experience-company">
+                            <i class="fas fa-building"></i> Cyber Club ASOIU · Part-time
+                        </div>
+                    </div>
+                    <div class="experience-meta">
+                        <div><i class="fas fa-calendar"></i> Aug 2025 - Present · 1 month</div>
+                        <div><i class="fas fa-map-marker-alt"></i> Azerbaijan · Hybrid</div>
+                    </div>
+                </div>
+                <p class="description">
+                    Red team operations and cybersecurity activities, security testing and attack simulations.
+                </p>
+                <div class="skills-list">
+                    <span class="skill-item">Red Teaming</span>
+                    <span class="skill-item">Cybersecurity</span>
+                </div>
+            </div>
+
+            <div class="experience-item fade-in">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Content Creator</div>
+                        <div class="experience-company">
+                            <i class="fab fa-youtube"></i> YouTube · Freelance
+                        </div>
+                    </div>
+                    <div class="experience-meta">
+                        <div><i class="fas fa-calendar"></i> Jun 2025 - Present · 3 months</div>
+                        <div><i class="fas fa-map-marker-alt"></i> Remote</div>
+                    </div>
+                </div>
+                <p class="description">
+                    Creating educational content in cybersecurity field, producing video content on security topics and sharing knowledge with the community.
+                </p>
+            </div>
+
+            <div class="experience-item fade-in">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Red Teaming Student</div>
+                        <div class="experience-company">
+                            <i class="fas fa-building"></i> MilliSec · Full-time
+                        </div>
+                    </div>
+                    <div class="experience-meta">
+                        <div><i class="fas fa-calendar"></i> Oct 2024 - Apr 2025 · 7 months</div>
+                        <div><i class="fas fa-map-marker-alt"></i> On-site</div>
+                    </div>
+                </div>
+                <p class="description">
+                    Learning red teaming methodologies, conducting practical attack simulations and researching defense strategies.
+                </p>
+                <div class="skills-list">
+                    <span class="skill-item">Linux</span>
+                    <span class="skill-item">Windows</span>
+                    <span class="skill-item">Web Application Security</span>
+                    <span class="skill-item">OSINT</span>
+                    <span class="skill-item">OSI Model</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section" id="education" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Education & Certifications</h2>
+                <p>Academic background and professional credentials</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </h3>
+                    <div style="margin-bottom: 2rem;">
+                        <h4>Bachelor's Degree - Computer Engineering</h4>
+                        <p style="color: var(--accent); font-weight: 600;">Azerbaijan State Oil and Industry University (ASOIU)</p>
+                        <div style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;">
+                            <i class="fas fa-calendar"></i> 2023 - Present | <i class="fas fa-map-marker-alt"></i> Baku, Azerbaijan
+                        </div>
+                        <p style="margin-top: 1rem;">Studying computer engineering with focus on cybersecurity, mathematical analysis, and system design.</p>
+                    </div>
+                    <div>
+                        <h4>Bachelor's Degree - Computer Engineering</h4>
+                        <p style="color: var(--accent); font-weight: 600;">SABAH Groups</p>
+                        <div style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;">
+                            <i class="fas fa-calendar"></i> 2024 | <i class="fas fa-map-marker-alt"></i> Azerbaijan
+                        </div>
+                        <p style="margin-top: 1rem;">Additional education and practical experience in computer engineering through SABAH Groups education program.</p>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">
+                        <i class="fas fa-certificate"></i> Certifications
+                    </h3>
+                    <div class="grid" style="gap: 1rem;">
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.05); border-radius: 8px;">
+                            <h4>Certificate Red Team Analyst</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">CyberWarFare Labs - Mar 2025</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.05); border-radius: 8px;">
+                            <h4>Fortinet Certified Associate</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Fortinet - Mar 2025</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.05); border-radius: 8px;">
+                            <h4>C3SA</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">CyberWarFare Labs - Jan 2025</p>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.05); border-radius: 8px;">
+                            <h4>HCS Internship Certificate</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Hacktify Cyber Security - Mar 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+                <p>Comprehensive cybersecurity expertise across multiple domains</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-shield-alt"></i> Penetration Testing</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">Web/API Pentesting</span>
+                            <span class="skill-item">OWASP Top 10</span>
+                            <span class="skill-item">SQL Injection</span>
+                            <span class="skill-item">XSS Attacks</span>
+                            <span class="skill-item">Active Directory</span>
+                            <span class="skill-item">Mobile Pentest</span>
+                            <span class="skill-item">Reverse Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-user-secret"></i> Red Team Operations</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">Cobalt Strike</span>
+                            <span class="skill-item">Metasploit</span>
+                            <span class="skill-item">Havoc C2</span>
+                            <span class="skill-item">Social Engineering</span>
+                            <span class="skill-item">Lateral Movement</span>
+                            <span class="skill-item">Privilege Escalation</span>
+                            <span class="skill-item">Buffer Overflow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-eye"></i> SOC Operations</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">SIEM (Splunk, QRadar)</span>
+                            <span class="skill-item">EDR/XDR</span>
+                            <span class="skill-item">Log Analysis</span>
+                            <span class="skill-item">Incident Response</span>
+                            <span class="skill-item">Threat Intelligence</span>
+                            <span class="skill-item">IDS/IPS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-network-wired"></i> Network Security</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">Wireshark</span>
+                            <span class="skill-item">Nmap</span>
+                            <span class="skill-item">TCP/IP</span>
+                            <span class="skill-item">Firewall Management</span>
+                            <span class="skill-item">Wireless Security</span>
+                            <span class="skill-item">Azure Networking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-code"></i> Programming & Automation</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">Python</span>
+                            <span class="skill-item">SQL</span>
+                            <span class="skill-item">C Programming</span>
+                            <span class="skill-item">Docker</span>
+                            <span class="skill-item">Ansible</span>
+                            <span class="skill-item">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="skills-category">
+                        <h3><i class="fas fa-search"></i> OSINT & Analysis</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">OSINT Gathering</span>
+                            <span class="skill-item">Infrastructure Mapping</span>
+                            <span class="skill-item">Digital Footprinting</span>
+                            <span class="skill-item">SSTV Analysis</span>
+                            <span class="skill-item">Data Visualization</span>
+                            <span class="skill-item">Threat Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div style="margin-top: 3rem;">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">Languages</h3>
+                <div class="grid grid-2">
+                    <div class="card fade-in">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span>Azerbaijani</span>
+                            <span class="badge">Native</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span>Turkish</span>
+                            <span class="badge">Advanced (C1)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span>English</span>
+                            <span class="badge">Intermediate (B1)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Russian</span>
+                            <span class="badge">Beginner (A1)</span>
+                        </div>
+                    </div>
+                    <div class="card fade-in">
+                        <h4 style="margin-bottom: 1rem; color: var(--accent);">Personal Qualities</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">•</span>
+                                Problem solving and decision making
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">•</span>
+                                Teamwork and collaboration
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">•</span>
+                                Leadership and management
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">•</span>
+                                Business communication
+                            </li>
+                            <li style="display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">•</span>
+                                Strategic thinking
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to discuss cybersecurity projects or opportunities</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="card" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--accent); margin-bottom: 2rem;">Contact Information</h3>
+                        <div class="contact-item" style="margin-bottom: 2rem;">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Location</h4>
+                                <p style="color: var(--text-muted);">Baku, Azerbaijan</p>
+                            </div>
+                        </div>
+                        <div class="contact-item" style="margin-bottom: 2rem;">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p style="color: var(--text-muted);">ruslanemrahov001@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <h4>Availability</h4>
+                                <p style="color: var(--text-muted);">Open for opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--accent); margin-bottom: 2rem;">Connect With Me</h3>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <a href="https://github.com/ruslanemrahov" class="contact-icon" style="text-decoration: none;">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/amrahov" class="contact-icon" style="text-decoration: none;">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" class="contact-icon" style="text-decoration: none;">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                        <span class="badge">Available for Freelance</span>
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <h3 style="color: var(--accent); margin-bottom: 2rem;">Send a Message</h3>
+                    <form id="contactForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-primary); padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container">
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                © 2025 Ruslan Amrahov. All rights reserved.
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/ruslanemrahov"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amrahov"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenu.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to a server
+            // For now, we'll just show an alert
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                typeWriter(heroTitle, originalText, 150);
+            }
+        });
+
+        // Add particle background effect
+        function createParticles() {
+            const hero = document.querySelector('.hero');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: var(--accent);
+                    border-radius: 50%;
+                    opacity: 0.3;
+                    animation: float 6s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 6}s;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                `;
+                hero.appendChild(particle);
+            }
+        }
+
+        // CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); }
+                50% { transform: translateY(-20px) rotate(180deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize particles
+        createParticles();
+    </script>
+</body>
+</html>
