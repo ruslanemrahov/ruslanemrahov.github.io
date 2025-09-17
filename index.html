@@ -3,17 +3,1315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruslan Əmrahov - Cybersecurity Expert</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Ruslan Əmrahov - Elite Cybersecurity Expert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Enhanced CSS Variables */
+        :root {
+            --background: #fafafa;
+            --foreground: #1a1a1a;
+            --card: #ffffff;
+            --card-foreground: #1a1a1a;
+            --primary: #0066ff;
+            --primary-foreground: #ffffff;
+            --secondary: #00d4aa;
+            --secondary-foreground: #ffffff;
+            --muted: #f5f5f5;
+            --muted-foreground: #6b7280;
+            --accent: #ff6b35;
+            --accent-foreground: #ffffff;
+            --border: #e5e7eb;
+            --input: #ffffff;
+            --ring: rgba(0, 102, 255, 0.3);
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            /* Cybersecurity theme */
+            --cyber-primary: #00ff88;
+            --cyber-secondary: #0099ff;
+            --cyber-accent: #ff0066;
+            --cyber-dark: #0a0a0a;
+            --matrix-green: #00ff88;
+            --glow-color: rgba(0, 255, 136, 0.4);
+            --gradient-cyber: linear-gradient(135deg, var(--cyber-primary), var(--cyber-secondary));
+            --gradient-accent: linear-gradient(135deg, var(--cyber-accent), var(--accent));
+        }
+
+        [data-theme="dark"] {
+            --background: #0a0a0a;
+            --foreground: #ffffff;
+            --card: #111111;
+            --card-foreground: #ffffff;
+            --primary: #00ff88;
+            --primary-foreground: #0a0a0a;
+            --secondary: #0099ff;
+            --secondary-foreground: #0a0a0a;
+            --muted: #1a1a1a;
+            --muted-foreground: #9ca3af;
+            --accent: #ff0066;
+            --accent-foreground: #ffffff;
+            --border: #2a2a2a;
+            --input: #1a1a1a;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-logo {
+            position: relative;
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-cyber);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-text:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--foreground);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-cyber);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.25rem;
+            background: var(--muted);
+            border-radius: var(--radius);
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--muted-foreground);
+            border-radius: calc(var(--radius) - 0.25rem);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: var(--card);
+            color: var(--primary);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--foreground);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--background);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 153, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 0, 102, 0.05) 0%, transparent 50%);
+            z-index: -2;
+        }
+
+        .matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--muted-foreground);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-cyber);
+            color: var(--primary-foreground);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 102, 255, 0.3);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-card {
+            position: relative;
+            background: var(--card);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-cyber);
+            border-radius: 2rem;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card:hover::before {
+            opacity: 1;
+        }
+
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 1.5rem;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+            color: var(--muted-foreground);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--cyber-primary);
+            border-radius: 50%;
+            animation: pulse-enhanced 2s infinite;
+            box-shadow: 0 0 0 0 var(--glow-color);
+        }
+
+        @keyframes pulse-enhanced {
+            0% {
+                box-shadow: 0 0 0 0 var(--glow-color);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 255, 136, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+            }
+        }
+
+        /* Enhanced Sections */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--foreground);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-cyber);
+            border-radius: 2px;
+        }
+
+        /* About Section Enhanced */
+        .about {
+            background: var(--muted);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            color: var(--muted-foreground);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .about-stats {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-cyber);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-cyber);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--muted-foreground);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* Experience Timeline Enhanced */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-cyber);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 50%;
+            padding: 0 3rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid var(--background);
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-marker {
+            right: -13px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-marker {
+            left: -13px;
+        }
+
+        .timeline-content {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .timeline-date {
+            background: var(--gradient-cyber);
+            color: var(--primary-foreground);
+            padding: 0.5rem 1rem;
+            border-radius: calc(var(--radius) / 2);
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .timeline-role {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-achievements {
+            list-style: none;
+        }
+
+        .timeline-achievements li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        .timeline-achievements li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        /* Skills Section Enhanced */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .skill-category {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--foreground);
+            text-align: center;
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-cyber);
+            border-radius: 2px;
+        }
+
+        .skill-item {
+            margin-bottom: 2rem;
+        }
+
+        .skill-item span {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--muted);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-cyber);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .skill-progress.animate {
+            width: var(--progress);
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+
+        /* Certifications Enhanced */
+        .certifications {
+            margin-top: 5rem;
+        }
+
+        .section-subtitle {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--foreground);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-cyber);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-cyber);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-foreground);
+        }
+
+        .cert-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .cert-card p {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        /* Projects Enhanced */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-cyber);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-header i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .project-header h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .project-card p {
+            color: var(--muted-foreground);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            background: var(--muted);
+            color: var(--muted-foreground);
+            padding: 0.5rem 1rem;
+            border-radius: calc(var(--radius) / 2);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            transform: translateY(-2px);
+        }
+
+        /* Education Enhanced */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+        }
+
+        .education-card {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .education-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-cyber);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-foreground);
+            flex-shrink: 0;
+        }
+
+        .education-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .education-degree {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-period {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .education-location {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Enhanced */
+        .contact {
+            background: var(--muted);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contact-info-section h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .contact-info-section p {
+            font-size: 1.1rem;
+            color: var(--muted-foreground);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-method i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            width: 30px;
+        }
+
+        .contact-method h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--foreground);
+        }
+
+        .contact-method p {
+            color: var(--muted-foreground);
+            margin: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Contact Form Enhanced */
+        .contact-form {
+            background: var(--card);
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--input);
+            color: var(--foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--ring);
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 1.5rem;
+            top: 1rem;
+            color: var(--muted-foreground);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--input);
+            padding: 0 0.5rem;
+        }
+
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 1rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+        }
+
+        /* Footer Enhanced */
+        .footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p,
+        .footer-right p {
+            color: var(--muted-foreground);
+            margin: 0;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left;
+                padding-left: 80px;
+            }
+
+            .timeline-marker {
+                left: 21px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Loading Animation */
+        body:not(.loaded) {
+            opacity: 0;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span class="logo-text">Portfolio</span>
+                <a href="#home" class="logo-text">Portfolio</a>
             </div>
             <div class="nav-menu">
                 <a href="#home" class="nav-link" data-translate="nav-home">Ana Səhifə</a>
@@ -38,19 +1336,19 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="matrix-rain"></div>
-        </div>
+        <div class="hero-background"></div>
+        <canvas class="matrix-canvas" id="matrixCanvas"></canvas>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="typing-text" data-translate="hero-title">Ruslan Əmrahov</span>
+                    <span class="typing-text" data-translate="hero-title"></span>
+
                 </h1>
                 <p class="hero-subtitle" data-translate="hero-subtitle">
                     Cybersecurity Analyst | Penetration Tester | Red Teamer
                 </p>
                 <p class="hero-description" data-translate="hero-description">
-                    Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm
+                    Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. Müasir hücum vektorları və müdafiə strategiyaları üzrə dərin biliklərə sahibəm.
                 </p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary" data-translate="hero-contact">Əlaqə saxla</a>
@@ -59,16 +1357,13 @@
             </div>
             <div class="hero-image">
                 <div class="profile-card">
-                    <img src="/placeholder.svg?height=300&width=300" alt="Ruslan Əmrahov" class="profile-img">
+                    <img src="/placeholder.svg?height=280&width=280" alt="Ruslan Əmrahov" class="profile-img">
                     <div class="status-indicator">
                         <span class="status-dot"></span>
                         <span data-translate="status-available">Əlçatan</span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
         </div>
     </section>
 
@@ -79,12 +1374,12 @@
             <div class="about-content">
                 <div class="about-text">
                     <p data-translate="about-description">
-                        Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm.
+                        Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
                     </p>
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>None</span>
+                            <span>Məxfi</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -106,7 +1401,7 @@
                         <div class="stat-label" data-translate="certifications">Sertifikat</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">10+</div>
+                        <div class="stat-number">15+</div>
                         <div class="stat-label" data-translate="projects-completed">Tamamlanmış Layihə</div>
                     </div>
                 </div>
@@ -388,7 +1683,7 @@
                     </div>
                     <div class="education-content">
                         <h3>Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</h3>
-                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliği</p>
+                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliyi</p>
                         <p class="education-period">2023 - 2027</p>
                         <p class="education-location">Bakı, Azərbaycan</p>
                     </div>
@@ -423,7 +1718,7 @@
                             <i class="fas fa-phone"></i>
                             <div>
                                 <h4 data-translate="phone">Telefon</h4>
-                                <p>None</p>
+                                <p>Məxfi</p>
                             </div>
                         </div>
                         <div class="contact-method">
@@ -456,19 +1751,19 @@
                 <div class="contact-form-section">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required placeholder=" ">
                             <label for="name" data-translate="form-name">Ad</label>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" required placeholder=" ">
                             <label for="email">Email</label>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="text" id="subject" name="subject" required placeholder=" ">
                             <label for="subject" data-translate="form-subject">Mövzu</label>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" required></textarea>
+                            <textarea id="message" name="message" required placeholder=" "></textarea>
                             <label for="message" data-translate="form-message">Mesaj</label>
                         </div>
                         <button type="submit" class="btn btn-primary" data-translate="form-send">Göndər</button>
@@ -492,6 +1787,576 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Enhanced Multi-language translations
+        const translations = {
+            az: {
+                // Navigation
+                "nav-home": "Ana Səhifə",
+                "nav-about": "Haqqında",
+                "nav-experience": "Təcrübə",
+                "nav-skills": "Bacarıqlar",
+                "nav-projects": "Layihələr",
+                "nav-contact": "Əlaqə",
+
+                // Hero Section
+                "hero-title": "Ruslan Əmrahov",
+                "hero-subtitle": "Cybersecurity Analyst | Penetration Tester | Red Teamer",
+                "hero-description": "Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. Müasir hücum vektorları və müdafiə strategiyaları üzrə dərin biliklərə sahibəm.",
+                "hero-contact": "Əlaqə saxla",
+                "hero-cv": "CV yüklə",
+                "status-available": "Əlçatan",
+
+                // About Section
+                "about-title": "Haqqında",
+                "about-description": "Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.",
+                "years-experience": "İl Təcrübə",
+                "certifications": "Sertifikat",
+                "projects-completed": "Tamamlanmış Layihə",
+
+                // Experience Section
+                "experience-title": "Təcrübə",
+                "role-red-teamer": "Red Teamer",
+                "role-cyber-engineer": "Kiber Təhlükəsizlik Mühəndisi",
+                "achievement-phishing": "Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadçi davranışlarını analiz etdi",
+                "achievement-osint": "OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı",
+                "achievement-network": "Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi",
+                "achievement-waf": "Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi",
+                "achievement-elk": "Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı",
+                "achievement-cicd": "CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi",
+                "achievement-web-security": "Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi",
+                "achievement-privilege": "Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi",
+                "achievement-tools": "Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi",
+
+                // Skills Section
+                "skills-title": "Rəqəmsal Biliklər",
+                "penetration-testing": "Penetration Testing",
+                "network-admin": "Network Administration",
+                "programming": "Programming",
+                "certifications-title": "Sertifikatlar",
+
+                // Projects Section
+                "projects-title": "Layihələr",
+                "project-space-title": "Space Cybersecurity Research",
+                "project-space-desc": "The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi",
+                "project-ctf-desc": "Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması",
+                "project-vctf-desc": "Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı",
+                "project-millisec-desc": "Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə",
+
+                // Education Section
+                "education-title": "Təhsil",
+                "bachelor-degree": "Bakalavr dərəcəsi, Kompüter mühəndisliyi",
+
+                // Contact Section
+                "contact-title": "Əlaqə",
+                "get-in-touch": "Əlaqə saxlayın",
+                "contact-description": "Kiber təhlükəsizlik layihələri və ya əməkdaşlıq üçün mənimlə əlaqə saxlaya bilərsiniz",
+                "phone": "Telefon",
+                "location": "Yer",
+                "form-name": "Ad",
+                "form-subject": "Mövzu",
+                "form-message": "Mesaj",
+                "form-send": "Göndər",
+
+                // Footer
+                "footer-rights": "Bütün hüquqlar qorunur.",
+                "footer-made": ""
+            },
+
+            en: {
+                // Navigation
+                "nav-home": "Home",
+                "nav-about": "About",
+                "nav-experience": "Experience",
+                "nav-skills": "Skills",
+                "nav-projects": "Projects",
+                "nav-contact": "Contact",
+
+                // Hero Section
+                "hero-title": "Ruslan Amrahov",
+                "hero-subtitle": "Cybersecurity Analyst | Penetration Tester | Red Teamer",
+                "hero-description": "I specialize in cybersecurity and have real experience in Red Teaming. I possess deep knowledge of modern attack vectors and defense strategies.",
+                "hero-contact": "Get in Touch",
+                "hero-cv": "Download CV",
+                "status-available": "Available",
+
+                // About Section
+                "about-title": "About Me",
+                "about-description": "I specialize in cybersecurity and have real experience in Red Teaming. Along with the practical knowledge I gained at AzInTelecom, MilliSec and Cyber Club ASOIU, I have developed my attack and defense skills by participating in CTF competitions. I have deep knowledge of modern cyber threats and methods to combat them.",
+                "years-experience": "Years Experience",
+                "certifications": "Certifications",
+                "projects-completed": "Projects Completed",
+
+                // Experience Section
+                "experience-title": "Experience",
+                "role-red-teamer": "Red Teamer",
+                "role-cyber-engineer": "Cybersecurity Engineer",
+                "achievement-phishing": "Analyzed user behavior through Phishing Campaigns and Social Engineering Assessments",
+                "achievement-osint": "Conducted reconnaissance on target infrastructure using OSINT techniques and prepared attack surface maps",
+                "achievement-network": "Analyzed anomalies on real traffic through Network Sniffing and Packet Analysis",
+                "achievement-waf": "Optimized Web Application Firewall (WAF) rules to increase the level of prevention of OWASP Top 10 attacks",
+                "achievement-elk": "Automated anomaly detection by building log collection, parsing and correlation rules on Elastic Stack (ELK)",
+                "achievement-cicd": "Ensured early detection of vulnerabilities during code deployment by placing security tests (SAST, DAST) in CI/CD pipelines",
+                "achievement-web-security": "Performed Web Application Security Testing and exploited SQL Injection, XSS, CSRF, Command Injection and other vulnerabilities",
+                "achievement-privilege": "Applied privilege escalation, lateral movement and persistence techniques on Linux and Windows Active Directory Environment",
+                "achievement-tools": "Modeled attack scenarios with Cobalt Strike, Metasploit, Burp Suite Pro and other Red Team tools",
+
+                // Skills Section
+                "skills-title": "Technical Skills",
+                "penetration-testing": "Penetration Testing",
+                "network-admin": "Network Administration",
+                "programming": "Programming",
+                "certifications-title": "Certifications",
+
+                // Projects Section
+                "projects-title": "Projects",
+                "project-space-title": "Space Cybersecurity Research",
+                "project-space-desc": "International research project I participated in as co-author for The Advancement of Cybersecurity in Space through AI – IAC 2025",
+                "project-ctf-desc": "CTF competition where I gained experience in real-life cyber attack simulations and security operations",
+                "project-vctf-desc": "Solving web and system-based CTF tasks, developing penetration testing skills",
+                "project-millisec-desc": "Project on detection of security vulnerabilities and practical application of exploit techniques",
+
+                // Education Section
+                "education-title": "Education",
+                "bachelor-degree": "Bachelor's degree, Computer Engineering",
+
+                // Contact Section
+                "contact-title": "Contact",
+                "get-in-touch": "Get in Touch",
+                "contact-description": "You can contact me for cybersecurity projects or collaboration",
+                "phone": "Phone",
+                "location": "Location",
+                "form-name": "Name",
+                "form-subject": "Subject",
+                "form-message": "Message",
+                "form-send": "Send",
+
+                // Footer
+                "footer-rights": "All rights reserved.",
+                "footer-made": ""
+            },
+
+            ru: {
+                // Navigation
+                "nav-home": "Главная",
+                "nav-about": "О себе",
+                "nav-experience": "Опыт",
+                "nav-skills": "Навыки",
+                "nav-projects": "Проекты",
+                "nav-contact": "Контакты",
+
+                // Hero Section
+                "hero-title": "Руслан Амрахов",
+                "hero-subtitle": "Аналитик кибербезопасности | Пентестер | Red Teamer",
+                "hero-description": "Я специализируюсь на кибербезопасности и имею реальный опыт в Red Teaming. Обладаю глубокими знаниями современных векторов атак и стратегий защиты.",
+                "hero-contact": "Связаться",
+                "hero-cv": "Скачать CV",
+                "status-available": "Доступен",
+
+                // About Section
+                "about-title": "Обо мне",
+                "about-description": "Я специализируюсь на кибербезопасности и имею реальный опыт в Red Teaming. Наряду с практическими знаниями, полученными в AzInTelecom, MilliSec и Cyber Club ASOIU, я развил свои навыки атаки и защиты, участвуя в соревнованиях CTF. Обладаю глубокими знаниями современных киберугроз и методов борьбы с ними.",
+                "years-experience": "Лет опыта",
+                "certifications": "Сертификатов",
+                "projects-completed": "Завершенных проектов",
+
+                // Experience Section
+                "experience-title": "Опыт работы",
+                "role-red-teamer": "Red Teamer",
+                "role-cyber-engineer": "Инженер кибербезопасности",
+                "achievement-phishing": "Анализировал поведение пользователей через фишинговые кампании и оценки социальной инженерии",
+                "achievement-osint": "Проводил разведку целевой инфраструктуры с использованием техник OSINT и подготавливал карты поверхности атак",
+                "achievement-network": "Анализировал аномалии в реальном трафике через сетевой снифинг и анализ пакетов",
+                "achievement-waf": "Оптимизировал правила Web Application Firewall (WAF) для повышения уровня предотвращения атак OWASP Top 10",
+                "achievement-elk": "Автоматизировал обнаружение аномалий, создавая правила сбора логов, парсинга и корреляции в Elastic Stack (ELK)",
+                "achievement-cicd": "Обеспечил раннее обнаружение уязвимостей на этапе развертывания кода, размещая тесты безопасности (SAST, DAST) в CI/CD пайплайнах",
+                "achievement-web-security": "Выполнял тестирование безопасности веб-приложений и эксплуатировал SQL Injection, XSS, CSRF, Command Injection и другие уязвимости",
+                "achievement-privilege": "Применял техники повышения привилегий, латерального движения и постоянства в среде Linux и Windows Active Directory",
+                "achievement-tools": "Моделировал сценарии атак с помощью Cobalt Strike, Metasploit, Burp Suite Pro и других инструментов Red Team",
+
+                // Skills Section
+                "skills-title": "Технические навыки",
+                "penetration-testing": "Тестирование на проникновение",
+                "network-admin": "Сетевое администрирование",
+                "programming": "Программирование",
+                "certifications-title": "Сертификаты",
+
+                // Projects Section
+                "projects-title": "Проекты",
+                "project-space-title": "Исследование космической кибербезопасности",
+                "project-space-desc": "Международный исследовательский проект, в котором я участвовал как соавтор для The Advancement of Cybersecurity in Space through AI – IAC 2025",
+                "project-ctf-desc": "Соревнование CTF, где я получил опыт в симуляциях реальных кибератак и операциях безопасности",
+                "project-vctf-desc": "Решение веб- и системных задач CTF, развитие навыков тестирования на проникновение",
+                "project-millisec-desc": "Проект по обнаружению уязвимостей безопасности и практическому применению техник эксплуатации",
+
+                // Education Section
+                "education-title": "Образование",
+                "bachelor-degree": "Степень бакалавра, Компьютерная инженерия",
+
+                // Contact Section
+                "contact-title": "Контакты",
+                "get-in-touch": "Связаться со мной",
+                "contact-description": "Вы можете связаться со мной по проектам кибербезопасности или для сотрудничества",
+                "phone": "Телефон",
+                "location": "Местоположение",
+                "form-name": "Имя",
+                "form-subject": "Тема",
+                "form-message": "Сообщение",
+                "form-send": "Отправить",
+
+                // Footer
+                "footer-rights": "Все права защищены.",
+                "footer-made": ""
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'az';
+
+        // Enhanced Matrix Canvas Animation
+        function initMatrixCanvas() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff88';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters[Math.floor(Math.random() * characters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 35);
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Enhanced Theme Management
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Enhanced Language switching
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                switchLanguage(lang);
+
+                // Update active button
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+
+            // Update all translatable elements
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Restart typing animation with new language
+            const heroTitle = document.querySelector('.typing-text');
+            if (heroTitle) {
+                const text = translations[lang]['hero-title'];
+                typeWriter(heroTitle, text, 100);
+            }
+        }
+
+	// Initialize language
+	const savedLanguage = localStorage.getItem('language') || 'az';
+	currentLanguage = savedLanguage;
+	localStorage.setItem('language', savedLanguage);
+
+	// Update all translatable elements EXCEPT hero-title
+	const elements = document.querySelectorAll('[data-translate]');
+	elements.forEach(element => {
+	    const key = element.getAttribute('data-translate');
+	    if (key !== 'hero-title' && translations[savedLanguage] && translations[savedLanguage][key]) {
+		element.textContent = translations[savedLanguage][key];
+	    }
+	});
+
+	// Update HTML lang attribute
+	document.documentElement.lang = savedLanguage;
+	document.querySelector(`[data-lang="${savedLanguage}"]`).classList.add('active');
+
+        // Enhanced Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced Navbar scroll effect
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                navbar.style.background = body.getAttribute('data-theme') === 'dark' 
+                    ? 'rgba(10, 10, 10, 0.9)' 
+                    : 'rgba(255, 255, 255, 0.9)';
+                navbar.style.transform = currentScrollY > lastScrollY ? 'translateY(-100%)' : 'translateY(0)';
+            } else {
+                navbar.style.background = body.getAttribute('data-theme') === 'dark' 
+                    ? 'rgba(10, 10, 10, 0.8)' 
+                    : 'rgba(255, 255, 255, 0.8)';
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Enhanced Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Animate skill bars
+                    if (entry.target.classList.contains('skill-progress')) {
+                        const progress = entry.target.getAttribute('data-progress');
+                        entry.target.style.setProperty('--progress', progress + '%');
+                        entry.target.classList.add('animate');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Enhanced Typing animation
+	function typeWriter(element, text, speed = 100) {
+	    let i = 0;
+	    element.textContent = ''; // Əvvəlcə mətni təmizləyin
+
+	    function type() {
+		if (i < text.length) {
+		    element.textContent += text.charAt(i);
+		    i++;
+		    setTimeout(type, speed);
+		}
+	    }
+	    type();
+	}
+
+        // Enhanced Contact form handling
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.textContent = currentLanguage === 'az' ? 'Göndərilir...' : 
+                                   currentLanguage === 'en' ? 'Sending...' : 'Отправка...';
+            submitBtn.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                showNotification(
+                    currentLanguage === 'az' ? 'Mesajınız göndərildi!' :
+                    currentLanguage === 'en' ? 'Your message has been sent!' :
+                    'Ваше сообщение отправлено!'
+                );
+
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Enhanced Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--primary);
+                color: var(--primary-foreground);
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius);
+                z-index: 10000;
+                font-weight: 600;
+                box-shadow: var(--shadow-lg);
+                transform: translateX(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+	// Enhanced CV Download functionality
+	document.addEventListener('DOMContentLoaded', () => {
+	    const downloadCVBtn = document.getElementById('downloadCV');
+	    if (downloadCVBtn) {
+		downloadCVBtn.addEventListener('click', () => {
+		    // Download real CV file
+		    const link = document.createElement('a');
+		    link.href = './assets/CV.pdf';  // Real file path
+		    link.download = 'Ruslan_Amrahov_CV.pdf';
+		    link.target = '_blank';
+		    document.body.appendChild(link);
+		    link.click();
+		    document.body.removeChild(link);
+		    showNotification(
+		        currentLanguage === 'az' ? 'CV uğurla yükləndi!' :
+		        currentLanguage === 'en' ? 'CV downloaded successfully!' :
+		        'CV успешно загружен!'
+		    );
+		});
+	    }
+	});
+
+        // Enhanced Loading and initialization
+        window.addEventListener('load', () => {
+            // Hide loading screen
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.classList.add('hidden');
+            
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+                loadingScreen.remove();
+            }, 500);
+
+            // Initialize matrix canvas
+            initMatrixCanvas();
+
+            // Initialize typing animation
+            const heroTitle = document.querySelector('.typing-text');
+            if (heroTitle) {
+                const text = translations[currentLanguage]['hero-title'];
+                setTimeout(() => typeWriter(heroTitle, text, 150), 500);
+            }
+
+            // Initialize animations
+            const animateElements = document.querySelectorAll(
+                '.timeline-item, .skill-category, .project-card, .cert-card, .education-card, .stat-card'
+            );
+            animateElements.forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
+            });
+
+            // Observe skill progress bars
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+        });
+
+        // Enhanced Console welcome message
+        console.log(`
+Welcome to Ruslan Əmrahov's Enhanced Portfolio
+Elite Cybersecurity Expert | Red Teamer | Penetration Tester
+Contact: ruslanemrahov001@gmail.com
+LinkedIn: linkedin.com/in/amrahov
+Enhanced with modern web technologies
+        `);
+
+        // Performance optimization
+        const debounce = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Debounced resize handler
+        window.addEventListener('resize', debounce(() => {
+            const canvas = document.getElementById('matrixCanvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        }, 250));
+    </script>
 </body>
 </html>
