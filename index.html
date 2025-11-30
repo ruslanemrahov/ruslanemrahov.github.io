@@ -3,2362 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruslan Əmrahov - Elite Cybersecurity Expert</title>
+    <title>Ruslan Əmrahov | Cybersecurity & Red Teaming</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-	<link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+
     <style>
-        /* Enhanced CSS Variables */
+        /* --- DƏYİŞƏNLƏR --- */
         :root {
-            --background: #fafafa;
-            --foreground: #1a1a1a;
-            --card: #ffffff;
-            --card-foreground: #1a1a1a;
-            --primary: #0066ff;
-            --primary-foreground: #ffffff;
-            --secondary: #00d4aa;
-            --secondary-foreground: #ffffff;
-            --muted: #f5f5f5;
-            --muted-foreground: #6b7280;
-            --accent: #ff6b35;
-            --accent-foreground: #ffffff;
-            --border: #e5e7eb;
-            --input: #ffffff;
-            --ring: rgba(0, 102, 255, 0.3);
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            
-            /* Cybersecurity theme */
-            --cyber-primary: #00ff88;
-            --cyber-secondary: #0099ff;
-            --cyber-accent: #ff0066;
-            --cyber-dark: #0a0a0a;
-            --matrix-green: #00ff88;
-            --glow-color: rgba(0, 255, 136, 0.4);
-            --gradient-cyber: linear-gradient(135deg, var(--cyber-primary), var(--cyber-secondary));
-            --gradient-accent: linear-gradient(135deg, var(--cyber-accent), var(--accent));
+            --bg-dark: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(20, 20, 20, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary-glow: #7000ff;
+            --secondary-glow: #00f0ff;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --font-main: 'Outfit', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
         }
 
-        [data-theme="dark"] {
-            --background: #0a0a0a;
-            --foreground: #ffffff;
-            --card: #111111;
-            --card-foreground: #ffffff;
-            --primary: #00ff88;
-            --primary-foreground: #0a0a0a;
-            --secondary: #0099ff;
-            --secondary-foreground: #0a0a0a;
-            --muted: #1a1a1a;
-            --muted-foreground: #9ca3af;
-            --accent: #ff0066;
-            --accent-foreground: #ffffff;
-            --border: #2a2a2a;
-            --input: #1a1a1a;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-        }
-
+        /* --- RESET & BASIC --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Özəl kursor üçün */
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-            color: var(--foreground);
-            line-height: 1.6;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
             overflow-x: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.7;
         }
 
-        body.loaded {
-            opacity: 1;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Enhanced Navigation */
-        .navbar {
+        /* --- ARXA FON (Space Nebula) --- */
+        .background-gradient {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(10, 10, 10, 0.8);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-
-        .nav-logo {
-            position: relative;
-        }
-
-        .logo-text {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            position: relative;
-        }
-
-        .logo-text::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
             left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--gradient-cyber);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.08), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.08), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(5, 5, 5, 1), transparent 100%);
+            animation: pulseBg 10s ease-in-out infinite alternate;
         }
 
-        .logo-text:hover::after {
-            transform: scaleX(1);
+        @keyframes pulseBg {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
 
-        .nav-menu {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .nav-link {
-            text-decoration: none;
-            color: var(--foreground);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            padding: 0.5rem 0;
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 20px; height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s;
+            mix-blend-mode: difference;
+        }
+        .cursor-dot {
+            width: 4px; height: 4px;
+            background: var(--secondary-glow);
+            border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
         }
 
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-cyber);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 5%;
+            position: fixed; width: 100%; z-index: 50;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
-
-        .nav-link:hover {
-            color: var(--primary);
-            transform: translateY(-1px);
+        .logo {
+            font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .nav-link:hover::before {
-            width: 100%;
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-muted); font-size: 0.9rem;
+            transition: 0.3s; position: relative;
         }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .language-selector {
-            display: flex;
-            gap: 0.25rem;
-            background: var(--muted);
-            border-radius: var(--radius);
-            padding: 0.25rem;
-        }
-
-        .lang-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: transparent;
-            color: var(--muted-foreground);
-            border-radius: calc(var(--radius) - 0.25rem);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .lang-btn.active,
-        .lang-btn:hover {
-            background: var(--card);
-            color: var(--primary);
-            box-shadow: var(--shadow);
-            transform: translateY(-1px);
-        }
-
-        .theme-toggle {
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--foreground);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary);
-            color: var(--primary-foreground);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Enhanced Hero Section */
+        /* --- HERO SECTION --- */
         .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 100px 5% 50px;
             position: relative;
-            overflow: hidden;
-            background: var(--background);
         }
-
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 153, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 0, 102, 0.05) 0%, transparent 50%);
-            z-index: -2;
+        .status-badge {
+            padding: 6px 16px; border-radius: 20px;
+            background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--secondary-glow); font-size: 0.8rem; margin-bottom: 20px;
+            letter-spacing: 1px; display: inline-block;
         }
-
-        .matrix-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 6rem;
-            align-items: center;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .hero-text {
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700; margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 1.1;
         }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--muted-foreground);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
+        .roles {
+            font-size: clamp(1rem, 2vw, 1.3rem); color: var(--secondary-glow);
+            margin-bottom: 20px; font-weight: 300; letter-spacing: 0.5px;
+        }
+        .hero p {
+            max-width: 600px; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;
         }
 
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--muted-foreground);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-            max-width: 600px;
-        }
-
-        .hero-buttons {
+        /* --- YENİ SOSİAL İKONLAR (Hero) --- */
+        .hero-socials {
             display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            gap: 40px; /* İkonlar arası məsafə */
+            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
         }
 
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: var(--radius);
+        .social-icon-btn {
+            font-size: clamp(2rem, 4vw, 3rem); /* Ekran ölçüsünə görə avtomatik böyüyür */
+            color: var(--text-muted);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .btn::before {
+        .social-icon-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--gradient-cyber);
-            color: var(--primary-foreground);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--primary-foreground);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0, 102, 255, 0.3);
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .profile-card {
-            position: relative;
-            background: var(--card);
-            border-radius: 2rem;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(20px);
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient-cyber);
-            border-radius: 2rem;
-            z-index: -1;
+            width: 100%; height: 100%;
+            background: var(--secondary-glow);
+            filter: blur(20px);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            z-index: -1;
+            transition: 0.3s;
         }
 
-        .profile-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        .social-icon-btn:hover {
+            color: #fff;
+            transform: translateY(-10px) scale(1.1);
+            text-shadow: 0 0 20px var(--secondary-glow);
         }
 
-        .profile-card:hover::before {
-            opacity: 1;
+        .social-icon-btn:hover::before {
+            opacity: 0.4;
         }
-
-        .profile-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 1.5rem;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+        
+        /* Mail ikonuna xüsusi rəng effekti */
+        .social-icon-btn.mail-icon:hover {
+            color: var(--primary-glow);
+            text-shadow: 0 0 20px var(--primary-glow);
         }
+        .social-icon-btn.mail-icon:hover::before { background: var(--primary-glow); }
 
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            justify-content: center;
-            color: var(--muted-foreground);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
 
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            background: var(--cyber-primary);
-            border-radius: 50%;
-            animation: pulse-enhanced 2s infinite;
-            box-shadow: 0 0 0 0 var(--glow-color);
-        }
-
-        @keyframes pulse-enhanced {
-            0% {
-                box-shadow: 0 0 0 0 var(--glow-color);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(0, 255, 136, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
-            }
-        }
-
-        /* Enhanced Sections */
-        section {
-            padding: 8rem 0;
-            position: relative;
-        }
-
+        /* --- GENERAL SECTIONS --- */
+        section { padding: 80px 10%; position: relative; }
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: var(--foreground);
-            position: relative;
+            font-family: var(--font-display); font-size: 2rem; margin-bottom: 40px;
+            display: inline-block; background: linear-gradient(90deg, #fff, #777);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        .glass-card {
+            background: var(--glass-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 30px; margin-bottom: 25px; transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+        .glass-card:hover {
+            border-color: rgba(255,255,255,0.2); transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-cyber);
-            border-radius: 2px;
+        /* --- EXPERIENCE TIMELINE --- */
+        .job-header {
+            display: flex; justify-content: space-between; flex-wrap: wrap;
+            margin-bottom: 15px; align-items: flex-start;
+        }
+        .company { font-size: 1.3rem; font-weight: 600; color: #fff; }
+        .role { color: var(--secondary-glow); font-size: 1rem; margin-top: 5px; display: block;}
+        .date { font-size: 0.9rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 8px; }
+        .job-details ul { list-style: none; padding-left: 0; }
+        .job-details li {
+            position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; color: #ccc;
+        }
+        .job-details li::before {
+            content: '▹'; position: absolute; left: 0; color: var(--primary-glow);
         }
 
-        /* About Section Enhanced */
-        .about {
-            background: var(--muted);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 6rem;
-            align-items: start;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 2rem;
-            color: var(--muted-foreground);
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .contact-item i {
-            color: var(--primary);
-            font-size: 1.2rem;
-            width: 24px;
-        }
-
-        .about-stats {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .stat-card {
-            background: var(--card);
-            padding: 2.5rem 2rem;
-            border-radius: var(--radius);
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-cyber);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--muted-foreground);
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        /* Experience Timeline Enhanced */
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--gradient-cyber);
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 4rem;
-            width: 50%;
-            padding: 0 3rem;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            text-align: left;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            top: 20px;
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
-            border-radius: 50%;
-            border: 4px solid var(--background);
-            box-shadow: 0 0 0 4px var(--primary);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-marker {
-            right: -13px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-marker {
-            left: -13px;
-        }
-
-        .timeline-content {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .timeline-header h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--foreground);
-        }
-
-        .timeline-date {
-            background: var(--gradient-cyber);
-            color: var(--primary-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: calc(var(--radius) / 2);
-            font-size: 0.875rem;
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .timeline-role {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .timeline-achievements {
-            list-style: none;
-        }
-
-        .timeline-achievements li {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 1rem;
-            color: var(--muted-foreground);
-            line-height: 1.6;
-        }
-
-        .timeline-achievements li::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-size: 0.8rem;
-        }
-
-        /* Skills Section Enhanced */
+        /* --- SKILLS GRID --- */
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-bottom: 5rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
         }
-
-        .skill-category {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .skill-category:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--foreground);
-            text-align: center;
-            position: relative;
-        }
-
-        .category-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 3px;
-            background: var(--gradient-cyber);
-            border-radius: 2px;
-        }
-
-        .skill-item {
-            margin-bottom: 2rem;
-        }
-
-        .skill-item span {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            color: var(--foreground);
-        }
-
-        .skill-bar {
-            height: 8px;
-            background: var(--muted);
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: var(--gradient-cyber);
-            border-radius: 4px;
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .skill-progress.animate {
-            width: var(--progress);
-        }
-
-        .skill-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-20px); }
-            100% { transform: translateX(20px); }
-        }
-
-        /* Certifications Enhanced */
-        .certifications {
-            margin-top: 5rem;
-        }
-
-        .section-subtitle {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--foreground);
-        }
-
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .cert-card {
-            background: var(--card);
-            padding: 2rem;
-            border-radius: var(--radius);
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-cyber);
-        }
-
-        .cert-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .cert-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-cyber);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
-            color: var(--primary-foreground);
-        }
-
-        .cert-card h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--foreground);
-        }
-
-        .cert-card p {
-            color: var(--muted-foreground);
-            font-size: 0.9rem;
-        }
-
-        /* Projects Enhanced */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-cyber);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .project-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-header i {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .project-header h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--foreground);
-        }
-
-        .project-card p {
-            color: var(--muted-foreground);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
+        .skill-category h3 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;}
+        .tag-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .tag {
-            background: var(--muted);
-            color: var(--muted-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: calc(var(--radius) / 2);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 0.85rem; padding: 6px 14px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border); border-radius: 8px; color: #ccc;
+            transition: 0.3s;
+        }
+        .tag:hover { background: rgba(112, 0, 255, 0.15); border-color: var(--primary-glow); color: #fff; }
+
+        /* --- EDUCATION & CERTS --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .edu-item, .cert-item {
+            margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .edu-item:last-child, .cert-item:last-child { border-bottom: none; }
+        .edu-title { font-weight: 600; color: #fff; display: block; }
+        .edu-place { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- PROJECTS --- */
+        .project-card h3 { color: var(--secondary-glow); margin-bottom: 10px; }
+        .project-desc { font-size: 0.95rem; color: #ccc; margin-bottom: 15px; }
+
+        /* --- CONTACT FOOTER --- */
+        .contact-footer {
+            text-align: center; padding: 50px 20px; border-top: 1px solid var(--glass-border);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
 
-        .tag:hover {
-            background: var(--primary);
-            color: var(--primary-foreground);
-            transform: translateY(-2px);
+        /* --- MUSIC PLAYER --- */
+        .music-player {
+            position: fixed; bottom: 30px; left: 30px; z-index: 100;
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(10px);
+            padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border);
+            transition: transform 0.3s;
         }
+        .music-player:hover { transform: scale(1.05); border-color: var(--secondary-glow); }
+        .equalizer { display: flex; gap: 3px; align-items: flex-end; height: 15px; }
+        .bar { width: 3px; background: var(--secondary-glow); animation: eq 1s infinite ease-in-out; }
+        .bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
+        .bar:nth-child(3) { animation-delay: 0.2s; height: 30%; }
+        @keyframes eq { 0%, 100% { height: 30%; } 50% { height: 100%; } }
 
-        /* Education Enhanced */
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 3rem;
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .split-section { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            section { padding: 60px 5%; }
+            .music-player { left: 50%; transform: translateX(-50%); width: max-content; bottom: 20px;}
         }
-
-        .education-card {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .education-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .education-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-cyber);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--primary-foreground);
-            flex-shrink: 0;
-        }
-
-        .education-content h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--foreground);
-        }
-
-        .education-degree {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .education-period {
-            color: var(--muted-foreground);
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .education-location {
-            color: var(--muted-foreground);
-            font-size: 0.9rem;
-        }
-
-        /* Contact Enhanced */
-        .contact {
-            background: var(--muted);
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: start;
-        }
-
-        .contact-info-section h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--foreground);
-        }
-
-        .contact-info-section p {
-            font-size: 1.1rem;
-            color: var(--muted-foreground);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: var(--card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .contact-method:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .contact-method i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            width: 30px;
-        }
-
-        .contact-method h4 {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--foreground);
-        }
-
-        .contact-method p {
-            color: var(--muted-foreground);
-            margin: 0;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: var(--card);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted-foreground);
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            color: var(--primary-foreground);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Contact Form Enhanced */
-        .contact-form {
-            background: var(--card);
-            padding: 3rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-        }
-
-        .form-group {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--input);
-            color: var(--foreground);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--ring);
-        }
-
-        .form-group label {
-            position: absolute;
-            left: 1.5rem;
-            top: 1rem;
-            color: var(--muted-foreground);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            background: var(--input);
-            padding: 0 0.5rem;
-        }
-
-        .form-group input:focus + label,
-        .form-group textarea:focus + label,
-        .form-group input:not(:placeholder-shown) + label,
-        .form-group textarea:not(:placeholder-shown) + label {
-            top: -0.5rem;
-            left: 1rem;
-            font-size: 0.875rem;
-            color: var(--primary);
-        }
-
-        /* Footer Enhanced */
-        .footer {
-            background: var(--card);
-            border-top: 1px solid var(--border);
-            padding: 3rem 0;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-left p,
-        .footer-right p {
-            color: var(--muted-foreground);
-            margin: 0;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-                text-align: center;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-
-            .timeline::before {
-                left: 30px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                left: 0 !important;
-                text-align: left;
-                padding-left: 80px;
-            }
-
-            .timeline-marker {
-                left: 21px !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .education-card {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* Loading Animation */
-        body:not(.loaded) {
-            opacity: 0;
-        }
-
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--border);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
+
+    <div class="background-gradient"></div>
+    <div class="noise-overlay"></div>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <div class="music-player">
+        <div class="equalizer">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <span style="font-size: 0.8rem; letter-spacing: 1px; color: #ddd;">SYSTEM ONLINE</span>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home" class="logo-text">Portfolio</a>
-            </div>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link" data-translate="nav-home">Ana Səhifə</a>
-                <a href="#about" class="nav-link" data-translate="nav-about">Haqqında</a>
-                <a href="#experience" class="nav-link" data-translate="nav-experience">Təcrübə</a>
-                <a href="#skills" class="nav-link" data-translate="nav-skills">Bacarıqlar</a>
-                <a href="#projects" class="nav-link" data-translate="nav-projects">Layihələr</a>
-                <a href="#contact" class="nav-link" data-translate="nav-contact">Əlaqə</a>
-            </div>
-            <div class="nav-controls">
-                <div class="language-selector">
-                    <button class="lang-btn active" data-lang="az">AZ</button>
-                    <button class="lang-btn" data-lang="en">EN</button>
-                    <button class="lang-btn" data-lang="ru">RU</button>
-                </div>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+    <nav>
+        <div class="logo">Portfolio</div>
+        <div class="nav-links">
+            <a href="#about">Haqqımda</a>
+            <a href="#experience">Təcrübə</a>
+            <a href="#skills">Biliklər</a>
+            <a href="#projects">Layihələr</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background"></div>
-        <canvas class="matrix-canvas" id="matrixCanvas"></canvas>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="typing-text" data-translate="hero-title"></span>
+    <header class="hero">
+        <div class="reveal">
+            <h1>RUSLAN ƏMRAHOV</h1>
+            <div class="hero-socials">
+                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn mail-icon" title="Email Me">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                
+                <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-icon-btn" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                
+                <a href="https://github.com/ruslanemrahov" class="social-icon-btn" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                
+                <a href="#" class="social-icon-btn" title="Twitter/X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+            </div>
+            
+        </div>
+    </header>
 
-                </h1>
-                <p class="hero-subtitle" data-translate="hero-subtitle">
-                    Cybersecurity Analyst | Penetration Tester | Red Teamer
-                </p>
-                <p class="hero-description" data-translate="hero-description">
-                    Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. Müasir hücum vektorları və müdafiə strategiyaları üzrə dərin biliklərə sahibəm.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary" data-translate="hero-contact">Əlaqə saxla</a>
-                    <button class="btn btn-secondary" id="downloadCV" data-translate="hero-cv">CV yüklə</button>
+    <section id="about">
+        <h2 class="section-title reveal">Haqqımda</h2>
+        <div class="glass-card reveal">
+            <p style="color: #ccc; font-size: 1.05rem;">
+                Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. 
+                <strong style="color:white;">AzInTelecom, MilliSec və Cyber Club ASOIU</strong>-da əldə etdiyim praktiki biliklərlə yanaşı, 
+                CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. 
+                Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
+            </p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title reveal">İş Təcrübəsi</h2>
+        
+        <div class="glass-card reveal">
+            <div class="job-header">
+                <div>
+                    <div class="company">Cyber Club ASOIU</div>
+                    <span class="role">Red Teamer</span>
+                </div>
+                <div class="date">08/2025 - Present</div>
+            </div>
+            <div class="job-details">
+                <ul>
+                    <li>Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi.</li>
+                    <li>OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı.</li>
+                    <li>Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="glass-card reveal">
+            <div class="job-header">
+                <div>
+                    <div class="company">AzInTelecom</div>
+                    <span class="role">Kiber Təhlükəsizlik Mühəndisi</span>
+                </div>
+                <div class="date">06/2025 - 08/2025</div>
+            </div>
+            <div class="job-details">
+                <ul>
+                    <li>Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi.</li>
+                    <li>Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı.</li>
+                    <li>CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="glass-card reveal">
+            <div class="job-header">
+                <div>
+                    <div class="company">MilliSec</div>
+                    <span class="role">Red Teamer</span>
+                </div>
+                <div class="date">10/2024 - 04/2025</div>
+            </div>
+            <div class="job-details">
+                <ul>
+                    <li>Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi.</li>
+                    <li>Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi.</li>
+                    <li>Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title reveal">Rəqəmsal Biliklər</h2>
+        <div class="skills-grid reveal">
+            <div class="glass-card skill-category">
+                <h3>Offensive Security</h3>
+                <div class="tag-container">
+                    <span class="tag">Penetration Testing</span>
+                    <span class="tag">Red Teaming</span>
+                    <span class="tag">Web/API Pentesting</span>
+                    <span class="tag">Active Directory Pentest</span>
+                    <span class="tag">Wireless Security</span>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="profile-card">
-                    <img src="/placeholder.svg?height=280&width=280" alt="Ruslan Əmrahov" class="profile-img">
-                    <div class="status-indicator">
-                        <span class="status-dot"></span>
-                        <span data-translate="status-available">Əlçatan</span>
-                    </div>
+            <div class="glass-card skill-category">
+                <h3>Defensive & Network</h3>
+                <div class="tag-container">
+                    <span class="tag">SOC & SIEM (Splunk, QRadar)</span>
+                    <span class="tag">EDR/XDR</span>
+                    <span class="tag">IDS/IPS</span>
+                    <span class="tag">Network Monitoring</span>
+                    <span class="tag">Cloud Networking</span>
+                </div>
+            </div>
+            <div class="glass-card skill-category">
+                <h3>Programming & Tools</h3>
+                <div class="tag-container">
+                    <span class="tag">Python</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Network Administration</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title" data-translate="about-title">Haqqında</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p data-translate="about-description">
-                        Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
-                    </p>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>Məxfi</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>ruslanemrahov001@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Bakı, Azərbaycan</span>
-                        </div>
-                    </div>
+    <section>
+        <div class="split-section reveal">
+            <div class="glass-card">
+                <h3 style="margin-bottom: 20px; color: var(--primary-glow);">Sertifikatlar</h3>
+                <div class="cert-item">
+                    <span class="edu-title">eWPTXv3</span>
+                    <span class="edu-place">INE Security</span>
                 </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label" data-translate="years-experience">İl Təcrübə</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label" data-translate="certifications">Sertifikat</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label" data-translate="projects-completed">Tamamlanmış Layihə</div>
-                    </div>
+                <div class="cert-item">
+                    <span class="edu-title">CRTA</span>
+                    <span class="edu-place">CyberWarFare Labs</span>
+                </div>
+                <div class="cert-item">
+                    <span class="edu-title">C3SA</span>
+                    <span class="edu-place">CyberWarfare Labs</span>
+                </div>
+                <div class="cert-item">
+                    <span class="edu-title">FCAC</span>
+                    <span class="edu-place">Fortinet</span>
+                </div>
+            </div>
+            <div class="glass-card">
+                <h3 style="margin-bottom: 20px; color: var(--secondary-glow);">Təhsil</h3>
+                <div class="edu-item">
+                    <span class="edu-title">Kompüter Mühəndisliyi (Bakalavr)</span>
+                    <span class="edu-place">ADNSU (ASOIU) | 2023 - 2027</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-title">SABAH Qrupları</span>
+                    <span class="edu-place">Kompüter Mühəndisliyi | 2024 - 2027</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title" data-translate="experience-title">Təcrübə</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Cyber Club ASOIU</h3>
-                            <span class="timeline-date">08/2025 - Present</span>
-                        </div>
-                        <h4 class="timeline-role" data-translate="role-red-teamer">Red Teamer</h4>
-                        <ul class="timeline-achievements">
-                            <li data-translate="achievement-phishing">Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadçi davranışlarını analiz etdi</li>
-                            <li data-translate="achievement-osint">OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
-                            <li data-translate="achievement-network">Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>AzInTelecom</h3>
-                            <span class="timeline-date">06/2025 - 08/2025</span>
-                        </div>
-                        <h4 class="timeline-role" data-translate="role-cyber-engineer">Kiber Təhlükəsizlik Mühəndisi</h4>
-                        <ul class="timeline-achievements">
-                            <li data-translate="achievement-waf">Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
-                            <li data-translate="achievement-elk">Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
-                            <li data-translate="achievement-cicd">CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>MilliSec</h3>
-                            <span class="timeline-date">10/2024 - 04/2025</span>
-                        </div>
-                        <h4 class="timeline-role" data-translate="role-red-teamer">Red Teamer</h4>
-                        <ul class="timeline-achievements">
-                            <li data-translate="achievement-web-security">Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
-                            <li data-translate="achievement-privilege">Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
-                            <li data-translate="achievement-tools">Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
-                        </ul>
-                    </div>
-                </div>
+    <section id="projects">
+        <h2 class="section-title reveal">Layihələr</h2>
+        <div class="skills-grid reveal">
+            <div class="glass-card project-card">
+                <h3>Space Cybersecurity Research</h3>
+                <p class="project-desc">The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi.</p>
+                <div class="tag-container"><span class="tag">AI</span><span class="tag">Space Security</span></div>
+            </div>
+            <div class="glass-card project-card">
+                <h3>MilliSec CTF Challenge</h3>
+                <p class="project-desc">Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması.</p>
+                <div class="tag-container"><span class="tag">CTF</span><span class="tag">Penetration Testing</span></div>
+            </div>
+            <div class="glass-card project-card">
+                <h3>V CTF Challenge</h3>
+                <p class="project-desc">Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.</p>
+                <div class="tag-container"><span class="tag">Web Security</span><span class="tag">Exploitation</span></div>
+            </div>
+            <div class="glass-card project-card">
+                <h3>MilliSec 1.0 CTF</h3>
+                <p class="project-desc">Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.</p>
+                <div class="tag-container"><span class="tag">Vulnerability Assessment</span></div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title" data-translate="skills-title">Rəqəmsal Biliklər</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="category-title" data-translate="penetration-testing">Penetration Testing</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span>Web/API Pentesting</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Active Directory Pentest</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Red Teaming</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="88"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title" data-translate="network-admin">Network Administration</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span>Network Monitoring</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Cloud Networking</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Wireless Security</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">SOC</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span>SIEM (Splunk, QRadar)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="92"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>EDR/XDR</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="87"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>IDS/IPS</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="83"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title" data-translate="programming">Programming</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span>Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>SQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="78"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Certifications -->
-            <div class="certifications">
-                <h3 class="section-subtitle" data-translate="certifications-title">Sertifikatlar</h3>
-                <div class="cert-grid">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h4>eWPTXv3</h4>
-                        <p>INE Security</p>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        <h4>CRTA</h4>
-                        <p>CyberWarFare Labs</p>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-bug"></i>
-                        </div>
-                        <h4>C3SA</h4>
-                        <p>CyberWarfare Labs</p>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h4>FCAC</h4>
-                        <p>Fortinet</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title" data-translate="projects-title">Layihələr</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-rocket"></i>
-                        <h3 data-translate="project-space-title">Space Cybersecurity Research</h3>
-                    </div>
-                    <p data-translate="project-space-desc">
-                        The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">AI</span>
-                        <span class="tag">Space Security</span>
-                        <span class="tag">Research</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-flag"></i>
-                        <h3>MilliSec CTF Challenge</h3>
-                    </div>
-                    <p data-translate="project-ctf-desc">
-                        Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">CTF</span>
-                        <span class="tag">Penetration Testing</span>
-                        <span class="tag">TryHackMe</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-trophy"></i>
-                        <h3>V CTF Challenge</h3>
-                    </div>
-                    <p data-translate="project-vctf-desc">
-                        Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Web Security</span>
-                        <span class="tag">System Exploitation</span>
-                        <span class="tag">CTF</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fas fa-search"></i>
-                        <h3>MilliSec 1.0 CTF</h3>
-                    </div>
-                    <p data-translate="project-millisec-desc">
-                        Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Vulnerability Assessment</span>
-                        <span class="tag">Exploitation</span>
-                        <span class="tag">Security Testing</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <h2 class="section-title" data-translate="education-title">Təhsil</h2>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</h3>
-                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliyi</p>
-                        <p class="education-period">2023 - 2027</p>
-                        <p class="education-location">Bakı, Azərbaycan</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>SABAH qrupları</h3>
-                        <p class="education-degree" data-translate="bachelor-degree">Bakalavr dərəcəsi, Kompüter mühəndisliyi</p>
-                        <p class="education-period">2024 - 2027</p>
-                        <p class="education-location">Bakı, Azərbaycan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title" data-translate="contact-title">Əlaqə</h2>
-            <div class="contact-content">
-                <div class="contact-info-section">
-                    <h3 data-translate="get-in-touch">Əlaqə saxlayın</h3>
-                    <p data-translate="contact-description">
-                        Kiber təhlükəsizlik layihələri və ya əməkdaşlıq üçün mənimlə əlaqə saxlaya bilərsiniz
-                    </p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4 data-translate="phone">Telefon</h4>
-                                <p>Məxfi</p>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>ruslanemrahov001@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4 data-translate="location">Yer</h4>
-                                <p>Bakı, Azərbaycan</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/ruslanemrahov" target="_blank" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-link">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-form-section">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required placeholder=" ">
-                            <label for="name" data-translate="form-name">Ad</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" required placeholder=" ">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" required placeholder=" ">
-                            <label for="subject" data-translate="form-subject">Mövzu</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" required placeholder=" "></textarea>
-                            <label for="message" data-translate="form-message">Mesaj</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-translate="form-send">Göndər</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p>&copy; 2025 Ruslan Əmrahov. <span data-translate="footer-rights">Bütün hüquqlar qorunur.</span></p>
-                </div>
-                <div class="footer-right">
-                    <p data-translate="footer-made"></p>
-                </div>
-            </div>
+    <footer class="contact-footer">
+        <div style="font-size: 0.8rem; color: #555;">
+            &copy; 2025 Ruslan Əmrahov. All Rights Reserved.
         </div>
     </footer>
 
     <script>
-        // Enhanced Multi-language translations
-        const translations = {
-            az: {
-                // Navigation
-                "nav-home": "Ana Səhifə",
-                "nav-about": "Haqqında",
-                "nav-experience": "Təcrübə",
-                "nav-skills": "Bacarıqlar",
-                "nav-projects": "Layihələr",
-                "nav-contact": "Əlaqə",
-
-                // Hero Section
-                "hero-title": "Ruslan Əmrahov",
-                "hero-subtitle": "Cybersecurity Analyst | Penetration Tester | Red Teamer",
-                "hero-description": "Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. Müasir hücum vektorları və müdafiə strategiyaları üzrə dərin biliklərə sahibəm.",
-                "hero-contact": "Əlaqə saxla",
-                "hero-cv": "CV yüklə",
-                "status-available": "Əlçatan",
-
-                // About Section
-                "about-title": "Haqqında",
-                "about-description": "Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. AzInTelecom, MilliSec və Cyber Club ASOIU-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.",
-                "years-experience": "İl Təcrübə",
-                "certifications": "Sertifikat",
-                "projects-completed": "Tamamlanmış Layihə",
-
-                // Experience Section
-                "experience-title": "Təcrübə",
-                "role-red-teamer": "Red Teamer",
-                "role-cyber-engineer": "Kiber Təhlükəsizlik Mühəndisi",
-                "achievement-phishing": "Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadçi davranışlarını analiz etdi",
-                "achievement-osint": "OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı",
-                "achievement-network": "Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi",
-                "achievement-waf": "Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi",
-                "achievement-elk": "Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı",
-                "achievement-cicd": "CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi",
-                "achievement-web-security": "Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi",
-                "achievement-privilege": "Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi",
-                "achievement-tools": "Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi",
-
-                // Skills Section
-                "skills-title": "Rəqəmsal Biliklər",
-                "penetration-testing": "Penetration Testing",
-                "network-admin": "Network Administration",
-                "programming": "Programming",
-                "certifications-title": "Sertifikatlar",
-
-                // Projects Section
-                "projects-title": "Layihələr",
-                "project-space-title": "Space Cybersecurity Research",
-                "project-space-desc": "The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi",
-                "project-ctf-desc": "Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması",
-                "project-vctf-desc": "Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı",
-                "project-millisec-desc": "Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə",
-
-                // Education Section
-                "education-title": "Təhsil",
-                "bachelor-degree": "Bakalavr dərəcəsi, Kompüter mühəndisliyi",
-
-                // Contact Section
-                "contact-title": "Əlaqə",
-                "get-in-touch": "Əlaqə saxlayın",
-                "contact-description": "Kiber təhlükəsizlik layihələri və ya əməkdaşlıq üçün mənimlə əlaqə saxlaya bilərsiniz",
-                "phone": "Telefon",
-                "location": "Yer",
-                "form-name": "Ad",
-                "form-subject": "Mövzu",
-                "form-message": "Mesaj",
-                "form-send": "Göndər",
-
-                // Footer
-                "footer-rights": "Bütün hüquqlar qorunur.",
-                "footer-made": ""
-            },
-
-            en: {
-                // Navigation
-                "nav-home": "Home",
-                "nav-about": "About",
-                "nav-experience": "Experience",
-                "nav-skills": "Skills",
-                "nav-projects": "Projects",
-                "nav-contact": "Contact",
-
-                // Hero Section
-                "hero-title": "Ruslan Amrahov",
-                "hero-subtitle": "Cybersecurity Analyst | Penetration Tester | Red Teamer",
-                "hero-description": "I specialize in cybersecurity and have real experience in Red Teaming. I possess deep knowledge of modern attack vectors and defense strategies.",
-                "hero-contact": "Get in Touch",
-                "hero-cv": "Download CV",
-                "status-available": "Available",
-
-                // About Section
-                "about-title": "About Me",
-                "about-description": "I specialize in cybersecurity and have real experience in Red Teaming. Along with the practical knowledge I gained at AzInTelecom, MilliSec and Cyber Club ASOIU, I have developed my attack and defense skills by participating in CTF competitions. I have deep knowledge of modern cyber threats and methods to combat them.",
-                "years-experience": "Years Experience",
-                "certifications": "Certifications",
-                "projects-completed": "Projects Completed",
-
-                // Experience Section
-                "experience-title": "Experience",
-                "role-red-teamer": "Red Teamer",
-                "role-cyber-engineer": "Cybersecurity Engineer",
-                "achievement-phishing": "Analyzed user behavior through Phishing Campaigns and Social Engineering Assessments",
-                "achievement-osint": "Conducted reconnaissance on target infrastructure using OSINT techniques and prepared attack surface maps",
-                "achievement-network": "Analyzed anomalies on real traffic through Network Sniffing and Packet Analysis",
-                "achievement-waf": "Optimized Web Application Firewall (WAF) rules to increase the level of prevention of OWASP Top 10 attacks",
-                "achievement-elk": "Automated anomaly detection by building log collection, parsing and correlation rules on Elastic Stack (ELK)",
-                "achievement-cicd": "Ensured early detection of vulnerabilities during code deployment by placing security tests (SAST, DAST) in CI/CD pipelines",
-                "achievement-web-security": "Performed Web Application Security Testing and exploited SQL Injection, XSS, CSRF, Command Injection and other vulnerabilities",
-                "achievement-privilege": "Applied privilege escalation, lateral movement and persistence techniques on Linux and Windows Active Directory Environment",
-                "achievement-tools": "Modeled attack scenarios with Cobalt Strike, Metasploit, Burp Suite Pro and other Red Team tools",
-
-                // Skills Section
-                "skills-title": "Technical Skills",
-                "penetration-testing": "Penetration Testing",
-                "network-admin": "Network Administration",
-                "programming": "Programming",
-                "certifications-title": "Certifications",
-
-                // Projects Section
-                "projects-title": "Projects",
-                "project-space-title": "Space Cybersecurity Research",
-                "project-space-desc": "International research project I participated in as co-author for The Advancement of Cybersecurity in Space through AI – IAC 2025",
-                "project-ctf-desc": "CTF competition where I gained experience in real-life cyber attack simulations and security operations",
-                "project-vctf-desc": "Solving web and system-based CTF tasks, developing penetration testing skills",
-                "project-millisec-desc": "Project on detection of security vulnerabilities and practical application of exploit techniques",
-
-                // Education Section
-                "education-title": "Education",
-                "bachelor-degree": "Bachelor's degree, Computer Engineering",
-
-                // Contact Section
-                "contact-title": "Contact",
-                "get-in-touch": "Get in Touch",
-                "contact-description": "You can contact me for cybersecurity projects or collaboration",
-                "phone": "Phone",
-                "location": "Location",
-                "form-name": "Name",
-                "form-subject": "Subject",
-                "form-message": "Message",
-                "form-send": "Send",
-
-                // Footer
-                "footer-rights": "All rights reserved.",
-                "footer-made": ""
-            },
-
-            ru: {
-                // Navigation
-                "nav-home": "Главная",
-                "nav-about": "О себе",
-                "nav-experience": "Опыт",
-                "nav-skills": "Навыки",
-                "nav-projects": "Проекты",
-                "nav-contact": "Контакты",
-
-                // Hero Section
-                "hero-title": "Руслан Амрахов",
-                "hero-subtitle": "Аналитик кибербезопасности | Пентестер | Red Teamer",
-                "hero-description": "Я специализируюсь на кибербезопасности и имею реальный опыт в Red Teaming. Обладаю глубокими знаниями современных векторов атак и стратегий защиты.",
-                "hero-contact": "Связаться",
-                "hero-cv": "Скачать CV",
-                "status-available": "Доступен",
-
-                // About Section
-                "about-title": "Обо мне",
-                "about-description": "Я специализируюсь на кибербезопасности и имею реальный опыт в Red Teaming. Наряду с практическими знаниями, полученными в AzInTelecom, MilliSec и Cyber Club ASOIU, я развил свои навыки атаки и защиты, участвуя в соревнованиях CTF. Обладаю глубокими знаниями современных киберугроз и методов борьбы с ними.",
-                "years-experience": "Лет опыта",
-                "certifications": "Сертификатов",
-                "projects-completed": "Завершенных проектов",
-
-                // Experience Section
-                "experience-title": "Опыт работы",
-                "role-red-teamer": "Red Teamer",
-                "role-cyber-engineer": "Инженер кибербезопасности",
-                "achievement-phishing": "Анализировал поведение пользователей через фишинговые кампании и оценки социальной инженерии",
-                "achievement-osint": "Проводил разведку целевой инфраструктуры с использованием техник OSINT и подготавливал карты поверхности атак",
-                "achievement-network": "Анализировал аномалии в реальном трафике через сетевой снифинг и анализ пакетов",
-                "achievement-waf": "Оптимизировал правила Web Application Firewall (WAF) для повышения уровня предотвращения атак OWASP Top 10",
-                "achievement-elk": "Автоматизировал обнаружение аномалий, создавая правила сбора логов, парсинга и корреляции в Elastic Stack (ELK)",
-                "achievement-cicd": "Обеспечил раннее обнаружение уязвимостей на этапе развертывания кода, размещая тесты безопасности (SAST, DAST) в CI/CD пайплайнах",
-                "achievement-web-security": "Выполнял тестирование безопасности веб-приложений и эксплуатировал SQL Injection, XSS, CSRF, Command Injection и другие уязвимости",
-                "achievement-privilege": "Применял техники повышения привилегий, латерального движения и постоянства в среде Linux и Windows Active Directory",
-                "achievement-tools": "Моделировал сценарии атак с помощью Cobalt Strike, Metasploit, Burp Suite Pro и других инструментов Red Team",
-
-                // Skills Section
-                "skills-title": "Технические навыки",
-                "penetration-testing": "Тестирование на проникновение",
-                "network-admin": "Сетевое администрирование",
-                "programming": "Программирование",
-                "certifications-title": "Сертификаты",
-
-                // Projects Section
-                "projects-title": "Проекты",
-                "project-space-title": "Исследование космической кибербезопасности",
-                "project-space-desc": "Международный исследовательский проект, в котором я участвовал как соавтор для The Advancement of Cybersecurity in Space through AI – IAC 2025",
-                "project-ctf-desc": "Соревнование CTF, где я получил опыт в симуляциях реальных кибератак и операциях безопасности",
-                "project-vctf-desc": "Решение веб- и системных задач CTF, развитие навыков тестирования на проникновение",
-                "project-millisec-desc": "Проект по обнаружению уязвимостей безопасности и практическому применению техник эксплуатации",
-
-                // Education Section
-                "education-title": "Образование",
-                "bachelor-degree": "Степень бакалавра, Компьютерная инженерия",
-
-                // Contact Section
-                "contact-title": "Контакты",
-                "get-in-touch": "Связаться со мной",
-                "contact-description": "Вы можете связаться со мной по проектам кибербезопасности или для сотрудничества",
-                "phone": "Телефон",
-                "location": "Местоположение",
-                "form-name": "Имя",
-                "form-subject": "Тема",
-                "form-message": "Сообщение",
-                "form-send": "Отправить",
-
-                // Footer
-                "footer-rights": "Все права защищены.",
-                "footer-made": ""
-            }
-        };
-
-        // Current language
-        let currentLanguage = 'az';
-
-        // Enhanced Matrix Canvas Animation
-        function initMatrixCanvas() {
-            const canvas = document.getElementById('matrixCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-            const fontSize = 14;
-            const columns = canvas.width / fontSize;
-            const drops = [];
-            
-            for (let i = 0; i < columns; i++) {
-                drops[i] = 1;
-            }
-            
-            function draw() {
-                ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = '#00ff88';
-                ctx.font = fontSize + 'px monospace';
-                
-                for (let i = 0; i < drops.length; i++) {
-                    const text = characters[Math.floor(Math.random() * characters.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-            
-            setInterval(draw, 35);
-            
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-
-        // Enhanced Theme Management
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-
-        // Initialize theme
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        body.setAttribute('data-theme', savedTheme);
-        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-
-        // Theme toggle functionality
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-
-            themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        // Mouse Cursor Logic
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+            cursor.animate({
+                left: e.clientX + 'px',
+                top: e.clientY + 'px'
+            }, { duration: 500, fill: "forwards" });
         });
 
-        // Enhanced Language switching
-        const langButtons = document.querySelectorAll('.lang-btn');
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const lang = btn.getAttribute('data-lang');
-                switchLanguage(lang);
-
-                // Update active button
-                langButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        function switchLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('language', lang);
-
-            // Update all translatable elements
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-
-            // Update HTML lang attribute
-            document.documentElement.lang = lang;
-
-            // Restart typing animation with new language
-            const heroTitle = document.querySelector('.typing-text');
-            if (heroTitle) {
-                const text = translations[lang]['hero-title'];
-                typeWriter(heroTitle, text, 100);
-            }
-        }
-
-	// Initialize language
-	const savedLanguage = localStorage.getItem('language') || 'az';
-	currentLanguage = savedLanguage;
-	localStorage.setItem('language', savedLanguage);
-
-	// Update all translatable elements EXCEPT hero-title
-	const elements = document.querySelectorAll('[data-translate]');
-	elements.forEach(element => {
-	    const key = element.getAttribute('data-translate');
-	    if (key !== 'hero-title' && translations[savedLanguage] && translations[savedLanguage][key]) {
-		element.textContent = translations[savedLanguage][key];
-	    }
-	});
-
-	// Update HTML lang attribute
-	document.documentElement.lang = savedLanguage;
-	document.querySelector(`[data-lang="${savedLanguage}"]`).classList.add('active');
-
-        // Enhanced Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Enhanced Navbar scroll effect
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            const currentScrollY = window.scrollY;
-            
-            if (currentScrollY > 100) {
-                navbar.style.background = body.getAttribute('data-theme') === 'dark' 
-                    ? 'rgba(10, 10, 10, 0.9)' 
-                    : 'rgba(255, 255, 255, 0.9)';
-                navbar.style.transform = currentScrollY > lastScrollY ? 'translateY(-100%)' : 'translateY(0)';
-            } else {
-                navbar.style.background = body.getAttribute('data-theme') === 'dark' 
-                    ? 'rgba(10, 10, 10, 0.8)' 
-                    : 'rgba(255, 255, 255, 0.8)';
-                navbar.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollY = currentScrollY;
-        });
-
-        // Enhanced Intersection Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Scroll Animation Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-
-                    // Animate skill bars
-                    if (entry.target.classList.contains('skill-progress')) {
-                        const progress = entry.target.getAttribute('data-progress');
-                        entry.target.style.setProperty('--progress', progress + '%');
-                        entry.target.classList.add('animate');
-                    }
+                    entry.target.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        // Enhanced Typing animation
-	function typeWriter(element, text, speed = 100) {
-	    let i = 0;
-	    element.textContent = ''; // Əvvəlcə mətni təmizləyin
-
-	    function type() {
-		if (i < text.length) {
-		    element.textContent += text.charAt(i);
-		    i++;
-		    setTimeout(type, speed);
-		}
-	    }
-	    type();
-	}
-
-        // Enhanced Contact form handling
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-
-            submitBtn.textContent = currentLanguage === 'az' ? 'Göndərilir...' : 
-                                   currentLanguage === 'en' ? 'Sending...' : 'Отправка...';
-            submitBtn.disabled = true;
-
-            // Simulate form submission
-            setTimeout(() => {
-                showNotification(
-                    currentLanguage === 'az' ? 'Mesajınız göndərildi!' :
-                    currentLanguage === 'en' ? 'Your message has been sent!' :
-                    'Ваше сообщение отправлено!'
-                );
-
-                contactForm.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
         });
-
-        // Enhanced Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--primary);
-                color: var(--primary-foreground);
-                padding: 1rem 1.5rem;
-                border-radius: var(--radius);
-                z-index: 10000;
-                font-weight: 600;
-                box-shadow: var(--shadow-lg);
-                transform: translateX(100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            `;
-
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-
-	// Enhanced CV Download functionality
-	document.addEventListener('DOMContentLoaded', () => {
-	    const downloadCVBtn = document.getElementById('downloadCV');
-	    if (downloadCVBtn) {
-		downloadCVBtn.addEventListener('click', () => {
-		    // Download real CV file
-		    const link = document.createElement('a');
-		    link.href = './assets/CV.pdf';  // Real file path
-		    link.download = 'Ruslan_Amrahov_CV.pdf';
-		    link.target = '_blank';
-		    document.body.appendChild(link);
-		    link.click();
-		    document.body.removeChild(link);
-		    showNotification(
-		        currentLanguage === 'az' ? 'CV uğurla yükləndi!' :
-		        currentLanguage === 'en' ? 'CV downloaded successfully!' :
-		        'CV успешно загружен!'
-		    );
-		});
-	    }
-	});
-
-        // Enhanced Loading and initialization
-        window.addEventListener('load', () => {
-            // Hide loading screen
-            const loadingScreen = document.getElementById('loadingScreen');
-            loadingScreen.classList.add('hidden');
-            
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-                loadingScreen.remove();
-            }, 500);
-
-            // Initialize matrix canvas
-            initMatrixCanvas();
-
-            // Initialize typing animation
-            const heroTitle = document.querySelector('.typing-text');
-            if (heroTitle) {
-                const text = translations[currentLanguage]['hero-title'];
-                setTimeout(() => typeWriter(heroTitle, text, 150), 500);
-            }
-
-            // Initialize animations
-            const animateElements = document.querySelectorAll(
-                '.timeline-item, .skill-category, .project-card, .cert-card, .education-card, .stat-card'
-            );
-            animateElements.forEach(el => {
-                el.classList.add('fade-in');
-                observer.observe(el);
-            });
-
-            // Observe skill progress bars
-            const skillBars = document.querySelectorAll('.skill-progress');
-            skillBars.forEach(bar => {
-                observer.observe(bar);
-            });
-        });
-
-        // Enhanced Console welcome message
-        console.log(`
-Welcome to Ruslan Əmrahov's Enhanced Portfolio
-Elite Cybersecurity Expert | Red Teamer | Penetration Tester
-Contact: ruslanemrahov001@gmail.com
-LinkedIn: linkedin.com/in/amrahov
-Enhanced with modern web technologies
-        `);
-
-        // Performance optimization
-        const debounce = (func, wait) => {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        };
-
-        // Debounced resize handler
-        window.addEventListener('resize', debounce(() => {
-            const canvas = document.getElementById('matrixCanvas');
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-        }, 250));
     </script>
 </body>
 </html>
