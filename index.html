@@ -30,7 +30,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Özəl kursor üçün */
+            cursor: none;
         }
 
         html { scroll-behavior: smooth; }
@@ -137,17 +137,17 @@
             max-width: 600px; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;
         }
 
-        /* --- YENİ SOSİAL İKONLAR (Hero) --- */
+        /* --- SOSİAL İKONLAR (Hero) --- */
         .hero-socials {
             display: flex;
-            gap: 40px; /* İkonlar arası məsafə */
+            gap: 40px;
             margin-top: 20px;
             justify-content: center;
             align-items: center;
         }
 
         .social-icon-btn {
-            font-size: clamp(2rem, 4vw, 3rem); /* Ekran ölçüsünə görə avtomatik böyüyür */
+            font-size: clamp(2rem, 4vw, 3rem);
             color: var(--text-muted);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
@@ -178,13 +178,11 @@
             opacity: 0.4;
         }
         
-        /* Mail ikonuna xüsusi rəng effekti */
         .social-icon-btn.mail-icon:hover {
             color: var(--primary-glow);
             text-shadow: 0 0 20px var(--primary-glow);
         }
         .social-icon-btn.mail-icon:hover::before { background: var(--primary-glow); }
-
 
         /* --- GENERAL SECTIONS --- */
         section { padding: 80px 10%; position: relative; }
@@ -259,21 +257,41 @@
             display: flex; align-items: center; gap: 15px;
             background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(10px);
             padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border);
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         .music-player:hover { transform: scale(1.05); border-color: var(--secondary-glow); }
         .equalizer { display: flex; gap: 3px; align-items: flex-end; height: 15px; }
-        .bar { width: 3px; background: var(--secondary-glow); animation: eq 1s infinite ease-in-out; }
+        .bar { 
+            width: 3px; 
+            background: var(--secondary-glow); 
+            animation: eq 1s infinite ease-in-out;
+            transition: all 0.3s;
+        }
+        .bar:nth-child(1) { animation-delay: 0s; height: 40%; }
         .bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
         .bar:nth-child(3) { animation-delay: 0.2s; height: 30%; }
         @keyframes eq { 0%, 100% { height: 30%; } 50% { height: 100%; } }
+        
+        .music-player.paused .bar {
+            animation-play-state: paused;
+            opacity: 0.3;
+        }
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .split-section { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             section { padding: 60px 5%; }
-            .music-player { left: 50%; transform: translateX(-50%); width: max-content; bottom: 20px;}
+            .music-player { 
+                left: 50%; 
+                transform: translateX(-50%); 
+                width: max-content; 
+                bottom: 20px;
+            }
+            .music-player:hover { 
+                transform: translateX(-50%) scale(1.05); 
+            }
         }
         
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
@@ -287,12 +305,18 @@
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
-    <div class="music-player">
+    <div class="music-player" id="musicPlayer">
         <div class="equalizer">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-        <span style="font-size: 0.8rem; letter-spacing: 1px; color: #ddd;">SYSTEM ONLINE</span>
+        <span style="font-size: 0.8rem; letter-spacing: 1px; color: #ddd;" id="musicStatus">MUSIC</span>
     </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
 
     <nav>
         <div class="logo">Portfolio</div>
@@ -316,7 +340,7 @@
                     <i class="fab fa-linkedin"></i>
                 </a>
                 
-                <a href="https://github.com/ruslanemrahov" class="social-icon-btn" title="GitHub">
+                <a href="https://github.com/ruslanemrahov" target="_blank" class="social-icon-btn" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
                 
@@ -324,7 +348,6 @@
                     <i class="fab fa-x-twitter"></i>
                 </a>
             </div>
-            
         </div>
     </header>
 
@@ -498,6 +521,51 @@
     </footer>
 
     <script>
+        // Background Music
+        const bgMusic = document.getElementById('bgMusic');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicStatus = document.getElementById('musicStatus');
+        
+        let isPlaying = false;
+        
+        // Auto-play when page loads
+        window.addEventListener('load', () => {
+            bgMusic.volume = 0.15; // 15% səs həcmi
+            
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicStatus.textContent = 'MUSIC';
+            }).catch(() => {
+                // Auto-play blok edilibsə, ilk interaction-da başlasın
+                const startMusic = () => {
+                    bgMusic.play().then(() => {
+                        isPlaying = true;
+                        musicStatus.textContent = 'MUSIC';
+                    });
+                    document.removeEventListener('click', startMusic);
+                    document.removeEventListener('scroll', startMusic);
+                    document.removeEventListener('keydown', startMusic);
+                };
+                document.addEventListener('click', startMusic, { once: true });
+                document.addEventListener('scroll', startMusic, { once: true });
+                document.addEventListener('keydown', startMusic, { once: true });
+            });
+        });
+        
+        // Click player to toggle play/pause
+        musicPlayer.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicStatus.textContent = 'SYSTEM PAUSED';
+                musicPlayer.classList.add('paused');
+            } else {
+                bgMusic.play();
+                musicStatus.textContent = 'MUSIC';
+                musicPlayer.classList.remove('paused');
+            }
+            isPlaying = !isPlaying;
+        });
+
         // Mouse Cursor Logic
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
