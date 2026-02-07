@@ -45,7 +45,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none !important;
+        }
+
+        /* Telefonlarda kursoru gizlət */
+        @media (hover: hover) and (pointer: fine) {
+            * {
+                cursor: none !important;
+            }
         }
 
         html {
@@ -60,11 +66,93 @@
             overflow-x: hidden;
             line-height: 1.7;
             font-weight: 300;
+            transition: opacity 0.3s ease;
+        }
+
+        body.fade-out {
+            opacity: 0.7;
         }
 
         ::selection {
             background: rgba(112, 0, 255, 0.3);
             color: white;
+        }
+
+        /* ====== LANGUAGE SWITCHER ====== */
+        .language-switcher {
+            position: fixed;
+            top: 90px;
+            right: var(--container-padding);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            min-width: 60px;
+        }
+
+        .lang-btn {
+            padding: 10px 15px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+        }
+
+        .lang-btn.active {
+            background: rgba(112, 0, 255, 0.25);
+            color: var(--primary-glow);
+            border: 1px solid rgba(112, 0, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.2);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ====== CUSTOM CURSOR (Yalnız desktop) ====== */
+        @media (hover: hover) and (pointer: fine) {
+            .cursor {
+                width: 22px;
+                height: 22px;
+                border: 1.5px solid rgba(255, 255, 255, 0.6);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: transform 0.15s, width 0.3s, height 0.3s;
+                mix-blend-mode: difference;
+            }
+
+            .cursor-dot {
+                width: 5px;
+                height: 5px;
+                background: var(--secondary-glow);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: transform 0.1s;
+                box-shadow: 0 0 10px var(--secondary-glow);
+            }
         }
 
         /* ====== BACKGROUND EFFECTS ====== */
@@ -120,33 +208,6 @@
             opacity: 0.2;
         }
 
-        /* ====== CUSTOM CURSOR ====== */
-        .cursor {
-            width: 22px;
-            height: 22px;
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.15s, width 0.3s, height 0.3s;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-dot {
-            width: 5px;
-            height: 5px;
-            background: var(--secondary-glow);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s;
-            box-shadow: 0 0 10px var(--secondary-glow);
-        }
-
         /* ====== NAVIGATION ====== */
         nav {
             display: flex;
@@ -160,6 +221,7 @@
             background: rgba(10, 10, 15, 0.7);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
+            top: 0;
         }
 
         nav.scrolled {
@@ -717,7 +779,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
@@ -745,18 +807,21 @@
         .tag-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .tag {
-            font-size: 0.9rem;
-            padding: 8px 16px;
+            font-size: 0.85rem;
+            padding: 6px 12px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--glass-border);
-            border-radius: 10px;
+            border-radius: 8px;
             color: var(--text-secondary);
             transition: all 0.3s ease;
             font-weight: 400;
+            line-height: 1.4;
+            word-break: break-word;
+            max-width: 100%;
         }
 
         .tag:hover {
@@ -947,6 +1012,15 @@
             .timeline-dot {
                 left: 12px;
             }
+            
+            .language-switcher {
+                top: 80px;
+                right: 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
@@ -1008,6 +1082,23 @@
             .music-player:hover {
                 transform: translateX(-50%) translateY(-5px) scale(1.05);
             }
+            
+            .language-switcher {
+                top: 70px;
+                right: 15px;
+                flex-direction: row;
+                min-width: auto;
+            }
+            
+            .lang-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                min-width: 40px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1025,10 +1116,6 @@
                 font-size: 1.2rem;
             }
             
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -1039,6 +1126,29 @@
             
             .edu-content {
                 padding: 20px;
+            }
+            
+            .language-switcher {
+                top: 65px;
+                right: 10px;
+                padding: 6px;
+            }
+            
+            .lang-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+                min-width: 35px;
+            }
+            
+            .tag {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .language-switcher {
+                flex-direction: column;
             }
         }
 
@@ -1076,17 +1186,29 @@
             70% { box-shadow: 0 0 0 10px rgba(112, 0, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(112, 0, 255, 0); }
         }
+
+        /* ====== LANGUAGE SPECIFIC STYLES ====== */
+        [lang="en"] .az-only,
+        [lang="az"] .en-only {
+            display: none;
+        }
     </style>
 </head>
-<body>
+<body lang="az">
     <!-- Background Effects -->
     <div class="background-gradient"></div>
     <div class="noise-overlay"></div>
     <div class="grid-overlay"></div>
     
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor (Yalnız desktop) -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="az">AZ</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
 
     <!-- Music Player -->
     <div class="music-player" id="musicPlayer">
@@ -1101,19 +1223,19 @@
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
+        <source src="/assets/music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Navigation -->
     <nav id="mainNav">
         <div class="logo">Portfolio</div>
         <div class="nav-links">
-            <a href="#about">Haqqımda</a>
-            <a href="#experience">Təcrübə</a>
-            <a href="#education">Təhsil</a>
-            <a href="#certifications">Sertifikatlar</a>
-            <a href="#skills">Biliklər</a>
-            <a href="#projects">Layihələr</a>
+            <a href="#about" class="nav-link" data-az="Haqqımda" data-en="About">Haqqımda</a>
+            <a href="#experience" class="nav-link" data-az="Təcrübə" data-en="Experience">Təcrübə</a>
+            <a href="#education" class="nav-link" data-az="Təhsil" data-en="Education">Təhsil</a>
+            <a href="#certifications" class="nav-link" data-az="Sertifikatlar" data-en="Certifications">Sertifikatlar</a>
+            <a href="#skills" class="nav-link" data-az="Biliklər" data-en="Skills">Biliklər</a>
+            <a href="#projects" class="nav-link" data-az="Layihələr" data-en="Projects">Layihələr</a>
         </div>
     </nav>
 
@@ -1122,13 +1244,14 @@
         <div class="hero-content reveal">
             <div class="hero-badge">
                 <i class="fas fa-shield-alt"></i>
-                Cybersecurity Professional
+                <span data-az="Cybersecurity Professional" data-en="Cybersecurity Professional">Cybersecurity Professional</span>
             </div>
             
-            <h1>RUSLAN ƏMRAHOV</h1>
-            <div class="hero-subtitle">Cybersecurity Analyst | Penetration Tester | Red Teamer</div>
-            <div class="hero-roles">Baku, Azerbaijan</div>
-
+            <h1>RUSLAN AMRAHOV</h1>
+            <div class="hero-subtitle" data-az="Cybersecurity Analyst | Penetration Tester | Red Teamer" data-en="Cybersecurity Analyst | Penetration Tester | Red Teamer">
+                Cybersecurity Analyst | Penetration Tester | Red Teamer
+            </div>
+            <div class="hero-roles" data-az="Baku, Azerbaijan" data-en="Baku, Azerbaijan">Baku, Azerbaijan</div>
             
             <div class="hero-socials">
                 <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn" title="Email">
@@ -1150,19 +1273,30 @@
     <!-- About Section -->
     <section id="about">
         <div class="section-header reveal">
-            <h2 class="section-title">Haqqımda</h2>
-            <p class="section-subtitle">Mənim haqqımda daha çox məlumat</p>
+            <h2 class="section-title" data-az="Haqqımda" data-en="About Me">Haqqımda</h2>
+            <p class="section-subtitle" 
+               data-az="Mənim haqqımda daha çox məlumat" 
+               data-en="More information about me">
+                Mənim haqqımda daha çox məlumat
+            </p>
         </div>
         
         <div class="glass-card reveal">
             <p class="about-text">
-                Kiber təhlükəsizlik üzrə ixtisaslaşmışam və <span class="highlight">Red Teaming</span> sahəsində real təcrübəyə sahibəm. 
-                <span class="highlight">AzInTelecom, MilliSec və Cyber Club ASOIU</span>-da əldə etdiyim praktiki biliklərlə yanaşı, 
-                CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. 
-                Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
+                <span data-az="Kiber təhlükəsizlik üzrə ixtisaslaşmışam və " data-en="I specialize in cybersecurity with ">Kiber təhlükəsizlik üzrə ixtisaslaşmışam və </span>
+                <span class="highlight" data-az="Red Teaming" data-en="Red Teaming">Red Teaming</span>
+                <span data-az=" sahəsində real təcrübəyə sahibəm. " data-en=" hands-on experience. "> sahəsində real təcrübəyə sahibəm. </span>
+                <span class="highlight" data-az="AzInTelecom, MilliSec və Cyber Club ASOIU" data-en="AzInTelecom, MilliSec, and Cyber Club ASOIU">AzInTelecom, MilliSec və Cyber Club ASOIU</span>
+                <span data-az="-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm." 
+                      data-en="-provided me with practical knowledge. By participating in CTF competitions, I've developed both offensive and defensive skills. I have deep knowledge of modern cyber threats and defense methodologies.">
+                    -da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
+                </span>
             </p>
             <p class="about-text" style="margin-top: 20px;">
-                Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır.
+                <span data-az="Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır."
+                      data-en="My goal is to further deepen my technical expertise and create value as a professional Penetration Tester and Red Teamer.">
+                    Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır.
+                </span>
             </p>
         </div>
     </section>
@@ -1170,8 +1304,12 @@
     <!-- Experience Timeline -->
     <section id="experience">
         <div class="section-header reveal">
-            <h2 class="section-title">İş Təcrübəsi</h2>
-            <p class="section-subtitle">Professional təcrübəmin zaman xətti</p>
+            <h2 class="section-title" data-az="İş Təcrübəsi" data-en="Work Experience">İş Təcrübəsi</h2>
+            <p class="section-subtitle" 
+               data-az="Professional təcrübəmin zaman xətti" 
+               data-en="Timeline of my professional experience">
+                Professional təcrübəmin zaman xətti
+            </p>
         </div>
         
         <div class="timeline">
@@ -1179,15 +1317,19 @@
             <div class="timeline-item reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <div class="timeline-date">08/2025 - Hazırda</div>
+                    <div class="timeline-date">08/2025 - <span data-az="Hazırda" data-en="Present">Hazırda</span></div>
                     <div class="timeline-company">Cyber Club ASOIU</div>
-                    <span class="timeline-role">Red Teamer</span>
+                    <span class="timeline-role" data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
                     <div class="timeline-details">
                         <ul>
-                            <li>Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi</li>
-                            <li>OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
-                            <li>Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
-                            <li>Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi</li>
+                            <li data-az="Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi" 
+                                data-en="Analyzed user behavior through Phishing Campaigns and Social Engineering Assessments">Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi</li>
+                            <li data-az="OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı" 
+                                data-en="Conducted reconnaissance on target infrastructure using OSINT techniques and mapped attack surface">OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
+                            <li data-az="Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi" 
+                                data-en="Analyzed anomalies in real traffic using Network Sniffing and Packet Analysis">Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
+                            <li data-az="Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi" 
+                                data-en="Prepared Red Team Engagement Reports, documenting findings with risk scoring and CVSS methodologies">Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi</li>
                         </ul>
                     </div>
                 </div>
@@ -1199,15 +1341,21 @@
                 <div class="timeline-content">
                     <div class="timeline-date">06/2025 - 08/2025</div>
                     <div class="timeline-company">AzInTelecom</div>
-                    <span class="timeline-role">Kiber Təhlükəsizlik Mühəndisi</span>
+                    <span class="timeline-role" data-az="Kiber Təhlükəsizlik Mühəndisi" data-en="Cybersecurity Engineer">Kiber Təhlükəsizlik Mühəndisi</span>
                     <div class="timeline-details">
                         <ul>
-                            <li>Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
-                            <li>Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
-                            <li>CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
-                            <li>Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi</li>
-                            <li>Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi</li>
-                            <li>Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı</li>
+                            <li data-az="Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi" 
+                                data-en="Optimized Web Application Firewall (WAF) rules to increase protection against OWASP Top 10 attacks">Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
+                            <li data-az="Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı" 
+                                data-en="Built log collection, parsing, and correlation rules in Elastic Stack (ELK) to automate anomaly detection">Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
+                            <li data-az="CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi" 
+                                data-en="Integrated security tests (SAST, DAST) into CI/CD pipelines for early vulnerability detection in deployment phase">CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
+                            <li data-az="Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi" 
+                                data-en="Configured Nginx Reverse Proxy for secure traffic routing and added security layers">Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi</li>
+                            <li data-az="Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi" 
+                                data-en="Conducted security testing in Docker environments, identifying container vulnerabilities and implementing hardening measures">Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi</li>
+                            <li data-az="Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı" 
+                                data-en="Executed Red Team scenarios for deep exploitation and post-exploitation testing of system vulnerabilities">Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı</li>
                         </ul>
                     </div>
                 </div>
@@ -1219,13 +1367,17 @@
                 <div class="timeline-content">
                     <div class="timeline-date">10/2024 - 04/2025</div>
                     <div class="timeline-company">MilliSec</div>
-                    <span class="timeline-role">Red Teamer</span>
+                    <span class="timeline-role" data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
                     <div class="timeline-details">
                         <ul>
-                            <li>Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
-                            <li>Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
-                            <li>Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
-                            <li>MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi</li>
+                            <li data-az="Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi" 
+                                data-en="Performed Web Application Security Testing, exploiting SQL Injection, XSS, CSRF, Command Injection, and other vulnerabilities">Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
+                            <li data-az="Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi" 
+                                data-en="Applied privilege escalation, lateral movement, and persistence techniques in Linux and Windows Active Directory environments">Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
+                            <li data-az="Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi" 
+                                data-en="Modeled attack scenarios using Cobalt Strike, Metasploit, Burp Suite Pro, and other Red Team tools">Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
+                            <li data-az="MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi" 
+                                data-en="Classified and prioritized vulnerabilities based on the MITRE ATT&CK Framework">MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi</li>
                         </ul>
                     </div>
                 </div>
@@ -1236,8 +1388,12 @@
     <!-- Education Timeline -->
     <section id="education">
         <div class="section-header reveal">
-            <h2 class="section-title">Təhsil</h2>
-            <p class="section-subtitle">Akademik təhsil tarixçəm</p>
+            <h2 class="section-title" data-az="Təhsil" data-en="Education">Təhsil</h2>
+            <p class="section-subtitle" 
+               data-az="Akademik təhsil tarixçəm" 
+               data-en="My academic education history">
+                Akademik təhsil tarixçəm
+            </p>
         </div>
         
         <div class="education-timeline">
@@ -1246,8 +1402,8 @@
                     <i class="fas fa-university"></i>
                 </div>
                 <div class="edu-content">
-                    <div class="edu-title">Kompüter Mühəndisliyi (Bakalavr)</div>
-                    <span class="edu-place">Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</span>
+                    <div class="edu-title" data-az="Kompüter Mühəndisliyi (Bakalavr)" data-en="Computer Engineering (Bachelor's)">Kompüter Mühəndisliyi (Bakalavr)</div>
+                    <span class="edu-place" data-az="Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)" data-en="Azerbaijan State Oil and Industry University (ASOIU)">Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</span>
                     <span class="edu-duration">2023 - 2027</span>
                 </div>
             </div>
@@ -1257,8 +1413,8 @@
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="edu-content">
-                    <div class="edu-title">Kompüter Mühəndisliyi</div>
-                    <span class="edu-place">SABAH Qrupları (ASOIU)</span>
+                    <div class="edu-title" data-az="Kompüter Mühəndisliyi" data-en="Computer Engineering">Kompüter Mühəndisliyi</div>
+                    <span class="edu-place" data-az="SABAH Qrupları (ASOIU)" data-en="SABAH Groups (ASOIU)">SABAH Qrupları (ASOIU)</span>
                     <span class="edu-duration">2024 - 2027</span>
                 </div>
             </div>
@@ -1268,8 +1424,12 @@
     <!-- Certifications Milestone -->
     <section id="certifications">
         <div class="section-header reveal">
-            <h2 class="section-title">Sertifikatlar</h2>
-            <p class="section-subtitle">Peşəkar nailiyyətlərim</p>
+            <h2 class="section-title" data-az="Sertifikatlar" data-en="Certifications">Sertifikatlar</h2>
+            <p class="section-subtitle" 
+               data-az="Peşəkar nailiyyətlərim" 
+               data-en="My professional achievements">
+                Peşəkar nailiyyətlərim
+            </p>
         </div>
         
         <div class="certifications-milestone">
@@ -1281,7 +1441,7 @@
                 <div class="cert-title">eWPTXv3 (Web Application Penetration Tester eXtreme)</div>
                 <span class="cert-issuer">INE Security</span>
                 <a href="https://certs.ine.com/c557e25a-307a-40e0-8f44-584c28dcbba0#acc.dwFmZoM5" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
                 </a>
             </div>
 
@@ -1293,7 +1453,7 @@
                 <div class="cert-title">CRTA (Certified Red Team Analyst)</div>
                 <span class="cert-issuer">CyberWarFare Labs</span>
                 <a href="https://www.credential.net/ed95f58b-9f09-42a3-94c0-c4dc3c207588#acc.jaJsiBfQ" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
                 </a>
             </div>
 
@@ -1305,7 +1465,7 @@
                 <div class="cert-title">FCAC (Fortinet Certified Associate Cybersecurity)</div>
                 <span class="cert-issuer">Fortinet</span>
                 <a href="https://www.credly.com/badges/a2172361-a0af-43e6-91a2-d5b4e380f849/linked_in_profile" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
                 </a>
             </div>
         </div>
@@ -1314,15 +1474,19 @@
     <!-- Skills Section -->
     <section id="skills">
         <div class="section-header reveal">
-            <h2 class="section-title">Texniki Bacarıqlar</h2>
-            <p class="section-subtitle">Sahə biliklərim və ixtisaslarım</p>
+            <h2 class="section-title" data-az="Texniki Bacarıqlar" data-en="Technical Skills">Texniki Bacarıqlar</h2>
+            <p class="section-subtitle" 
+               data-az="Sahə biliklərim və ixtisaslarım" 
+               data-en="My field knowledge and specializations">
+                Sahə biliklərim və ixtisaslarım
+            </p>
         </div>
         
         <div class="skills-container">
             <div class="skills-grid">
                 <!-- Offensive Security -->
                 <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-bug"></i> Offensive Security</h3>
+                    <h3><i class="fas fa-bug"></i> <span data-az="Offensive Security" data-en="Offensive Security">Offensive Security</span></h3>
                     <div class="tag-container">
                         <span class="tag">Penetration Testing</span>
                         <span class="tag">Red Teaming</span>
@@ -1340,7 +1504,7 @@
 
                 <!-- Defensive & Network -->
                 <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-shield-alt"></i> Defensive & Network</h3>
+                    <h3><i class="fas fa-shield-alt"></i> <span data-az="Defensive Security" data-en="Defensive Security">Defensive Security</span></h3>
                     <div class="tag-container">
                         <span class="tag">SOC Operations</span>
                         <span class="tag">SIEM (Splunk, QRadar)</span>
@@ -1358,7 +1522,7 @@
 
                 <!-- Programming & Tools -->
                 <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-code"></i> Programming & Tools</h3>
+                    <h3><i class="fas fa-code"></i> <span data-az="Programming & Tools" data-en="Programming & Tools">Programming & Tools</span></h3>
                     <div class="tag-container">
                         <span class="tag">Python</span>
                         <span class="tag">SQL</span>
@@ -1367,7 +1531,7 @@
                         <span class="tag">Docker</span>
                         <span class="tag">ELK Stack</span>
                         <span class="tag">Nginx/Apache</span>
-                        <span class="tag">Windows/Linux Administration</span>
+                        <span class="tag">Windows/Linux Admin</span>
                         <span class="tag">Active Directory</span>
                         <span class="tag">SAST (SonarQube)</span>
                         <span class="tag">DAST (OWASP ZAP)</span>
@@ -1380,46 +1544,56 @@
     <!-- Projects Section -->
     <section id="projects">
         <div class="section-header reveal">
-            <h2 class="section-title">Layihələr</h2>
-            <p class="section-subtitle">Həyata keçirdiyim əsas layihələr</p>
+            <h2 class="section-title" data-az="Layihələr" data-en="Projects">Layihələr</h2>
+            <p class="section-subtitle" 
+               data-az="Həyata keçirdiyim əsas layihələr" 
+               data-en="Main projects I have implemented">
+                Həyata keçirdiyim əsas layihələr
+            </p>
         </div>
         
         <div class="projects-grid">
             <!-- Space Cybersecurity Research -->
             <div class="glass-card project-card reveal">
                 <h3>The Advancement of Cybersecurity in Space through AI – IAC 2025</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az="Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi."
+                   data-en="International research project where I am a co-author of an abstract supported by Azercosmos and accepted by the International Astronautical Federation.">
                     Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi.
                 </p>
                 <div class="project-tech">
                     <span class="tag">AI</span>
-                    <span class="tag">Space Security</span>
-                    <span class="tag">Research</span>
+                    <span class="tag" data-az="Space Security" data-en="Space Security">Space Security</span>
+                    <span class="tag" data-az="Research" data-en="Research">Research</span>
                 </div>
             </div>
 
             <!-- CyberCell Hackathon -->
             <div class="glass-card project-card reveal">
                 <h3>CyberCell Hackathon — "Falcons" Komandası</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az='"Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.'
+                   data-en='CyberCell Hackathon I participated in as a member of the "Falcons" team. Worked as a Red Teamer.'>
                     "Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.
                 </p>
                 <div class="project-tech">
                     <span class="tag">Python</span>
                     <span class="tag">Kali Linux</span>
-                    <span class="tag">Hackathon</span>
+                    <span class="tag" data-az="Hackathon" data-en="Hackathon">Hackathon</span>
                 </div>
             </div>
 
             <!-- MilliSec CTF -->
             <div class="glass-card project-card reveal">
                 <h3>THM – MilliSec CTF Challenge</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az="Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması."
+                   data-en="CTF competition where I gained practical experience in real-life cyber attack simulations and defensive operations.">
                     Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması.
                 </p>
                 <div class="project-tech">
                     <span class="tag">CTF</span>
-                    <span class="tag">Penetration Testing</span>
+                    <span class="tag" data-az="Penetration Testing" data-en="Penetration Testing">Penetration Testing</span>
                     <span class="tag">TryHackMe</span>
                 </div>
             </div>
@@ -1427,25 +1601,29 @@
             <!-- ModSecurity WAF -->
             <div class="glass-card project-card reveal">
                 <h3>ModSecurity WAF + Docker Security Stack</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az="ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım."
+                   data-en="Developed a WAF system for containerized web applications using ModSecurity, Nginx, and Docker.">
                     ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım.
                 </p>
                 <div class="project-tech">
                     <span class="tag">Docker</span>
                     <span class="tag">WAF</span>
-                    <span class="tag">Security</span>
+                    <span class="tag" data-az="Security" data-en="Security">Security</span>
                 </div>
             </div>
 
             <!-- V CTF Challenge -->
             <div class="glass-card project-card reveal">
                 <h3>THM – V CTF Challenge</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az="Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı."
+                   data-en="Solving web and system-based CTF challenges, developing penetration testing skills.">
                     Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.
                 </p>
                 <div class="project-tech">
-                    <span class="tag">Web Security</span>
-                    <span class="tag">Exploitation</span>
+                    <span class="tag" data-az="Web Security" data-en="Web Security">Web Security</span>
+                    <span class="tag" data-az="Exploitation" data-en="Exploitation">Exploitation</span>
                     <span class="tag">TryHackMe</span>
                 </div>
             </div>
@@ -1453,13 +1631,15 @@
             <!-- MilliSec 1.0 CTF -->
             <div class="glass-card project-card reveal">
                 <h3>THM – MilliSec 1.0 CTF Challenge</h3>
-                <p class="project-desc">
+                <p class="project-desc" 
+                   data-az="Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə."
+                   data-en="Project focused on vulnerability discovery and practical application of exploit techniques.">
                     Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.
                 </p>
                 <div class="project-tech">
-                    <span class="tag">Vulnerability Assessment</span>
+                    <span class="tag" data-az="Vulnerability Assessment" data-en="Vulnerability Assessment">Vulnerability Assessment</span>
                     <span class="tag">CTF</span>
-                    <span class="tag">Security Testing</span>
+                    <span class="tag" data-az="Security Testing" data-en="Security Testing">Security Testing</span>
                 </div>
             </div>
         </div>
@@ -1470,7 +1650,10 @@
         <div class="footer-content">
             <div class="footer-logo">RUSLAN ƏMRAHOV</div>
             <p style="color: var(--text-muted); margin-bottom: 30px;">
-                Cybersecurity Professional | Red Teamer | Penetration Tester
+                <span data-az="Cybersecurity Professional | Red Teamer | Penetration Tester" 
+                      data-en="Cybersecurity Professional | Red Teamer | Penetration Tester">
+                    Cybersecurity Professional | Red Teamer | Penetration Tester
+                </span>
             </p>
             
             <div class="hero-socials">
@@ -1489,13 +1672,78 @@
             </div>
             
             <div class="copyright">
-                &copy; 2025 Ruslan Əmrahov. Bütün hüquqlar qorunur.
+                &copy; 2025 Ruslan Əmrahov. <span data-az="Bütün hüquqlar qorunur." data-en="All rights reserved.">Bütün hüquqlar qorunur.</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Background Music Control
+        // ====== LANGUAGE MANAGEMENT ======
+        let currentLang = 'az';
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const elementsToTranslate = document.querySelectorAll('[data-az], [data-en]');
+
+        // Initialize language
+        function initLanguage() {
+            const savedLang = localStorage.getItem('preferredLang') || 'az';
+            setLanguage(savedLang);
+        }
+
+        // Set language function
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Add fade-out effect
+            document.body.classList.add('fade-out');
+            
+            // Update language buttons
+            langButtons.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update document language attribute
+            document.documentElement.lang = lang;
+            
+            // Update all translatable elements
+            setTimeout(() => {
+                elementsToTranslate.forEach(element => {
+                    if (element.dataset[lang]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.value = element.dataset[lang];
+                        } else if (element.hasAttribute('placeholder')) {
+                            element.placeholder = element.dataset[lang];
+                        } else {
+                            element.textContent = element.dataset[lang];
+                        }
+                    }
+                });
+                
+                // Remove fade-out effect
+                document.body.classList.remove('fade-out');
+                
+                // Save preference
+                localStorage.setItem('preferredLang', lang);
+                
+                // Update music status
+                updateMusicStatus();
+            }, 300);
+        }
+
+        // Language button click events
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.dataset.lang;
+                if (lang !== currentLang) {
+                    setLanguage(lang);
+                }
+            });
+        });
+
+        // ====== BACKGROUND MUSIC CONTROL ======
         const bgMusic = document.getElementById('bgMusic');
         const musicPlayer = document.getElementById('musicPlayer');
         const musicStatus = document.getElementById('musicStatus');
@@ -1504,17 +1752,15 @@
         
         // Auto-play with user interaction fallback
         window.addEventListener('load', () => {
-            bgMusic.volume = 0.12; // Set volume to 12%
+            bgMusic.volume = 0.12;
             
-            // Try auto-play
             const playPromise = bgMusic.play();
             
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     isPlaying = true;
-                    musicStatus.textContent = 'MUSIC PLAYING';
+                    updateMusicStatus();
                 }).catch(() => {
-                    // Auto-play blocked, wait for user interaction
                     setupUserInteraction();
                 });
             }
@@ -1524,11 +1770,10 @@
             const startMusic = () => {
                 bgMusic.play().then(() => {
                     isPlaying = true;
-                    musicStatus.textContent = 'MUSIC PLAYING';
+                    updateMusicStatus();
                     musicPlayer.classList.remove('paused');
                 });
                 
-                // Remove listeners after first interaction
                 document.removeEventListener('click', startMusic);
                 document.removeEventListener('scroll', startMusic);
                 document.removeEventListener('keydown', startMusic);
@@ -1539,54 +1784,62 @@
             document.addEventListener('keydown', startMusic, { once: true });
         }
         
-        // Toggle play/pause on music player click
+        function updateMusicStatus() {
+            if (currentLang === 'az') {
+                musicStatus.textContent = isPlaying ? 'MUSİQİ ÇALINIR' : 'MUSİQİ DAYANDIRILIB';
+            } else {
+                musicStatus.textContent = isPlaying ? 'MUSIC PLAYING' : 'MUSIC PAUSED';
+            }
+        }
+        
+        // Toggle play/pause
         musicPlayer.addEventListener('click', (e) => {
             e.stopPropagation();
             
             if (isPlaying) {
                 bgMusic.pause();
-                musicStatus.textContent = 'MUSIC PAUSED';
+                isPlaying = false;
                 musicPlayer.classList.add('paused');
             } else {
                 bgMusic.play();
-                musicStatus.textContent = 'MUSIC PLAYING';
+                isPlaying = true;
                 musicPlayer.classList.remove('paused');
             }
-            isPlaying = !isPlaying;
+            updateMusicStatus();
         });
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-        
-        document.addEventListener('mousemove', (e) => {
-            // Update cursor dot position
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
+        // ====== CUSTOM CURSOR (Yalnız desktop) ======
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            const cursor = document.querySelector('.cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
             
-            // Animate main cursor with smoother transition
-            cursor.animate({
-                left: e.clientX + 'px',
-                top: e.clientY + 'px'
-            }, { duration: 600, fill: "forwards", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" });
-        });
-
-        // Interactive cursor effects
-        document.querySelectorAll('a, button, .social-icon-btn, .music-player').forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.style.width = '40px';
-                cursor.style.height = '40px';
-                cursor.style.borderColor = 'rgba(0, 240, 255, 0.6)';
+            document.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+                
+                cursor.animate({
+                    left: e.clientX + 'px',
+                    top: e.clientY + 'px'
+                }, { duration: 600, fill: "forwards", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" });
             });
-            
-            element.addEventListener('mouseleave', () => {
-                cursor.style.width = '22px';
-                cursor.style.height = '22px';
-                cursor.style.borderColor = 'rgba(255, 255, 255, 0.6)';
-            });
-        });
 
-        // Scroll animations
+            // Interactive cursor effects
+            document.querySelectorAll('a, button, .social-icon-btn, .music-player, .lang-btn').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.style.width = '40px';
+                    cursor.style.height = '40px';
+                    cursor.style.borderColor = 'rgba(0, 240, 255, 0.6)';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    cursor.style.width = '22px';
+                    cursor.style.height = '22px';
+                    cursor.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+                });
+            });
+        }
+
+        // ====== SCROLL ANIMATIONS ======
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1597,7 +1850,6 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                     
-                    // Add delay for staggered animations
                     if (entry.target.classList.contains('reveal')) {
                         const delay = entry.target.getAttribute('data-delay') || 0;
                         entry.target.style.transitionDelay = `${delay}ms`;
@@ -1612,7 +1864,7 @@
             observer.observe(el);
         });
 
-        // Navbar scroll effect
+        // ====== NAVBAR SCROLL EFFECT ======
         const navbar = document.getElementById('mainNav');
         
         window.addEventListener('scroll', () => {
@@ -1623,7 +1875,7 @@
             }
         });
 
-        // Smooth scrolling for anchor links
+        // ====== SMOOTH SCROLLING ======
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1644,10 +1896,13 @@
             });
         });
 
-        // Initialize
+        // ====== INITIALIZATION ======
         window.addEventListener('DOMContentLoaded', () => {
             // Add fade-in animation to body
             document.body.classList.add('fade-in');
+            
+            // Initialize language
+            initLanguage();
             
             // Set current year in footer
             const yearElement = document.querySelector('.copyright');
@@ -1655,6 +1910,9 @@
                 const currentYear = new Date().getFullYear();
                 yearElement.innerHTML = yearElement.innerHTML.replace('2025', currentYear);
             }
+            
+            // Update music status based on language
+            updateMusicStatus();
         });
     </script>
 </body>
