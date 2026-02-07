@@ -3,593 +3,1662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruslan Əmrahov | Cybersecurity & Red Teaming</title>
+    <title>Ruslan Əmrahov | Cybersecurity Analyst & Red Teamer</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        /* --- DƏYİŞƏNLƏR --- */
+        /* ====== DƏYİŞƏNLƏR ====== */
         :root {
-            --bg-dark: #050505;
+            /* Rəng Palitrası */
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
             --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-card: rgba(20, 20, 20, 0.6);
+            --glass-card: rgba(15, 15, 25, 0.7);
             --glass-border: rgba(255, 255, 255, 0.08);
             --primary-glow: #7000ff;
             --secondary-glow: #00f0ff;
+            --accent-purple: #9d4edd;
+            --accent-cyan: #00ccff;
+            
+            /* Mətn Rəngləri */
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
+            --text-secondary: #cccccc;
+            --text-light: #e0e0e0;
+            
+            /* Fontlar */
             --font-main: 'Outfit', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
+            
+            /* Ölçülər */
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --container-padding: 5%;
         }
 
-        /* --- RESET & BASIC --- */
+        /* ====== RESET & BASIC STYLES ====== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
+            cursor: none !important;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-darker);
             color: var(--text-main);
             font-family: var(--font-main);
             overflow-x: hidden;
             line-height: 1.7;
+            font-weight: 300;
         }
 
-        /* --- ARXA FON (Space Nebula) --- */
+        ::selection {
+            background: rgba(112, 0, 255, 0.3);
+            color: white;
+        }
+
+        /* ====== BACKGROUND EFFECTS ====== */
         .background-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: -2;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.08), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.08), transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(5, 5, 5, 1), transparent 100%);
-            animation: pulseBg 10s ease-in-out infinite alternate;
+                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.12), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.12), transparent 40%),
+                radial-gradient(circle at 50% 50%, var(--bg-darker), transparent 100%);
+            animation: pulseBg 15s ease-in-out infinite alternate;
         }
 
         @keyframes pulseBg {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; }
+            0% { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .noise-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1; opacity: 0.04;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            pointer-events: none; 
+            z-index: -1; 
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* --- CUSTOM CURSOR --- */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        /* ====== CUSTOM CURSOR ====== */
         .cursor {
-            width: 20px; height: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
             border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s;
+            transition: transform 0.15s, width 0.3s, height 0.3s;
             mix-blend-mode: difference;
         }
+
         .cursor-dot {
-            width: 4px; height: 4px;
+            width: 5px;
+            height: 5px;
             background: var(--secondary-glow);
             border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
             transform: translate(-50%, -50%);
+            transition: transform 0.1s;
+            box-shadow: 0 0 10px var(--secondary-glow);
         }
 
-        /* --- NAVIGATION --- */
+        /* ====== NAVIGATION ====== */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 5%;
-            position: fixed; width: 100%; z-index: 50;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px var(--container-padding);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(12px) saturate(180%);
+            background: rgba(10, 10, 15, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
-        .logo {
-            font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
-            background: linear-gradient(to right, #fff, #a1a1aa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a {
-            text-decoration: none; color: var(--text-muted); font-size: 0.9rem;
-            transition: 0.3s; position: relative;
-        }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-        /* --- HERO SECTION --- */
+        nav.scrolled {
+            padding: 15px var(--container-padding);
+            background: rgba(10, 10, 15, 0.9);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 6px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ====== HERO SECTION ====== */
         .hero {
             min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 100px 5% 50px;
-            position: relative;
-        }
-        .status-badge {
-            padding: 6px 16px; border-radius: 20px;
-            background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2);
-            color: var(--secondary-glow); font-size: 0.8rem; margin-bottom: 20px;
-            letter-spacing: 1px; display: inline-block;
-        }
-        h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 700; margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-        }
-        .roles {
-            font-size: clamp(1rem, 2vw, 1.3rem); color: var(--secondary-glow);
-            margin-bottom: 20px; font-weight: 300; letter-spacing: 0.5px;
-        }
-        .hero p {
-            max-width: 600px; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;
-        }
-
-        /* --- SOSİAL İKONLAR (Hero) --- */
-        .hero-socials {
             display: flex;
-            gap: 40px;
-            margin-top: 20px;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            padding: 120px var(--container-padding) 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--secondary-glow);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .hero-badge i {
+            font-size: 0.8rem;
+        }
+
+        .hero-badge:hover {
+            background: rgba(0, 240, 255, 0.12);
+            border-color: var(--secondary-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.1);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 30%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-roles {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--secondary-glow);
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 0.8px;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ====== SOCIAL LINKS ====== */
+        .hero-socials {
+            display: flex;
+            gap: 25px;
+            margin-top: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .social-icon-btn {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--text-muted);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            font-size: 1.4rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             position: relative;
+            overflow: hidden;
         }
 
         .social-icon-btn::before {
             content: '';
             position: absolute;
-            width: 100%; height: 100%;
-            background: var(--secondary-glow);
-            filter: blur(20px);
-            opacity: 0;
-            z-index: -1;
-            transition: 0.3s;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            opacity: 0.1;
+            filter: blur(10px);
         }
 
         .social-icon-btn:hover {
-            color: #fff;
-            transform: translateY(-10px) scale(1.1);
-            text-shadow: 0 0 20px var(--secondary-glow);
+            color: white;
+            transform: translateY(-8px) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
         }
 
         .social-icon-btn:hover::before {
-            opacity: 0.4;
+            width: 100%;
+            height: 100%;
         }
-        
-        .social-icon-btn.mail-icon:hover {
-            color: var(--primary-glow);
-            text-shadow: 0 0 20px var(--primary-glow);
-        }
-        .social-icon-btn.mail-icon:hover::before { background: var(--primary-glow); }
 
-        /* --- GENERAL SECTIONS --- */
-        section { padding: 80px 10%; position: relative; }
+        /* ====== GENERAL SECTIONS ====== */
+        section {
+            padding: 100px var(--container-padding);
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: rgba(5, 5, 10, 0.5);
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
         .section-title {
-            font-family: var(--font-display); font-size: 2rem; margin-bottom: 40px;
-            display: inline-block; background: linear-gradient(90deg, #fff, #777);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            position: relative;
         }
-        
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ====== GLASS CARDS ====== */
         .glass-card {
-            background: var(--glass-card); backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 30px; margin-bottom: 25px; transition: 0.4s;
-            position: relative; overflow: hidden;
+            background: var(--glass-card);
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
         .glass-card:hover {
-            border-color: rgba(255,255,255,0.2); transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
-        /* --- EXPERIENCE TIMELINE --- */
-        .job-header {
-            display: flex; justify-content: space-between; flex-wrap: wrap;
-            margin-bottom: 15px; align-items: flex-start;
-        }
-        .company { font-size: 1.3rem; font-weight: 600; color: #fff; }
-        .role { color: var(--secondary-glow); font-size: 1rem; margin-top: 5px; display: block;}
-        .date { font-size: 0.9rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 8px; }
-        .job-details ul { list-style: none; padding-left: 0; }
-        .job-details li {
-            position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; color: #ccc;
-        }
-        .job-details li::before {
-            content: '▹'; position: absolute; left: 0; color: var(--primary-glow);
+        /* ====== ABOUT SECTION ====== */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        /* --- SKILLS GRID --- */
-        .skills-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
-        }
-        .skill-category h3 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;}
-        .tag-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag {
-            font-size: 0.85rem; padding: 6px 14px; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border); border-radius: 8px; color: #ccc;
-            transition: 0.3s;
-        }
-        .tag:hover { background: rgba(112, 0, 255, 0.15); border-color: var(--primary-glow); color: #fff; }
-
-        /* --- EDUCATION & CERTS --- */
-        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .edu-item, .cert-item {
-            margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .edu-item:last-child, .cert-item:last-child { border-bottom: none; }
-        .edu-title { font-weight: 600; color: #fff; display: block; }
-        .edu-place { color: var(--text-muted); font-size: 0.9rem; }
-
-        /* --- PROJECTS --- */
-        .project-card h3 { color: var(--secondary-glow); margin-bottom: 10px; }
-        .project-desc { font-size: 0.95rem; color: #ccc; margin-bottom: 15px; }
-
-        /* --- CONTACT FOOTER --- */
-        .contact-footer {
-            text-align: center; padding: 50px 20px; border-top: 1px solid var(--glass-border);
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        .about-text {
+            color: var(--text-light);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 0;
         }
 
-        /* --- MUSIC PLAYER --- */
-        .music-player {
-            position: fixed; bottom: 30px; left: 30px; z-index: 100;
-            display: flex; align-items: center; gap: 15px;
-            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(10px);
-            padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border);
-            transition: all 0.3s;
-            cursor: pointer;
+        .highlight {
+            color: white;
+            font-weight: 500;
+            background: linear-gradient(90deg, transparent, rgba(112, 0, 255, 0.1), transparent);
+            padding: 0 5px;
+            border-radius: 4px;
         }
-        .music-player:hover { transform: scale(1.05); border-color: var(--secondary-glow); }
-        .equalizer { display: flex; gap: 3px; align-items: flex-end; height: 15px; }
-        .bar { 
-            width: 3px; 
-            background: var(--secondary-glow); 
-            animation: eq 1s infinite ease-in-out;
-            transition: all 0.3s;
+
+        /* ====== EXPERIENCE TIMELINE ====== */
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
         }
-        .bar:nth-child(1) { animation-delay: 0s; height: 40%; }
-        .bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
-        .bar:nth-child(3) { animation-delay: 0.2s; height: 30%; }
-        @keyframes eq { 0%, 100% { height: 30%; } 50% { height: 100%; } }
-        
-        .music-player.paused .bar {
-            animation-play-state: paused;
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-glow), var(--secondary-glow));
             opacity: 0.3;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .split-section { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            section { padding: 60px 5%; }
-            .music-player { 
-                left: 50%; 
-                transform: translateX(-50%); 
-                width: max-content; 
-                bottom: 20px;
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--secondary-glow);
+            border: 3px solid var(--bg-darker);
+            box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.3);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: var(--glass-card);
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 6px 15px;
+            background: rgba(0, 240, 255, 0.1);
+            border-radius: 20px;
+            color: var(--secondary-glow);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .timeline-company {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .timeline-role {
+            color: var(--secondary-glow);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .timeline-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-details li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .timeline-details li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-glow);
+            font-size: 1.2rem;
+        }
+
+        /* ====== EDUCATION TIMELINE ====== */
+        .education-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .edu-timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 40px;
+        }
+
+        .edu-timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(112, 0, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-glow);
+            font-size: 1.2rem;
+            border: 2px solid rgba(112, 0, 255, 0.3);
+        }
+
+        .edu-content {
+            background: var(--glass-card);
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .edu-content:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .edu-title {
+            font-weight: 600;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .edu-place {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .edu-duration {
+            color: var(--secondary-glow);
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* ====== CERTIFICATIONS MILESTONE ====== */
+        .certifications-milestone {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cert-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cert-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-glow);
+            font-size: 1.2rem;
+        }
+
+        .cert-title {
+            font-weight: 600;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            padding-right: 50px;
+        }
+
+        .cert-issuer {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .cert-verify {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(112, 0, 255, 0.1);
+            border-radius: 8px;
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(112, 0, 255, 0.2);
+        }
+
+        .cert-verify:hover {
+            background: rgba(112, 0, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ====== SKILLS SECTION ====== */
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-category {
+            margin-bottom: 0;
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--glass-border);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3 i {
+            color: var(--secondary-glow);
+            font-size: 1.1rem;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .tag:hover {
+            background: rgba(112, 0, 255, 0.15);
+            border-color: var(--primary-glow);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.1);
+        }
+
+        /* ====== PROJECTS SECTION ====== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            color: var(--secondary-glow);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        /* ====== CONTACT FOOTER ====== */
+        .contact-footer {
+            text-align: center;
+            padding: 60px var(--container-padding) 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 30px;
+        }
+
+        /* ====== MUSIC PLAYER ====== */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px) saturate(180%);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-player:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--secondary-glow);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .equalizer {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 20px;
+        }
+
+        .bar {
+            width: 4px;
+            background: var(--secondary-glow);
+            animation: eq 1.2s infinite ease-in-out;
+            border-radius: 2px;
+        }
+
+        .bar:nth-child(1) { animation-delay: 0s; height: 40%; }
+        .bar:nth-child(2) { animation-delay: 0.2s; height: 70%; }
+        .bar:nth-child(3) { animation-delay: 0.4s; height: 30%; }
+        .bar:nth-child(4) { animation-delay: 0.6s; height: 60%; }
+        .bar:nth-child(5) { animation-delay: 0.8s; height: 50%; }
+
+        @keyframes eq {
+            0%, 100% { height: 30%; }
+            50% { height: 80%; }
+        }
+
+        .music-player.paused .bar {
+            animation-play-state: paused;
+            opacity: 0.5;
+        }
+
+        #musicStatus {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #ddd;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .music-player:hover #musicStatus {
+            color: var(--secondary-glow);
+        }
+
+        /* ====== ANIMATIONS ====== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 1024px) {
+            :root {
+                --container-padding: 5%;
             }
-            .music-player:hover { 
-                transform: translateX(-50%) scale(1.05); 
+            
+            section {
+                padding: 80px var(--container-padding);
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                padding-left: 60px;
+            }
+            
+            .timeline-dot {
+                left: 12px;
             }
         }
-        
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px var(--container-padding) 60px;
+            }
+            
+            h1 {
+                font-size: clamp(2.5rem, 7vw, 4rem);
+            }
+            
+            .hero-socials {
+                gap: 20px;
+            }
+            
+            .social-icon-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: clamp(1.8rem, 4vw, 2.5rem);
+            }
+            
+            .glass-card {
+                padding: 25px;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 45px;
+            }
+            
+            .timeline-dot {
+                left: 7px;
+                width: 16px;
+                height: 16px;
+            }
+            
+            .certifications-milestone {
+                grid-template-columns: 1fr;
+            }
+            
+            .music-player {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 20px;
+                width: max-content;
+            }
+            
+            .music-player:hover {
+                transform: translateX(-50%) translateY(-5px) scale(1.05);
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --container-padding: 20px;
+            }
+            
+            .hero-socials {
+                gap: 15px;
+            }
+            
+            .social-icon-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-content {
+                padding: 20px;
+            }
+            
+            .edu-content {
+                padding: 20px;
+            }
+        }
+
+        /* ====== UTILITY CLASSES ====== */
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: var(--border-radius-lg);
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            border-radius: var(--border-radius-lg);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(112, 0, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(112, 0, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(112, 0, 255, 0); }
+        }
     </style>
 </head>
 <body>
-
+    <!-- Background Effects -->
     <div class="background-gradient"></div>
     <div class="noise-overlay"></div>
+    <div class="grid-overlay"></div>
+    
+    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
+    <!-- Music Player -->
     <div class="music-player" id="musicPlayer">
         <div class="equalizer">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-        <span style="font-size: 0.8rem; letter-spacing: 1px; color: #ddd;" id="musicStatus">MUSIC</span>
+        <span id="musicStatus">MUSIC</span>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="assets/music.mp3" type="audio/mpeg">
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <nav>
-        <div class="logo">Portfolio</div>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="logo">R.AMRAHOV</div>
         <div class="nav-links">
             <a href="#about">Haqqımda</a>
             <a href="#experience">Təcrübə</a>
+            <a href="#education">Təhsil</a>
+            <a href="#certifications">Sertifikatlar</a>
             <a href="#skills">Biliklər</a>
             <a href="#projects">Layihələr</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="hero">
-        <div class="reveal">
+        <div class="hero-content reveal">
+            <div class="hero-badge">
+                <i class="fas fa-shield-alt"></i>
+                Cybersecurity Professional
+            </div>
+            
             <h1>RUSLAN ƏMRAHOV</h1>
+            <div class="hero-subtitle">Cybersecurity Analyst | Penetration Tester | Red Teamer</div>
+            <div class="hero-roles">Baku, Azerbaijan</div>
+            
+            <p class="hero-description">
+                Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. 
+                Docker, OSINT, Web Application Security, ELK Stack və Python üzrə praktiki biliklərə malikəm.
+            </p>
+            
             <div class="hero-socials">
-                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn mail-icon" title="Email Me">
+                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn" title="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-                
                 <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-icon-btn" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-linkedin-in"></i>
                 </a>
-                
                 <a href="https://github.com/ruslanemrahov" target="_blank" class="social-icon-btn" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                
-                <a href="#" class="social-icon-btn" title="Twitter/X">
-                    <i class="fab fa-x-twitter"></i>
+                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-icon-btn" title="YouTube">
+                    <i class="fab fa-youtube"></i>
                 </a>
             </div>
         </div>
     </header>
 
+    <!-- About Section -->
     <section id="about">
-        <h2 class="section-title reveal">Haqqımda</h2>
+        <div class="section-header reveal">
+            <h2 class="section-title">Haqqımda</h2>
+            <p class="section-subtitle">Mənim haqqımda daha çox məlumat</p>
+        </div>
+        
         <div class="glass-card reveal">
-            <p style="color: #ccc; font-size: 1.05rem;">
-                Kiber təhlükəsizlik üzrə ixtisaslaşmışam və Red Teaming sahəsində real təcrübəyə sahibəm. 
-                <strong style="color:white;">AzInTelecom, MilliSec və Cyber Club ASOIU</strong>-da əldə etdiyim praktiki biliklərlə yanaşı, 
+            <p class="about-text">
+                Kiber təhlükəsizlik üzrə ixtisaslaşmışam və <span class="highlight">Red Teaming</span> sahəsində real təcrübəyə sahibəm. 
+                <span class="highlight">AzInTelecom, MilliSec və Cyber Club ASOIU</span>-da əldə etdiyim praktiki biliklərlə yanaşı, 
                 CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. 
                 Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
+            </p>
+            <p class="about-text" style="margin-top: 20px;">
+                Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır.
             </p>
         </div>
     </section>
 
+    <!-- Experience Timeline -->
     <section id="experience">
-        <h2 class="section-title reveal">İş Təcrübəsi</h2>
+        <div class="section-header reveal">
+            <h2 class="section-title">İş Təcrübəsi</h2>
+            <p class="section-subtitle">Professional təcrübəmin zaman xətti</p>
+        </div>
         
-        <div class="glass-card reveal">
-            <div class="job-header">
-                <div>
-                    <div class="company">Cyber Club ASOIU</div>
-                    <span class="role">Red Teamer</span>
+        <div class="timeline">
+            <!-- Cyber Club ASOIU -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">08/2025 - Hazırda</div>
+                    <div class="timeline-company">Cyber Club ASOIU</div>
+                    <span class="timeline-role">Red Teamer</span>
+                    <div class="timeline-details">
+                        <ul>
+                            <li>Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi</li>
+                            <li>OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
+                            <li>Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
+                            <li>Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="date">08/2025 - Present</div>
             </div>
-            <div class="job-details">
-                <ul>
-                    <li>Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi.</li>
-                    <li>OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı.</li>
-                    <li>Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi.</li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="glass-card reveal">
-            <div class="job-header">
-                <div>
-                    <div class="company">AzInTelecom</div>
-                    <span class="role">Kiber Təhlükəsizlik Mühəndisi</span>
+            <!-- AzInTelecom -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">06/2025 - 08/2025</div>
+                    <div class="timeline-company">AzInTelecom</div>
+                    <span class="timeline-role">Kiber Təhlükəsizlik Mühəndisi</span>
+                    <div class="timeline-details">
+                        <ul>
+                            <li>Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
+                            <li>Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
+                            <li>CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
+                            <li>Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi</li>
+                            <li>Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi</li>
+                            <li>Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="date">06/2025 - 08/2025</div>
             </div>
-            <div class="job-details">
-                <ul>
-                    <li>Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi.</li>
-                    <li>Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı.</li>
-                    <li>CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi.</li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="glass-card reveal">
-            <div class="job-header">
-                <div>
-                    <div class="company">MilliSec</div>
-                    <span class="role">Red Teamer</span>
+            <!-- MilliSec -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">10/2024 - 04/2025</div>
+                    <div class="timeline-company">MilliSec</div>
+                    <span class="timeline-role">Red Teamer</span>
+                    <div class="timeline-details">
+                        <ul>
+                            <li>Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
+                            <li>Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
+                            <li>Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
+                            <li>MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="date">10/2024 - 04/2025</div>
-            </div>
-            <div class="job-details">
-                <ul>
-                    <li>Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi.</li>
-                    <li>Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi.</li>
-                    <li>Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi.</li>
-                </ul>
             </div>
         </div>
     </section>
 
+    <!-- Education Timeline -->
+    <section id="education">
+        <div class="section-header reveal">
+            <h2 class="section-title">Təhsil</h2>
+            <p class="section-subtitle">Akademik təhsil tarixçəm</p>
+        </div>
+        
+        <div class="education-timeline">
+            <div class="edu-timeline-item reveal">
+                <div class="edu-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="edu-content">
+                    <div class="edu-title">Kompüter Mühəndisliyi (Bakalavr)</div>
+                    <span class="edu-place">Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</span>
+                    <span class="edu-duration">2023 - 2027</span>
+                </div>
+            </div>
+
+            <div class="edu-timeline-item reveal">
+                <div class="edu-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="edu-content">
+                    <div class="edu-title">Kompüter Mühəndisliyi</div>
+                    <span class="edu-place">SABAH Qrupları (ASOIU)</span>
+                    <span class="edu-duration">2024 - 2027</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Milestone -->
+    <section id="certifications">
+        <div class="section-header reveal">
+            <h2 class="section-title">Sertifikatlar</h2>
+            <p class="section-subtitle">Peşəkar nailiyyətlərim</p>
+        </div>
+        
+        <div class="certifications-milestone">
+            <!-- eWPTXv3 -->
+            <div class="cert-card reveal">
+                <div class="cert-badge">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="cert-title">eWPTXv3 (Web Application Penetration Tester eXtreme)</div>
+                <span class="cert-issuer">INE Security</span>
+                <a href="https://certs.ine.com/c557e25a-307a-40e0-8f44-584c28dcbba0#acc.dwFmZoM5" target="_blank" class="cert-verify">
+                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                </a>
+            </div>
+
+            <!-- CRTA -->
+            <div class="cert-card reveal">
+                <div class="cert-badge">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <div class="cert-title">CRTA (Certified Red Team Analyst)</div>
+                <span class="cert-issuer">CyberWarFare Labs</span>
+                <a href="https://www.credential.net/ed95f58b-9f09-42a3-94c0-c4dc3c207588#acc.jaJsiBfQ" target="_blank" class="cert-verify">
+                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                </a>
+            </div>
+
+            <!-- FCAC -->
+            <div class="cert-card reveal">
+                <div class="cert-badge">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="cert-title">FCAC (Fortinet Certified Associate Cybersecurity)</div>
+                <span class="cert-issuer">Fortinet</span>
+                <a href="https://www.credly.com/badges/a2172361-a0af-43e6-91a2-d5b4e380f849/linked_in_profile" target="_blank" class="cert-verify">
+                    <i class="fas fa-external-link-alt"></i> Təsdiqlə
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
     <section id="skills">
-        <h2 class="section-title reveal">Rəqəmsal Biliklər</h2>
-        <div class="skills-grid reveal">
-            <div class="glass-card skill-category">
-                <h3>Offensive Security</h3>
-                <div class="tag-container">
-                    <span class="tag">Penetration Testing</span>
-                    <span class="tag">Red Teaming</span>
-                    <span class="tag">Web/API Pentesting</span>
-                    <span class="tag">Active Directory Pentest</span>
-                    <span class="tag">Wireless Security</span>
+        <div class="section-header reveal">
+            <h2 class="section-title">Texniki Bacarıqlar</h2>
+            <p class="section-subtitle">Sahə biliklərim və ixtisaslarım</p>
+        </div>
+        
+        <div class="skills-container">
+            <div class="skills-grid">
+                <!-- Offensive Security -->
+                <div class="glass-card skill-category reveal">
+                    <h3><i class="fas fa-bug"></i> Offensive Security</h3>
+                    <div class="tag-container">
+                        <span class="tag">Penetration Testing</span>
+                        <span class="tag">Red Teaming</span>
+                        <span class="tag">Web/API Pentesting</span>
+                        <span class="tag">Active Directory Pentest</span>
+                        <span class="tag">Wireless Security</span>
+                        <span class="tag">Social Engineering</span>
+                        <span class="tag">Network Attacks</span>
+                        <span class="tag">Malware Simulation</span>
+                        <span class="tag">C2 Tools (Cobalt Strike)</span>
+                        <span class="tag">Metasploit</span>
+                        <span class="tag">Burp Suite Pro</span>
+                    </div>
                 </div>
-            </div>
-            <div class="glass-card skill-category">
-                <h3>Defensive & Network</h3>
-                <div class="tag-container">
-                    <span class="tag">SOC & SIEM (Splunk, QRadar)</span>
-                    <span class="tag">EDR/XDR</span>
-                    <span class="tag">IDS/IPS</span>
-                    <span class="tag">Network Monitoring</span>
-                    <span class="tag">Cloud Networking</span>
+
+                <!-- Defensive & Network -->
+                <div class="glass-card skill-category reveal">
+                    <h3><i class="fas fa-shield-alt"></i> Defensive & Network</h3>
+                    <div class="tag-container">
+                        <span class="tag">SOC Operations</span>
+                        <span class="tag">SIEM (Splunk, QRadar)</span>
+                        <span class="tag">EDR/XDR (Bitdefender)</span>
+                        <span class="tag">IDS/IPS (Suricata)</span>
+                        <span class="tag">Network Monitoring</span>
+                        <span class="tag">WAF (Sucuri, ModSecurity)</span>
+                        <span class="tag">Firewall (Fortigate)</span>
+                        <span class="tag">CTI/XTI (SOCRadar)</span>
+                        <span class="tag">Manual Log Analysis</span>
+                        <span class="tag">Cloud Networking (Azure)</span>
+                        <span class="tag">Cisco Routing & Switching</span>
+                    </div>
                 </div>
-            </div>
-            <div class="glass-card skill-category">
-                <h3>Programming & Tools</h3>
-                <div class="tag-container">
-                    <span class="tag">Python</span>
-                    <span class="tag">SQL</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">Network Administration</span>
+
+                <!-- Programming & Tools -->
+                <div class="glass-card skill-category reveal">
+                    <h3><i class="fas fa-code"></i> Programming & Tools</h3>
+                    <div class="tag-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Express.js</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">ELK Stack</span>
+                        <span class="tag">Nginx/Apache</span>
+                        <span class="tag">Windows/Linux Administration</span>
+                        <span class="tag">Active Directory</span>
+                        <span class="tag">SAST (SonarQube)</span>
+                        <span class="tag">DAST (OWASP ZAP)</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="split-section reveal">
-            <div class="glass-card">
-                <h3 style="margin-bottom: 20px; color: var(--primary-glow);">Sertifikatlar</h3>
-                <div class="cert-item">
-                    <span class="edu-title">eWPTXv3</span>
-                    <span class="edu-place">INE Security</span>
-                </div>
-                <div class="cert-item">
-                    <span class="edu-title">CRTA</span>
-                    <span class="edu-place">CyberWarFare Labs</span>
-                </div>
-                <div class="cert-item">
-                    <span class="edu-title">C3SA</span>
-                    <span class="edu-place">CyberWarfare Labs</span>
-                </div>
-                <div class="cert-item">
-                    <span class="edu-title">FCAC</span>
-                    <span class="edu-place">Fortinet</span>
-                </div>
-            </div>
-            <div class="glass-card">
-                <h3 style="margin-bottom: 20px; color: var(--secondary-glow);">Təhsil</h3>
-                <div class="edu-item">
-                    <span class="edu-title">Kompüter Mühəndisliyi (Bakalavr)</span>
-                    <span class="edu-place">ADNSU (ASOIU) | 2023 - 2027</span>
-                </div>
-                <div class="edu-item">
-                    <span class="edu-title">SABAH Qrupları</span>
-                    <span class="edu-place">Kompüter Mühəndisliyi | 2024 - 2027</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Projects Section -->
     <section id="projects">
-        <h2 class="section-title reveal">Layihələr</h2>
-        <div class="skills-grid reveal">
-            <div class="glass-card project-card">
-                <h3>Space Cybersecurity Research</h3>
-                <p class="project-desc">The Advancement of Cybersecurity in Space through AI – IAC 2025 üçün həmmüəllif olaraq iştirak etdiyim beynəlxalq tədqiqat layihəsi.</p>
-                <div class="tag-container"><span class="tag">AI</span><span class="tag">Space Security</span></div>
+        <div class="section-header reveal">
+            <h2 class="section-title">Layihələr</h2>
+            <p class="section-subtitle">Həyata keçirdiyim əsas layihələr</p>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Space Cybersecurity Research -->
+            <div class="glass-card project-card reveal">
+                <h3>The Advancement of Cybersecurity in Space through AI – IAC 2025</h3>
+                <p class="project-desc">
+                    Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">AI</span>
+                    <span class="tag">Space Security</span>
+                    <span class="tag">Research</span>
+                </div>
             </div>
-            <div class="glass-card project-card">
-                <h3>MilliSec CTF Challenge</h3>
-                <p class="project-desc">Real-life kiber hücum simulyasiyaları və təhlükəsizlik əməliyyatları üzrə təcrübə əldə etdiyim CTF yarışması.</p>
-                <div class="tag-container"><span class="tag">CTF</span><span class="tag">Penetration Testing</span></div>
+
+            <!-- CyberCell Hackathon -->
+            <div class="glass-card project-card reveal">
+                <h3>CyberCell Hackathon — "Falcons" Komandası</h3>
+                <p class="project-desc">
+                    "Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">Python</span>
+                    <span class="tag">Kali Linux</span>
+                    <span class="tag">Hackathon</span>
+                </div>
             </div>
-            <div class="glass-card project-card">
-                <h3>V CTF Challenge</h3>
-                <p class="project-desc">Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.</p>
-                <div class="tag-container"><span class="tag">Web Security</span><span class="tag">Exploitation</span></div>
+
+            <!-- MilliSec CTF -->
+            <div class="glass-card project-card reveal">
+                <h3>THM – MilliSec CTF Challenge</h3>
+                <p class="project-desc">
+                    Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">CTF</span>
+                    <span class="tag">Penetration Testing</span>
+                    <span class="tag">TryHackMe</span>
+                </div>
             </div>
-            <div class="glass-card project-card">
-                <h3>MilliSec 1.0 CTF</h3>
-                <p class="project-desc">Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.</p>
-                <div class="tag-container"><span class="tag">Vulnerability Assessment</span></div>
+
+            <!-- ModSecurity WAF -->
+            <div class="glass-card project-card reveal">
+                <h3>ModSecurity WAF + Docker Security Stack</h3>
+                <p class="project-desc">
+                    ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">Docker</span>
+                    <span class="tag">WAF</span>
+                    <span class="tag">Security</span>
+                </div>
+            </div>
+
+            <!-- V CTF Challenge -->
+            <div class="glass-card project-card reveal">
+                <h3>THM – V CTF Challenge</h3>
+                <p class="project-desc">
+                    Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">Web Security</span>
+                    <span class="tag">Exploitation</span>
+                    <span class="tag">TryHackMe</span>
+                </div>
+            </div>
+
+            <!-- MilliSec 1.0 CTF -->
+            <div class="glass-card project-card reveal">
+                <h3>THM – MilliSec 1.0 CTF Challenge</h3>
+                <p class="project-desc">
+                    Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.
+                </p>
+                <div class="project-tech">
+                    <span class="tag">Vulnerability Assessment</span>
+                    <span class="tag">CTF</span>
+                    <span class="tag">Security Testing</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="contact-footer">
-        <div style="font-size: 0.8rem; color: #555;">
-            &copy; 2025 Ruslan Əmrahov. All Rights Reserved.
+    <!-- Footer -->
+    <footer class="contact-footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">RUSLAN ƏMRAHOV</div>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">
+                Cybersecurity Professional | Red Teamer | Penetration Tester
+            </p>
+            
+            <div class="hero-socials">
+                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-icon-btn" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/ruslanemrahov" target="_blank" class="social-icon-btn" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-icon-btn" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Ruslan Əmrahov. Bütün hüquqlar qorunur.
+            </div>
         </div>
     </footer>
 
     <script>
-        // Background Music
+        // Background Music Control
         const bgMusic = document.getElementById('bgMusic');
         const musicPlayer = document.getElementById('musicPlayer');
         const musicStatus = document.getElementById('musicStatus');
         
         let isPlaying = false;
         
-        // Auto-play when page loads
+        // Auto-play with user interaction fallback
         window.addEventListener('load', () => {
-            bgMusic.volume = 0.15; // 15% səs həcmi
+            bgMusic.volume = 0.12; // Set volume to 12%
             
-            bgMusic.play().then(() => {
-                isPlaying = true;
-                musicStatus.textContent = 'MUSIC';
-            }).catch(() => {
-                // Auto-play blok edilibsə, ilk interaction-da başlasın
-                const startMusic = () => {
-                    bgMusic.play().then(() => {
-                        isPlaying = true;
-                        musicStatus.textContent = 'MUSIC';
-                    });
-                    document.removeEventListener('click', startMusic);
-                    document.removeEventListener('scroll', startMusic);
-                    document.removeEventListener('keydown', startMusic);
-                };
-                document.addEventListener('click', startMusic, { once: true });
-                document.addEventListener('scroll', startMusic, { once: true });
-                document.addEventListener('keydown', startMusic, { once: true });
-            });
+            // Try auto-play
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    musicStatus.textContent = 'MUSIC PLAYING';
+                }).catch(() => {
+                    // Auto-play blocked, wait for user interaction
+                    setupUserInteraction();
+                });
+            }
         });
         
-        // Click player to toggle play/pause
-        musicPlayer.addEventListener('click', () => {
+        function setupUserInteraction() {
+            const startMusic = () => {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicStatus.textContent = 'MUSIC PLAYING';
+                    musicPlayer.classList.remove('paused');
+                });
+                
+                // Remove listeners after first interaction
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('scroll', startMusic);
+                document.removeEventListener('keydown', startMusic);
+            };
+            
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('scroll', startMusic, { once: true });
+            document.addEventListener('keydown', startMusic, { once: true });
+        }
+        
+        // Toggle play/pause on music player click
+        musicPlayer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
             if (isPlaying) {
                 bgMusic.pause();
-                musicStatus.textContent = 'SYSTEM PAUSED';
+                musicStatus.textContent = 'MUSIC PAUSED';
                 musicPlayer.classList.add('paused');
             } else {
                 bgMusic.play();
-                musicStatus.textContent = 'MUSIC';
+                musicStatus.textContent = 'MUSIC PLAYING';
                 musicPlayer.classList.remove('paused');
             }
             isPlaying = !isPlaying;
         });
 
-        // Mouse Cursor Logic
+        // Custom Cursor
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
         
         document.addEventListener('mousemove', (e) => {
+            // Update cursor dot position
             cursorDot.style.left = e.clientX + 'px';
             cursorDot.style.top = e.clientY + 'px';
+            
+            // Animate main cursor with smoother transition
             cursor.animate({
                 left: e.clientX + 'px',
                 top: e.clientY + 'px'
-            }, { duration: 500, fill: "forwards" });
+            }, { duration: 600, fill: "forwards", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" });
         });
 
-        // Scroll Animation Logic
+        // Interactive cursor effects
+        document.querySelectorAll('a, button, .social-icon-btn, .music-player').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.borderColor = 'rgba(0, 240, 255, 0.6)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.style.width = '22px';
+                cursor.style.height = '22px';
+                cursor.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    
+                    // Add delay for staggered animations
+                    if (entry.target.classList.contains('reveal')) {
+                        const delay = entry.target.getAttribute('data-delay') || 0;
+                        entry.target.style.transitionDelay = `${delay}ms`;
+                    }
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach((el) => {
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal').forEach((el, index) => {
+            el.setAttribute('data-delay', (index % 5) * 100);
             observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('mainNav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navbarHeight = navbar.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navbarHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            // Add fade-in animation to body
+            document.body.classList.add('fade-in');
+            
+            // Set current year in footer
+            const yearElement = document.querySelector('.copyright');
+            if (yearElement) {
+                const currentYear = new Date().getFullYear();
+                yearElement.innerHTML = yearElement.innerHTML.replace('2025', currentYear);
+            }
         });
     </script>
 </body>
