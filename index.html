@@ -1,1919 +1,393 @@
-<!DOCTYPE html>
-<html lang="az">
+<!doctype html>
+<html lang=az>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruslan Əmrahov | Cybersecurity Analyst & Red Teamer</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <style>
-        /* ====== DƏYİŞƏNLƏR ====== */
-        :root {
-            /* Rəng Palitrası */
-            --bg-dark: #0a0a0f;
-            --bg-darker: #050508;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-card: rgba(15, 15, 25, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary-glow: #7000ff;
-            --secondary-glow: #00f0ff;
-            --accent-purple: #9d4edd;
-            --accent-cyan: #00ccff;
-            
-            /* Mətn Rəngləri */
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --text-secondary: #cccccc;
-            --text-light: #e0e0e0;
-            
-            /* Fontlar */
-            --font-main: 'Outfit', sans-serif;
-            --font-display: 'Space Grotesk', sans-serif;
-            
-            /* Ölçülər */
-            --border-radius: 16px;
-            --border-radius-lg: 24px;
-            --container-padding: 5%;
-        }
-
-        /* ====== RESET & BASIC STYLES ====== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Telefonlarda kursoru gizlət */
-        @media (hover: hover) and (pointer: fine) {
-            * {
-                cursor: none !important;
-            }
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-
-        body {
-            background-color: var(--bg-darker);
-            color: var(--text-main);
-            font-family: var(--font-main);
-            overflow-x: hidden;
-            line-height: 1.7;
-            font-weight: 300;
-            transition: opacity 0.3s ease;
-        }
-
-        body.fade-out {
-            opacity: 0.7;
-        }
-
-        ::selection {
-            background: rgba(112, 0, 255, 0.3);
-            color: white;
-        }
-
-        /* ====== LANGUAGE SWITCHER ====== */
-        .language-switcher {
-            position: fixed;
-            top: 90px;
-            right: var(--container-padding);
-            z-index: 1001;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: rgba(10, 10, 15, 0.9);
-            backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            min-width: 60px;
-        }
-
-        .lang-btn {
-            padding: 10px 15px;
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
-            font-family: var(--font-main);
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 45px;
-        }
-
-        .lang-btn.active {
-            background: rgba(112, 0, 255, 0.25);
-            color: var(--primary-glow);
-            border: 1px solid rgba(112, 0, 255, 0.4);
-            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.2);
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: white;
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-        }
-
-        /* ====== CUSTOM CURSOR (Yalnız desktop) ====== */
-        @media (hover: hover) and (pointer: fine) {
-            .cursor {
-                width: 22px;
-                height: 22px;
-                border: 1.5px solid rgba(255, 255, 255, 0.6);
-                border-radius: 50%;
-                position: fixed;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: transform 0.15s, width 0.3s, height 0.3s;
-                mix-blend-mode: difference;
-            }
-
-            .cursor-dot {
-                width: 5px;
-                height: 5px;
-                background: var(--secondary-glow);
-                border-radius: 50%;
-                position: fixed;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: transform 0.1s;
-                box-shadow: 0 0 10px var(--secondary-glow);
-            }
-        }
-
-        /* ====== BACKGROUND EFFECTS ====== */
-        .background-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.12), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.12), transparent 40%),
-                radial-gradient(circle at 50% 50%, var(--bg-darker), transparent 100%);
-            animation: pulseBg 15s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulseBg {
-            0% { 
-                opacity: 0.8;
-                transform: scale(1);
-            }
-            100% { 
-                opacity: 1;
-                transform: scale(1.02);
-            }
-        }
-
-        .noise-overlay {
-            position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            pointer-events: none; 
-            z-index: -1; 
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.2;
-        }
-
-        /* ====== NAVIGATION ====== */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px var(--container-padding);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(12px) saturate(180%);
-            background: rgba(10, 10, 15, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            top: 0;
-        }
-
-        nav.scrolled {
-            padding: 15px var(--container-padding);
-            background: rgba(10, 10, 15, 0.9);
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 400;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            padding: 6px 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
-            transition: width 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* ====== HERO SECTION ====== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px var(--container-padding) 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 20px;
-            border-radius: 30px;
-            background: rgba(0, 240, 255, 0.08);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            color: var(--secondary-glow);
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .hero-badge i {
-            font-size: 0.8rem;
-        }
-
-        .hero-badge:hover {
-            background: rgba(0, 240, 255, 0.12);
-            border-color: var(--secondary-glow);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.1);
-        }
-
-        h1 {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 30%, var(--accent-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.05;
-            letter-spacing: -1.5px;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-roles {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--secondary-glow);
-            margin-bottom: 40px;
-            font-weight: 400;
-            letter-spacing: 0.8px;
-            opacity: 0.9;
-        }
-
-        .hero-description {
-            max-width: 700px;
-            margin: 0 auto 50px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        /* ====== SOCIAL LINKS ====== */
-        .hero-socials {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .social-icon-btn {
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-secondary);
-            font-size: 1.4rem;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-icon-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-            opacity: 0.1;
-            filter: blur(10px);
-        }
-
-        .social-icon-btn:hover {
-            color: white;
-            transform: translateY(-8px) scale(1.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
-        }
-
-        .social-icon-btn:hover::before {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ====== GENERAL SECTIONS ====== */
-        section {
-            padding: 100px var(--container-padding);
-            position: relative;
-        }
-
-        section:nth-child(even) {
-            background: rgba(5, 5, 10, 0.5);
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        /* ====== GLASS CARDS ====== */
-        .glass-card {
-            background: var(--glass-card);
-            backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-lg);
-            padding: 35px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-8px);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
-        }
-
-        /* ====== ABOUT SECTION ====== */
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .about-text {
-            color: var(--text-light);
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 0;
-        }
-
-        .highlight {
-            color: white;
-            font-weight: 500;
-            background: linear-gradient(90deg, transparent, rgba(112, 0, 255, 0.1), transparent);
-            padding: 0 5px;
-            border-radius: 4px;
-        }
-
-        /* ====== EXPERIENCE TIMELINE ====== */
-        .timeline {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary-glow), var(--secondary-glow));
-            opacity: 0.3;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 80px;
-            margin-bottom: 60px;
-        }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 22px;
-            top: 0;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--secondary-glow);
-            border: 3px solid var(--bg-darker);
-            box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.3);
-            z-index: 2;
-        }
-
-        .timeline-content {
-            background: var(--glass-card);
-            backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .timeline-date {
-            display: inline-block;
-            padding: 6px 15px;
-            background: rgba(0, 240, 255, 0.1);
-            border-radius: 20px;
-            color: var(--secondary-glow);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 15px;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-        }
-
-        .timeline-company {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .timeline-role {
-            color: var(--secondary-glow);
-            font-size: 1.05rem;
-            font-weight: 500;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .timeline-details ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .timeline-details li {
-            position: relative;
-            padding-left: 24px;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .timeline-details li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--primary-glow);
-            font-size: 1.2rem;
-        }
-
-        /* ====== EDUCATION TIMELINE ====== */
-        .education-timeline {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .edu-timeline-item {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 40px;
-        }
-
-        .edu-timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .edu-icon {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(112, 0, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-glow);
-            font-size: 1.2rem;
-            border: 2px solid rgba(112, 0, 255, 0.3);
-        }
-
-        .edu-content {
-            background: var(--glass-card);
-            backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .edu-content:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
-        }
-
-        .edu-title {
-            font-weight: 600;
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .edu-place {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .edu-duration {
-            color: var(--secondary-glow);
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: inline-block;
-            background: rgba(0, 240, 255, 0.08);
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-
-        /* ====== CERTIFICATIONS MILESTONE ====== */
-        .certifications-milestone {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .cert-card {
-            background: var(--glass-card);
-            backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cert-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .cert-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(0, 240, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary-glow);
-            font-size: 1.2rem;
-        }
-
-        .cert-title {
-            font-weight: 600;
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            padding-right: 50px;
-        }
-
-        .cert-issuer {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .cert-verify {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(112, 0, 255, 0.1);
-            border-radius: 8px;
-            color: var(--primary-glow);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(112, 0, 255, 0.2);
-        }
-
-        .cert-verify:hover {
-            background: rgba(112, 0, 255, 0.2);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* ====== SKILLS SECTION ====== */
-        .skills-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .skill-category {
-            margin-bottom: 0;
-        }
-
-        .skill-category h3 {
-            font-size: 1.3rem;
-            color: white;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--glass-border);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .skill-category h3 i {
-            color: var(--secondary-glow);
-            font-size: 1.1rem;
-        }
-
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            font-size: 0.85rem;
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            font-weight: 400;
-            line-height: 1.4;
-            word-break: break-word;
-            max-width: 100%;
-        }
-
-        .tag:hover {
-            background: rgba(112, 0, 255, 0.15);
-            border-color: var(--primary-glow);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.1);
-        }
-
-        /* ====== PROJECTS SECTION ====== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .project-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card h3 {
-            color: var(--secondary-glow);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .project-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            flex-grow: 1;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        /* ====== CONTACT FOOTER ====== */
-        .contact-footer {
-            text-align: center;
-            padding: 60px var(--container-padding) 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-logo {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 30px;
-        }
-
-        /* ====== MUSIC PLAYER ====== */
-        .music-player {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(15px) saturate(180%);
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .music-player:hover {
-            transform: translateY(-5px) scale(1.05);
-            border-color: var(--secondary-glow);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.1);
-        }
-
-        .equalizer {
-            display: flex;
-            gap: 4px;
-            align-items: flex-end;
-            height: 20px;
-        }
-
-        .bar {
-            width: 4px;
-            background: var(--secondary-glow);
-            animation: eq 1.2s infinite ease-in-out;
-            border-radius: 2px;
-        }
-
-        .bar:nth-child(1) { animation-delay: 0s; height: 40%; }
-        .bar:nth-child(2) { animation-delay: 0.2s; height: 70%; }
-        .bar:nth-child(3) { animation-delay: 0.4s; height: 30%; }
-        .bar:nth-child(4) { animation-delay: 0.6s; height: 60%; }
-        .bar:nth-child(5) { animation-delay: 0.8s; height: 50%; }
-
-        @keyframes eq {
-            0%, 100% { height: 30%; }
-            50% { height: 80%; }
-        }
-
-        .music-player.paused .bar {
-            animation-play-state: paused;
-            opacity: 0.5;
-        }
-
-        #musicStatus {
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #ddd;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .music-player:hover #musicStatus {
-            color: var(--secondary-glow);
-        }
-
-        /* ====== ANIMATIONS ====== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* ====== RESPONSIVE DESIGN ====== */
-        @media (max-width: 1024px) {
-            :root {
-                --container-padding: 5%;
-            }
-            
-            section {
-                padding: 80px var(--container-padding);
-            }
-            
-            .timeline::before {
-                left: 20px;
-            }
-            
-            .timeline-item {
-                padding-left: 60px;
-            }
-            
-            .timeline-dot {
-                left: 12px;
-            }
-            
-            .language-switcher {
-                top: 80px;
-                right: 20px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero {
-                padding: 100px var(--container-padding) 60px;
-            }
-            
-            h1 {
-                font-size: clamp(2.5rem, 7vw, 4rem);
-            }
-            
-            .hero-socials {
-                gap: 20px;
-            }
-            
-            .social-icon-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-            
-            .section-title {
-                font-size: clamp(1.8rem, 4vw, 2.5rem);
-            }
-            
-            .glass-card {
-                padding: 25px;
-            }
-            
-            .timeline::before {
-                left: 15px;
-            }
-            
-            .timeline-item {
-                padding-left: 45px;
-            }
-            
-            .timeline-dot {
-                left: 7px;
-                width: 16px;
-                height: 16px;
-            }
-            
-            .certifications-milestone {
-                grid-template-columns: 1fr;
-            }
-            
-            .music-player {
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 20px;
-                width: max-content;
-            }
-            
-            .music-player:hover {
-                transform: translateX(-50%) translateY(-5px) scale(1.05);
-            }
-            
-            .language-switcher {
-                top: 70px;
-                right: 15px;
-                flex-direction: row;
-                min-width: auto;
-            }
-            
-            .lang-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-                min-width: 40px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            :root {
-                --container-padding: 20px;
-            }
-            
-            .hero-socials {
-                gap: 15px;
-            }
-            
-            .social-icon-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline-content {
-                padding: 20px;
-            }
-            
-            .edu-content {
-                padding: 20px;
-            }
-            
-            .language-switcher {
-                top: 65px;
-                right: 10px;
-                padding: 6px;
-            }
-            
-            .lang-btn {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-                min-width: 35px;
-            }
-            
-            .tag {
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .language-switcher {
-                flex-direction: column;
-            }
-        }
-
-        /* ====== UTILITY CLASSES ====== */
-        .text-gradient {
-            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gradient-border {
-            position: relative;
-            border-radius: var(--border-radius-lg);
-        }
-
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
-            border-radius: var(--border-radius-lg);
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(112, 0, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(112, 0, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(112, 0, 255, 0); }
-        }
-
-        /* ====== LANGUAGE SPECIFIC STYLES ====== */
-        [lang="en"] .az-only,
-        [lang="az"] .en-only {
-            display: none;
-        }
-    </style>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Ruslan Əmrahov | Cybersecurity Analyst & Red Teamer</title>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel=stylesheet>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css>
+<style>:root{--bg-dark:#0a0a0f;--bg-darker:#050508;--glass-bg:rgba(255, 255, 255, 0.03);--glass-card:rgba(15, 15, 25, 0.7);--glass-border:rgba(255, 255, 255, 0.08);--primary-glow:#7000ff;--secondary-glow:#00f0ff;--accent-purple:#9d4edd;--accent-cyan:#00ccff;--text-main:#ffffff;--text-muted:#a1a1aa;--text-secondary:#cccccc;--text-light:#e0e0e0;--font-main:'Outfit',sans-serif;--font-display:'Space Grotesk',sans-serif;--border-radius:16px;--border-radius-lg:24px;--container-padding:5%}*{margin:0;padding:0;box-sizing:border-box}@media (hover:hover) and (pointer:fine){*{cursor:none!important}}html{scroll-behavior:smooth;scroll-padding-top:80px}body{background-color:var(--bg-darker);color:var(--text-main);font-family:var(--font-main);overflow-x:hidden;line-height:1.7;font-weight:300;transition:opacity .3s ease}body.fade-out{opacity:.7}::selection{background:rgba(112,0,255,.3);color:#fff}.language-switcher{position:fixed;top:90px;right:var(--container-padding);z-index:1001;display:flex;flex-direction:column;gap:8px;background:rgba(10,10,15,.9);backdrop-filter:blur(15px) saturate(180%);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:8px;box-shadow:0 8px 25px rgba(0,0,0,.3);min-width:60px}.lang-btn{padding:10px 15px;border:none;background:0 0;color:var(--text-muted);font-family:var(--font-main);font-size:.9rem;font-weight:600;border-radius:12px;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;min-width:45px}.lang-btn.active{background:rgba(112,0,255,.25);color:var(--primary-glow);border:1px solid rgba(112,0,255,.4);box-shadow:0 4px 15px rgba(112,0,255,.2)}.lang-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px)}@media (hover:hover) and (pointer:fine){.cursor{width:22px;height:22px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,width .3s,height .3s;mix-blend-mode:difference}.cursor-dot{width:5px;height:5px;background:var(--secondary-glow);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;box-shadow:0 0 10px var(--secondary-glow)}}.background-gradient{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;background:radial-gradient(circle at 10% 20%,rgba(112,0,255,.12),transparent 40%),radial-gradient(circle at 90% 80%,rgba(0,240,255,.12),transparent 40%),radial-gradient(circle at 50% 50%,var(--bg-darker),transparent 100%);animation:pulseBg 15s ease-in-out infinite alternate}@keyframes pulseBg{0%{opacity:.8;transform:scale(1)}100%{opacity:1;transform:scale(1.02)}}.noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")}.grid-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:-1;opacity:.2}nav{display:flex;justify-content:space-between;align-items:center;padding:20px var(--container-padding);position:fixed;width:100%;z-index:1000;backdrop-filter:blur(12px) saturate(180%);background:rgba(10,10,15,.7);border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s ease;top:0}nav.scrolled{padding:15px var(--container-padding);background:rgba(10,10,15,.9);border-bottom-color:rgba(255,255,255,.1)}.logo{font-family:var(--font-display);font-weight:700;font-size:1.5rem;background:linear-gradient(135deg,#fff 0,var(--accent-cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}.nav-links{display:flex;gap:32px;align-items:center}.nav-links a{text-decoration:none;color:var(--text-muted);font-size:.95rem;font-weight:400;transition:all .3s cubic-bezier(.4, 0, .2, 1);position:relative;padding:6px 0}.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--primary-glow),var(--secondary-glow));transition:width .3s ease;border-radius:2px}.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px var(--container-padding) 80px;position:relative;overflow:hidden}.hero-content{max-width:900px;position:relative;z-index:2}.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:30px;background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.2);color:var(--secondary-glow);font-size:.85rem;font-weight:500;letter-spacing:1px;margin-bottom:30px;backdrop-filter:blur(10px);transition:all .3s}.hero-badge i{font-size:.8rem}.hero-badge:hover{background:rgba(0,240,255,.12);border-color:var(--secondary-glow);transform:translateY(-2px);box-shadow:0 5px 20px rgba(0,240,255,.1)}h1{font-family:var(--font-display);font-size:clamp(3rem, 8vw, 5.5rem);font-weight:700;margin-bottom:20px;background:linear-gradient(135deg,#fff 0,var(--accent-cyan) 30%,var(--accent-purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.05;letter-spacing:-1.5px}.hero-subtitle{font-size:clamp(1.2rem, 3vw, 1.8rem);color:var(--text-secondary);margin-bottom:15px;font-weight:300;letter-spacing:.5px}.hero-roles{font-size:clamp(1rem, 2.5vw, 1.3rem);color:var(--secondary-glow);margin-bottom:40px;font-weight:400;letter-spacing:.8px;opacity:.9}.hero-description{max-width:700px;margin:0 auto 50px;color:var(--text-secondary);font-size:1.1rem;line-height:1.8;font-weight:300}.hero-socials{display:flex;gap:25px;margin-top:30px;justify-content:center;align-items:center;flex-wrap:wrap}.social-icon-btn{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--text-secondary);font-size:1.4rem;transition:all .3s cubic-bezier(.175, .885, .32, 1.275);text-decoration:none;position:relative;overflow:hidden}.social-icon-btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.2);transform:translate(-50%,-50%);transition:width .4s,height .4s;opacity:.1;filter:blur(10px)}.social-icon-btn:hover{color:#fff;transform:translateY(-8px) scale(1.1);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.1);box-shadow:0 10px 25px rgba(255,255,255,.15)}.social-icon-btn:hover::before{width:100%;height:100%}section{padding:100px var(--container-padding);position:relative}section:nth-child(2n){background:rgba(5,5,10,.5)}.section-header{margin-bottom:60px;text-align:center}.section-title{font-family:var(--font-display);font-size:clamp(2rem, 5vw, 3rem);font-weight:700;margin-bottom:15px;background:linear-gradient(90deg,#fff,var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;position:relative}.section-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:3px;background:linear-gradient(90deg,var(--primary-glow),var(--secondary-glow));border-radius:2px}.section-subtitle{color:var(--text-muted);font-size:1.1rem;max-width:600px;margin:0 auto;font-weight:300}.glass-card{background:var(--glass-card);backdrop-filter:blur(15px) saturate(180%);border:1px solid var(--glass-border);border-radius:var(--border-radius-lg);padding:35px;transition:all .4s cubic-bezier(.4, 0, .2, 1);position:relative;overflow:hidden}.glass-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);transition:left .7s ease}.glass-card:hover::before{left:100%}.glass-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-8px);box-shadow:0 15px 35px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.05)}.about-content{max-width:900px;margin:0 auto}.about-text{color:var(--text-light);font-size:1.15rem;line-height:1.8;margin-bottom:0}.highlight{color:#fff;font-weight:500;background:linear-gradient(90deg,transparent,rgba(112,0,255,.1),transparent);padding:0 5px;border-radius:4px}.timeline{max-width:1000px;margin:0 auto;position:relative}.timeline::before{content:'';position:absolute;left:30px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary-glow),var(--secondary-glow));opacity:.3}.timeline-item{position:relative;padding-left:80px;margin-bottom:60px}.timeline-item:last-child{margin-bottom:0}.timeline-dot{position:absolute;left:22px;top:0;width:18px;height:18px;border-radius:50%;background:var(--secondary-glow);border:3px solid var(--bg-darker);box-shadow:0 0 0 4px rgba(0,240,255,.3);z-index:2}.timeline-content{background:var(--glass-card);backdrop-filter:blur(15px) saturate(180%);border:1px solid var(--glass-border);border-radius:var(--border-radius);padding:30px;transition:all .3s ease}.timeline-content:hover{border-color:rgba(255,255,255,.15);transform:translateX(10px);box-shadow:0 10px 30px rgba(0,0,0,.3)}.timeline-date{display:inline-block;padding:6px 15px;background:rgba(0,240,255,.1);border-radius:20px;color:var(--secondary-glow);font-size:.9rem;font-weight:500;margin-bottom:15px;border:1px solid rgba(0,240,255,.2)}.timeline-company{font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:5px}.timeline-role{color:var(--secondary-glow);font-size:1.05rem;font-weight:500;margin-bottom:15px;display:block}.timeline-details ul{list-style:none;padding-left:0}.timeline-details li{position:relative;padding-left:24px;margin-bottom:10px;font-size:1rem;color:var(--text-secondary);line-height:1.7}.timeline-details li::before{content:'▹';position:absolute;left:0;color:var(--primary-glow);font-size:1.2rem}.education-timeline{max-width:800px;margin:0 auto}.edu-timeline-item{position:relative;padding-left:60px;margin-bottom:40px}.edu-timeline-item:last-child{margin-bottom:0}.edu-icon{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:rgba(112,0,255,.1);display:flex;align-items:center;justify-content:center;color:var(--primary-glow);font-size:1.2rem;border:2px solid rgba(112,0,255,.3)}.edu-content{background:var(--glass-card);backdrop-filter:blur(15px) saturate(180%);border:1px solid var(--glass-border);border-radius:var(--border-radius);padding:25px;transition:all .3s ease}.edu-content:hover{border-color:rgba(255,255,255,.15);transform:translateX(5px)}.edu-title{font-weight:600;color:#fff;font-size:1.1rem;margin-bottom:5px}.edu-place{color:var(--text-muted);font-size:.95rem;margin-bottom:10px;display:block}.edu-duration{color:var(--secondary-glow);font-size:.85rem;font-weight:500;display:inline-block;background:rgba(0,240,255,.08);padding:4px 10px;border-radius:12px}.certifications-milestone{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:25px;max-width:1000px;margin:0 auto}.cert-card{background:var(--glass-card);backdrop-filter:blur(15px) saturate(180%);border:1px solid var(--glass-border);border-radius:var(--border-radius);padding:25px;transition:all .3s ease;position:relative;overflow:hidden}.cert-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.3)}.cert-badge{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(0,240,255,.1);display:flex;align-items:center;justify-content:center;color:var(--secondary-glow);font-size:1.2rem}.cert-title{font-weight:600;color:#fff;font-size:1.1rem;margin-bottom:5px;padding-right:50px}.cert-issuer{color:var(--text-muted);font-size:.9rem;margin-bottom:15px;display:block}.cert-verify{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(112,0,255,.1);border-radius:8px;color:var(--primary-glow);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .3s ease;border:1px solid rgba(112,0,255,.2)}.cert-verify:hover{background:rgba(112,0,255,.2);color:#fff;transform:translateY(-2px)}.skills-container{max-width:1200px;margin:0 auto}.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px}.skill-category{margin-bottom:0}.skill-category h3{font-size:1.3rem;color:#fff;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--glass-border);font-weight:600;display:flex;align-items:center;gap:10px}.skill-category h3 i{color:var(--secondary-glow);font-size:1.1rem}.tag-container{display:flex;flex-wrap:wrap;gap:8px}.tag{font-size:.85rem;padding:6px 12px;background:rgba(255,255,255,.04);border:1px solid var(--glass-border);border-radius:8px;color:var(--text-secondary);transition:all .3s ease;font-weight:400;line-height:1.4;word-break:break-word;max-width:100%}.tag:hover{background:rgba(112,0,255,.15);border-color:var(--primary-glow);color:#fff;transform:translateY(-2px);box-shadow:0 5px 15px rgba(112,0,255,.1)}.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px;max-width:1200px;margin:0 auto}.project-card{height:100%;display:flex;flex-direction:column}.project-card h3{color:var(--secondary-glow);margin-bottom:15px;font-size:1.3rem;font-weight:600}.project-desc{font-size:.95rem;color:var(--text-secondary);margin-bottom:20px;flex-grow:1;line-height:1.6}.project-tech{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.contact-footer{text-align:center;padding:60px var(--container-padding) 40px;border-top:1px solid rgba(255,255,255,.05);background:linear-gradient(to top,rgba(0,0,0,.8),transparent);position:relative;overflow:hidden}.footer-content{max-width:600px;margin:0 auto;position:relative;z-index:2}.footer-logo{font-family:var(--font-display);font-weight:700;font-size:1.8rem;background:linear-gradient(135deg,#fff 0,var(--accent-cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;display:inline-block}.copyright{font-size:.9rem;color:var(--text-muted);margin-top:30px}.music-player{position:fixed;bottom:30px;left:30px;z-index:1000;display:flex;align-items:center;gap:15px;background:rgba(10,10,15,.8);backdrop-filter:blur(15px) saturate(180%);padding:12px 24px;border-radius:50px;border:1px solid rgba(255,255,255,.1);transition:all .4s cubic-bezier(.4, 0, .2, 1);cursor:pointer;box-shadow:0 8px 25px rgba(0,0,0,.3)}.music-player:hover{transform:translateY(-5px) scale(1.05);border-color:var(--secondary-glow);box-shadow:0 15px 35px rgba(0,0,0,.4),0 0 20px rgba(0,240,255,.1)}.equalizer{display:flex;gap:4px;align-items:flex-end;height:20px}.bar{width:4px;background:var(--secondary-glow);animation:eq 1.2s infinite ease-in-out;border-radius:2px}.bar:first-child{animation-delay:0s;height:40%}.bar:nth-child(2){animation-delay:.2s;height:70%}.bar:nth-child(3){animation-delay:.4s;height:30%}.bar:nth-child(4){animation-delay:.6s;height:60%}.bar:nth-child(5){animation-delay:.8s;height:50%}@keyframes eq{0%,100%{height:30%}50%{height:80%}}.music-player.paused .bar{animation-play-state:paused;opacity:.5}#musicStatus{font-size:.85rem;letter-spacing:1px;color:#ddd;font-weight:500;transition:color .3s}.music-player:hover #musicStatus{color:var(--secondary-glow)}.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.4, 0, .2, 1)}.reveal.active{opacity:1;transform:translateY(0)}.fade-in{opacity:0;animation:fadeIn 1s ease forwards}@keyframes fadeIn{to{opacity:1}}@media (max-width:1024px){:root{--container-padding:5%}section{padding:80px var(--container-padding)}.timeline::before{left:20px}.timeline-item{padding-left:60px}.timeline-dot{left:12px}.language-switcher{top:80px;right:20px}.skills-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}@media (max-width:768px){.nav-links{display:none}.hero{padding:100px var(--container-padding) 60px}h1{font-size:clamp(2.5rem, 7vw, 4rem)}.hero-socials{gap:20px}.social-icon-btn{width:50px;height:50px;font-size:1.3rem}.section-title{font-size:clamp(1.8rem, 4vw, 2.5rem)}.glass-card{padding:25px}.timeline::before{left:15px}.timeline-item{padding-left:45px}.timeline-dot{left:7px;width:16px;height:16px}.certifications-milestone{grid-template-columns:1fr}.music-player{left:50%;transform:translateX(-50%);bottom:20px;width:max-content}.music-player:hover{transform:translateX(-50%) translateY(-5px) scale(1.05)}.language-switcher{top:70px;right:15px;flex-direction:row;min-width:auto}.lang-btn{padding:8px 12px;font-size:.85rem;min-width:40px}.skills-grid{grid-template-columns:1fr}}@media (max-width:480px){:root{--container-padding:20px}.hero-socials{gap:15px}.social-icon-btn{width:45px;height:45px;font-size:1.2rem}.projects-grid{grid-template-columns:1fr}.timeline-content{padding:20px}.edu-content{padding:20px}.language-switcher{top:65px;right:10px;padding:6px}.lang-btn{padding:6px 10px;font-size:.8rem;min-width:35px}.tag{font-size:.8rem;padding:5px 10px}}@media (max-width:360px){.language-switcher{flex-direction:column}}.text-gradient{background:linear-gradient(90deg,var(--primary-glow),var(--secondary-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.gradient-border{position:relative;border-radius:var(--border-radius-lg)}.gradient-border::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;background:linear-gradient(45deg,var(--primary-glow),var(--secondary-glow));border-radius:var(--border-radius-lg);z-index:-1;opacity:.3}.pulse{animation:pulse 2s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(112,0,255,.4)}70%{box-shadow:0 0 0 10px rgba(112,0,255,0)}100%{box-shadow:0 0 0 0 rgba(112,0,255,0)}}[lang=az] .en-only,[lang=en] .az-only{display:none}</style>
 </head>
-<body lang="az">
-    <!-- Background Effects -->
-    <div class="background-gradient"></div>
-    <div class="noise-overlay"></div>
-    <div class="grid-overlay"></div>
-    
-    <!-- Custom Cursor (Yalnız desktop) -->
-    <div class="cursor"></div>
-    <div class="cursor-dot"></div>
-
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <button class="lang-btn active" data-lang="az">AZ</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-    </div>
-
-    <!-- Music Player -->
-    <div class="music-player" id="musicPlayer">
-        <div class="equalizer">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <span id="musicStatus">MUSIC</span>
-    </div>
-
-    <audio id="bgMusic" loop>
-        <source src="/assets/music.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Navigation -->
-    <nav id="mainNav">
-        <div class="logo">Portfolio</div>
-        <div class="nav-links">
-            <a href="#about" class="nav-link" data-az="Haqqımda" data-en="About">Haqqımda</a>
-            <a href="#experience" class="nav-link" data-az="Təcrübə" data-en="Experience">Təcrübə</a>
-            <a href="#education" class="nav-link" data-az="Təhsil" data-en="Education">Təhsil</a>
-            <a href="#certifications" class="nav-link" data-az="Sertifikatlar" data-en="Certifications">Sertifikatlar</a>
-            <a href="#skills" class="nav-link" data-az="Biliklər" data-en="Skills">Biliklər</a>
-            <a href="#projects" class="nav-link" data-az="Layihələr" data-en="Projects">Layihələr</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content reveal">
-            <div class="hero-badge">
-                <i class="fas fa-shield-alt"></i>
-                <span data-az="Cybersecurity Professional" data-en="Cybersecurity Professional">Cybersecurity Professional</span>
-            </div>
-            
-            <h1>RUSLAN AMRAHOV</h1>
-            <div class="hero-subtitle" data-az="Cybersecurity Analyst | Penetration Tester | Red Teamer" data-en="Cybersecurity Analyst | Penetration Tester | Red Teamer">
-                Cybersecurity Analyst | Penetration Tester | Red Teamer
-            </div>
-            <div class="hero-roles" data-az="Baku, Azerbaijan" data-en="Baku, Azerbaijan">Baku, Azerbaijan</div>
-            
-            <div class="hero-socials">
-                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-icon-btn" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/ruslanemrahov" target="_blank" class="social-icon-btn" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-icon-btn" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="Haqqımda" data-en="About Me">Haqqımda</h2>
-            <p class="section-subtitle" 
-               data-az="Mənim haqqımda daha çox məlumat" 
-               data-en="More information about me">
-                Mənim haqqımda daha çox məlumat
-            </p>
-        </div>
-        
-        <div class="glass-card reveal">
-            <p class="about-text">
-                <span data-az="Kiber təhlükəsizlik üzrə ixtisaslaşmışam və " data-en="I specialize in cybersecurity with ">Kiber təhlükəsizlik üzrə ixtisaslaşmışam və </span>
-                <span class="highlight" data-az="Red Teaming" data-en="Red Teaming">Red Teaming</span>
-                <span data-az=" sahəsində real təcrübəyə sahibəm. " data-en=" hands-on experience. "> sahəsində real təcrübəyə sahibəm. </span>
-                <span class="highlight" data-az="AzInTelecom, MilliSec və Cyber Club ASOIU" data-en="AzInTelecom, MilliSec, and Cyber Club ASOIU">AzInTelecom, MilliSec və Cyber Club ASOIU</span>
-                <span data-az="-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm." 
-                      data-en="-provided me with practical knowledge. By participating in CTF competitions, I've developed both offensive and defensive skills. I have deep knowledge of modern cyber threats and defense methodologies.">
-                    -da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
-                </span>
-            </p>
-            <p class="about-text" style="margin-top: 20px;">
-                <span data-az="Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır."
-                      data-en="My goal is to further deepen my technical expertise and create value as a professional Penetration Tester and Red Teamer.">
-                    Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır.
-                </span>
-            </p>
-        </div>
-    </section>
-
-    <!-- Experience Timeline -->
-    <section id="experience">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="İş Təcrübəsi" data-en="Work Experience">İş Təcrübəsi</h2>
-            <p class="section-subtitle" 
-               data-az="Professional təcrübəmin zaman xətti" 
-               data-en="Timeline of my professional experience">
-                Professional təcrübəmin zaman xətti
-            </p>
-        </div>
-        
-        <div class="timeline">
-            <!-- Cyber Club ASOIU -->
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">08/2025 - <span data-az="Hazırda" data-en="Present">Hazırda</span></div>
-                    <div class="timeline-company">Cyber Club ASOIU</div>
-                    <span class="timeline-role" data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
-                    <div class="timeline-details">
-                        <ul>
-                            <li data-az="Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi" 
-                                data-en="Analyzed user behavior through Phishing Campaigns and Social Engineering Assessments">Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi</li>
-                            <li data-az="OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı" 
-                                data-en="Conducted reconnaissance on target infrastructure using OSINT techniques and mapped attack surface">OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
-                            <li data-az="Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi" 
-                                data-en="Analyzed anomalies in real traffic using Network Sniffing and Packet Analysis">Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
-                            <li data-az="Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi" 
-                                data-en="Prepared Red Team Engagement Reports, documenting findings with risk scoring and CVSS methodologies">Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AzInTelecom -->
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">06/2025 - 08/2025</div>
-                    <div class="timeline-company">AzInTelecom</div>
-                    <span class="timeline-role" data-az="Kiber Təhlükəsizlik Mühəndisi" data-en="Cybersecurity Engineer">Kiber Təhlükəsizlik Mühəndisi</span>
-                    <div class="timeline-details">
-                        <ul>
-                            <li data-az="Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi" 
-                                data-en="Optimized Web Application Firewall (WAF) rules to increase protection against OWASP Top 10 attacks">Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
-                            <li data-az="Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı" 
-                                data-en="Built log collection, parsing, and correlation rules in Elastic Stack (ELK) to automate anomaly detection">Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
-                            <li data-az="CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi" 
-                                data-en="Integrated security tests (SAST, DAST) into CI/CD pipelines for early vulnerability detection in deployment phase">CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
-                            <li data-az="Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi" 
-                                data-en="Configured Nginx Reverse Proxy for secure traffic routing and added security layers">Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi</li>
-                            <li data-az="Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi" 
-                                data-en="Conducted security testing in Docker environments, identifying container vulnerabilities and implementing hardening measures">Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi</li>
-                            <li data-az="Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı" 
-                                data-en="Executed Red Team scenarios for deep exploitation and post-exploitation testing of system vulnerabilities">Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MilliSec -->
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">10/2024 - 04/2025</div>
-                    <div class="timeline-company">MilliSec</div>
-                    <span class="timeline-role" data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
-                    <div class="timeline-details">
-                        <ul>
-                            <li data-az="Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi" 
-                                data-en="Performed Web Application Security Testing, exploiting SQL Injection, XSS, CSRF, Command Injection, and other vulnerabilities">Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
-                            <li data-az="Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi" 
-                                data-en="Applied privilege escalation, lateral movement, and persistence techniques in Linux and Windows Active Directory environments">Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
-                            <li data-az="Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi" 
-                                data-en="Modeled attack scenarios using Cobalt Strike, Metasploit, Burp Suite Pro, and other Red Team tools">Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
-                            <li data-az="MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi" 
-                                data-en="Classified and prioritized vulnerabilities based on the MITRE ATT&CK Framework">MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Timeline -->
-    <section id="education">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="Təhsil" data-en="Education">Təhsil</h2>
-            <p class="section-subtitle" 
-               data-az="Akademik təhsil tarixçəm" 
-               data-en="My academic education history">
-                Akademik təhsil tarixçəm
-            </p>
-        </div>
-        
-        <div class="education-timeline">
-            <div class="edu-timeline-item reveal">
-                <div class="edu-icon">
-                    <i class="fas fa-university"></i>
-                </div>
-                <div class="edu-content">
-                    <div class="edu-title" data-az="Kompüter Mühəndisliyi (Bakalavr)" data-en="Computer Engineering (Bachelor's)">Kompüter Mühəndisliyi (Bakalavr)</div>
-                    <span class="edu-place" data-az="Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)" data-en="Azerbaijan State Oil and Industry University (ASOIU)">Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</span>
-                    <span class="edu-duration">2023 - 2027</span>
-                </div>
-            </div>
-
-            <div class="edu-timeline-item reveal">
-                <div class="edu-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="edu-content">
-                    <div class="edu-title" data-az="Kompüter Mühəndisliyi" data-en="Computer Engineering">Kompüter Mühəndisliyi</div>
-                    <span class="edu-place" data-az="SABAH Qrupları (ASOIU)" data-en="SABAH Groups (ASOIU)">SABAH Qrupları (ASOIU)</span>
-                    <span class="edu-duration">2024 - 2027</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Milestone -->
-    <section id="certifications">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="Sertifikatlar" data-en="Certifications">Sertifikatlar</h2>
-            <p class="section-subtitle" 
-               data-az="Peşəkar nailiyyətlərim" 
-               data-en="My professional achievements">
-                Peşəkar nailiyyətlərim
-            </p>
-        </div>
-        
-        <div class="certifications-milestone">
-            <!-- eWPTXv3 -->
-            <div class="cert-card reveal">
-                <div class="cert-badge">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="cert-title">eWPTXv3 (Web Application Penetration Tester eXtreme)</div>
-                <span class="cert-issuer">INE Security</span>
-                <a href="https://certs.ine.com/c557e25a-307a-40e0-8f44-584c28dcbba0#acc.dwFmZoM5" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
-                </a>
-            </div>
-
-            <!-- CRTA -->
-            <div class="cert-card reveal">
-                <div class="cert-badge">
-                    <i class="fas fa-bug"></i>
-                </div>
-                <div class="cert-title">CRTA (Certified Red Team Analyst)</div>
-                <span class="cert-issuer">CyberWarFare Labs</span>
-                <a href="https://www.credential.net/ed95f58b-9f09-42a3-94c0-c4dc3c207588#acc.jaJsiBfQ" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
-                </a>
-            </div>
-
-            <!-- FCAC -->
-            <div class="cert-card reveal">
-                <div class="cert-badge">
-                    <i class="fas fa-certificate"></i>
-                </div>
-                <div class="cert-title">FCAC (Fortinet Certified Associate Cybersecurity)</div>
-                <span class="cert-issuer">Fortinet</span>
-                <a href="https://www.credly.com/badges/a2172361-a0af-43e6-91a2-d5b4e380f849/linked_in_profile" target="_blank" class="cert-verify">
-                    <i class="fas fa-external-link-alt"></i> <span data-az="Təsdiqlə" data-en="Verify">Təsdiqlə</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="Texniki Bacarıqlar" data-en="Technical Skills">Texniki Bacarıqlar</h2>
-            <p class="section-subtitle" 
-               data-az="Sahə biliklərim və ixtisaslarım" 
-               data-en="My field knowledge and specializations">
-                Sahə biliklərim və ixtisaslarım
-            </p>
-        </div>
-        
-        <div class="skills-container">
-            <div class="skills-grid">
-                <!-- Offensive Security -->
-                <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-bug"></i> <span data-az="Offensive Security" data-en="Offensive Security">Offensive Security</span></h3>
-                    <div class="tag-container">
-                        <span class="tag">Penetration Testing</span>
-                        <span class="tag">Red Teaming</span>
-                        <span class="tag">Web/API Pentesting</span>
-                        <span class="tag">Active Directory Pentest</span>
-                        <span class="tag">Wireless Security</span>
-                        <span class="tag">Social Engineering</span>
-                        <span class="tag">Network Attacks</span>
-                        <span class="tag">Malware Simulation</span>
-                        <span class="tag">C2 Tools (Cobalt Strike)</span>
-                        <span class="tag">Metasploit</span>
-                        <span class="tag">Burp Suite Pro</span>
-                    </div>
-                </div>
-
-                <!-- Defensive & Network -->
-                <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-shield-alt"></i> <span data-az="Defensive Security" data-en="Defensive Security">Defensive Security</span></h3>
-                    <div class="tag-container">
-                        <span class="tag">SOC Operations</span>
-                        <span class="tag">SIEM (Splunk, QRadar)</span>
-                        <span class="tag">EDR/XDR (Bitdefender)</span>
-                        <span class="tag">IDS/IPS (Suricata)</span>
-                        <span class="tag">Network Monitoring</span>
-                        <span class="tag">WAF (Sucuri, ModSecurity)</span>
-                        <span class="tag">Firewall (Fortigate)</span>
-                        <span class="tag">CTI/XTI (SOCRadar)</span>
-                        <span class="tag">Manual Log Analysis</span>
-                        <span class="tag">Cloud Networking (Azure)</span>
-                        <span class="tag">Cisco Routing & Switching</span>
-                    </div>
-                </div>
-
-                <!-- Programming & Tools -->
-                <div class="glass-card skill-category reveal">
-                    <h3><i class="fas fa-code"></i> <span data-az="Programming & Tools" data-en="Programming & Tools">Programming & Tools</span></h3>
-                    <div class="tag-container">
-                        <span class="tag">Python</span>
-                        <span class="tag">SQL</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">Express.js</span>
-                        <span class="tag">Docker</span>
-                        <span class="tag">ELK Stack</span>
-                        <span class="tag">Nginx/Apache</span>
-                        <span class="tag">Windows/Linux Admin</span>
-                        <span class="tag">Active Directory</span>
-                        <span class="tag">SAST (SonarQube)</span>
-                        <span class="tag">DAST (OWASP ZAP)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-az="Layihələr" data-en="Projects">Layihələr</h2>
-            <p class="section-subtitle" 
-               data-az="Həyata keçirdiyim əsas layihələr" 
-               data-en="Main projects I have implemented">
-                Həyata keçirdiyim əsas layihələr
-            </p>
-        </div>
-        
-        <div class="projects-grid">
-            <!-- Space Cybersecurity Research -->
-            <div class="glass-card project-card reveal">
-                <h3>The Advancement of Cybersecurity in Space through AI – IAC 2025</h3>
-                <p class="project-desc" 
-                   data-az="Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi."
-                   data-en="International research project where I am a co-author of an abstract supported by Azercosmos and accepted by the International Astronautical Federation.">
-                    Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi.
-                </p>
-                <div class="project-tech">
-                    <span class="tag">AI</span>
-                    <span class="tag" data-az="Space Security" data-en="Space Security">Space Security</span>
-                    <span class="tag" data-az="Research" data-en="Research">Research</span>
-                </div>
-            </div>
-
-            <!-- CyberCell Hackathon -->
-            <div class="glass-card project-card reveal">
-                <h3>CyberCell Hackathon — "Falcons" Komandası</h3>
-                <p class="project-desc" 
-                   data-az='"Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.'
-                   data-en='CyberCell Hackathon I participated in as a member of the "Falcons" team. Worked as a Red Teamer.'>
-                    "Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.
-                </p>
-                <div class="project-tech">
-                    <span class="tag">Python</span>
-                    <span class="tag">Kali Linux</span>
-                    <span class="tag" data-az="Hackathon" data-en="Hackathon">Hackathon</span>
-                </div>
-            </div>
-
-            <!-- MilliSec CTF -->
-            <div class="glass-card project-card reveal">
-                <h3>THM – MilliSec CTF Challenge</h3>
-                <p class="project-desc" 
-                   data-az="Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması."
-                   data-en="CTF competition where I gained practical experience in real-life cyber attack simulations and defensive operations.">
-                    Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması.
-                </p>
-                <div class="project-tech">
-                    <span class="tag">CTF</span>
-                    <span class="tag" data-az="Penetration Testing" data-en="Penetration Testing">Penetration Testing</span>
-                    <span class="tag">TryHackMe</span>
-                </div>
-            </div>
-
-            <!-- ModSecurity WAF -->
-            <div class="glass-card project-card reveal">
-                <h3>ModSecurity WAF + Docker Security Stack</h3>
-                <p class="project-desc" 
-                   data-az="ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım."
-                   data-en="Developed a WAF system for containerized web applications using ModSecurity, Nginx, and Docker.">
-                    ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım.
-                </p>
-                <div class="project-tech">
-                    <span class="tag">Docker</span>
-                    <span class="tag">WAF</span>
-                    <span class="tag" data-az="Security" data-en="Security">Security</span>
-                </div>
-            </div>
-
-            <!-- V CTF Challenge -->
-            <div class="glass-card project-card reveal">
-                <h3>THM – V CTF Challenge</h3>
-                <p class="project-desc" 
-                   data-az="Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı."
-                   data-en="Solving web and system-based CTF challenges, developing penetration testing skills.">
-                    Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.
-                </p>
-                <div class="project-tech">
-                    <span class="tag" data-az="Web Security" data-en="Web Security">Web Security</span>
-                    <span class="tag" data-az="Exploitation" data-en="Exploitation">Exploitation</span>
-                    <span class="tag">TryHackMe</span>
-                </div>
-            </div>
-
-            <!-- MilliSec 1.0 CTF -->
-            <div class="glass-card project-card reveal">
-                <h3>THM – MilliSec 1.0 CTF Challenge</h3>
-                <p class="project-desc" 
-                   data-az="Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə."
-                   data-en="Project focused on vulnerability discovery and practical application of exploit techniques.">
-                    Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.
-                </p>
-                <div class="project-tech">
-                    <span class="tag" data-az="Vulnerability Assessment" data-en="Vulnerability Assessment">Vulnerability Assessment</span>
-                    <span class="tag">CTF</span>
-                    <span class="tag" data-az="Security Testing" data-en="Security Testing">Security Testing</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="contact-footer" id="contact">
-        <div class="footer-content">
-            <div class="footer-logo">RUSLAN ƏMRAHOV</div>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">
-                <span data-az="Cybersecurity Professional | Red Teamer | Penetration Tester" 
-                      data-en="Cybersecurity Professional | Red Teamer | Penetration Tester">
-                    Cybersecurity Professional | Red Teamer | Penetration Tester
-                </span>
-            </p>
-            
-            <div class="hero-socials">
-                <a href="mailto:ruslanemrahov001@gmail.com" class="social-icon-btn" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://linkedin.com/in/amrahov" target="_blank" class="social-icon-btn" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/ruslanemrahov" target="_blank" class="social-icon-btn" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q" target="_blank" class="social-icon-btn" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-            
-            <div class="copyright">
-                &copy; 2025 Ruslan Əmrahov. <span data-az="Bütün hüquqlar qorunur." data-en="All rights reserved.">Bütün hüquqlar qorunur.</span>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // ====== LANGUAGE MANAGEMENT ======
-        let currentLang = 'az';
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const elementsToTranslate = document.querySelectorAll('[data-az], [data-en]');
-
-        // Initialize language
-        function initLanguage() {
-            const savedLang = localStorage.getItem('preferredLang') || 'az';
-            setLanguage(savedLang);
-        }
-
-        // Set language function
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            // Add fade-out effect
-            document.body.classList.add('fade-out');
-            
-            // Update language buttons
-            langButtons.forEach(btn => {
-                if (btn.dataset.lang === lang) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Update document language attribute
-            document.documentElement.lang = lang;
-            
-            // Update all translatable elements
-            setTimeout(() => {
-                elementsToTranslate.forEach(element => {
-                    if (element.dataset[lang]) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.value = element.dataset[lang];
-                        } else if (element.hasAttribute('placeholder')) {
-                            element.placeholder = element.dataset[lang];
-                        } else {
-                            element.textContent = element.dataset[lang];
-                        }
-                    }
-                });
-                
-                // Remove fade-out effect
-                document.body.classList.remove('fade-out');
-                
-                // Save preference
-                localStorage.setItem('preferredLang', lang);
-                
-                // Update music status
-                updateMusicStatus();
-            }, 300);
-        }
-
-        // Language button click events
-        langButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const lang = button.dataset.lang;
-                if (lang !== currentLang) {
-                    setLanguage(lang);
-                }
-            });
-        });
-
-        // ====== BACKGROUND MUSIC CONTROL ======
-        const bgMusic = document.getElementById('bgMusic');
-        const musicPlayer = document.getElementById('musicPlayer');
-        const musicStatus = document.getElementById('musicStatus');
-        
-        let isPlaying = false;
-        
-        // Auto-play with user interaction fallback
-        window.addEventListener('load', () => {
-            bgMusic.volume = 0.12;
-            
-            const playPromise = bgMusic.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    isPlaying = true;
-                    updateMusicStatus();
-                }).catch(() => {
-                    setupUserInteraction();
-                });
-            }
-        });
-        
-        function setupUserInteraction() {
-            const startMusic = () => {
-                bgMusic.play().then(() => {
-                    isPlaying = true;
-                    updateMusicStatus();
-                    musicPlayer.classList.remove('paused');
-                });
-                
-                document.removeEventListener('click', startMusic);
-                document.removeEventListener('scroll', startMusic);
-                document.removeEventListener('keydown', startMusic);
-            };
-            
-            document.addEventListener('click', startMusic, { once: true });
-            document.addEventListener('scroll', startMusic, { once: true });
-            document.addEventListener('keydown', startMusic, { once: true });
-        }
-        
-        function updateMusicStatus() {
-            if (currentLang === 'az') {
-                musicStatus.textContent = isPlaying ? 'MUSİQİ ÇALINIR' : 'MUSİQİ DAYANDIRILIB';
-            } else {
-                musicStatus.textContent = isPlaying ? 'MUSIC PLAYING' : 'MUSIC PAUSED';
-            }
-        }
-        
-        // Toggle play/pause
-        musicPlayer.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            if (isPlaying) {
-                bgMusic.pause();
-                isPlaying = false;
-                musicPlayer.classList.add('paused');
-            } else {
-                bgMusic.play();
-                isPlaying = true;
-                musicPlayer.classList.remove('paused');
-            }
-            updateMusicStatus();
-        });
-
-        // ====== CUSTOM CURSOR (Yalnız desktop) ======
-        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-            const cursor = document.querySelector('.cursor');
-            const cursorDot = document.querySelector('.cursor-dot');
-            
-            document.addEventListener('mousemove', (e) => {
-                cursorDot.style.left = e.clientX + 'px';
-                cursorDot.style.top = e.clientY + 'px';
-                
-                cursor.animate({
-                    left: e.clientX + 'px',
-                    top: e.clientY + 'px'
-                }, { duration: 600, fill: "forwards", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)" });
-            });
-
-            // Interactive cursor effects
-            document.querySelectorAll('a, button, .social-icon-btn, .music-player, .lang-btn').forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    cursor.style.width = '40px';
-                    cursor.style.height = '40px';
-                    cursor.style.borderColor = 'rgba(0, 240, 255, 0.6)';
-                });
-                
-                element.addEventListener('mouseleave', () => {
-                    cursor.style.width = '22px';
-                    cursor.style.height = '22px';
-                    cursor.style.borderColor = 'rgba(255, 255, 255, 0.6)';
-                });
-            });
-        }
-
-        // ====== SCROLL ANIMATIONS ======
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    
-                    if (entry.target.classList.contains('reveal')) {
-                        const delay = entry.target.getAttribute('data-delay') || 0;
-                        entry.target.style.transitionDelay = `${delay}ms`;
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all reveal elements
-        document.querySelectorAll('.reveal').forEach((el, index) => {
-            el.setAttribute('data-delay', (index % 5) * 100);
-            observer.observe(el);
-        });
-
-        // ====== NAVBAR SCROLL EFFECT ======
-        const navbar = document.getElementById('mainNav');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // ====== SMOOTH SCROLLING ======
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const navbarHeight = navbar.offsetHeight;
-                    const targetPosition = targetElement.offsetTop - navbarHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // ====== INITIALIZATION ======
-        window.addEventListener('DOMContentLoaded', () => {
-            // Add fade-in animation to body
-            document.body.classList.add('fade-in');
-            
-            // Initialize language
-            initLanguage();
-            
-            // Set current year in footer
-            const yearElement = document.querySelector('.copyright');
-            if (yearElement) {
-                const currentYear = new Date().getFullYear();
-                yearElement.innerHTML = yearElement.innerHTML.replace('2025', currentYear);
-            }
-            
-            // Update music status based on language
-            updateMusicStatus();
-        });
-    </script>
+<body lang=az>
+<div class=background-gradient></div>
+<div class=noise-overlay></div>
+<div class=grid-overlay></div>
+<div class=cursor></div>
+<div class=cursor-dot></div>
+<div class=language-switcher>
+<button class="lang-btn active" data-lang=az>AZ</button>
+<button class=lang-btn data-lang=en>EN</button>
+</div>
+<div class=music-player id=musicPlayer>
+<div class=equalizer>
+<div class=bar></div>
+<div class=bar></div>
+<div class=bar></div>
+<div class=bar></div>
+<div class=bar></div>
+</div>
+<span id=musicStatus>MUSIC</span>
+</div>
+<audio id=bgMusic loop>
+<source src=/assets/music.mp3 type=audio/mpeg>
+</audio>
+<nav id=mainNav>
+<div class=logo>Portfolio</div>
+<div class=nav-links>
+<a href=#about class=nav-link data-az=Haqqımda data-en=About>Haqqımda</a>
+<a href=#experience class=nav-link data-az=Təcrübə data-en=Experience>Təcrübə</a>
+<a href=#education class=nav-link data-az=Təhsil data-en=Education>Təhsil</a>
+<a href=#certifications class=nav-link data-az=Sertifikatlar data-en=Certifications>Sertifikatlar</a>
+<a href=#skills class=nav-link data-az=Biliklər data-en=Skills>Biliklər</a>
+<a href=#projects class=nav-link data-az=Layihələr data-en=Projects>Layihələr</a>
+</div>
+</nav>
+<header class=hero>
+<div class="hero-content reveal">
+<div class=hero-badge>
+<i class="fas fa-shield-alt"></i>
+<span data-az="Cybersecurity Professional" data-en="Cybersecurity Professional">Cybersecurity Professional</span>
+</div>
+<h1>RUSLAN AMRAHOV</h1>
+<div class=hero-subtitle data-az="Cybersecurity Analyst | Penetration Tester | Red Teamer" data-en="Cybersecurity Analyst | Penetration Tester | Red Teamer">
+Cybersecurity Analyst | Penetration Tester | Red Teamer
+</div>
+<div class=hero-roles data-az="Baku, Azerbaijan" data-en="Baku, Azerbaijan">Baku, Azerbaijan</div>
+<div class=hero-socials>
+<a href=mailto:ruslanemrahov001@gmail.com class=social-icon-btn title=Email>
+<i class="fas fa-envelope"></i>
+</a>
+<a href=https://linkedin.com/in/amrahov target=_blank class=social-icon-btn title=LinkedIn>
+<i class="fab fa-linkedin-in"></i>
+</a>
+<a href=https://github.com/ruslanemrahov target=_blank class=social-icon-btn title=GitHub>
+<i class="fab fa-github"></i>
+</a>
+<a href=https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q target=_blank class=social-icon-btn title=YouTube>
+<i class="fab fa-youtube"></i>
+</a>
+</div>
+</div>
+</header>
+<section id=about>
+<div class="section-header reveal">
+<h2 class=section-title data-az=Haqqımda data-en="About Me">Haqqımda</h2>
+<p class=section-subtitle data-az="Mənim haqqımda daha çox məlumat" data-en="More information about me">
+Mənim haqqımda daha çox məlumat
+</p>
+</div>
+<div class="glass-card reveal">
+<p class=about-text>
+<span data-az="Kiber təhlükəsizlik üzrə ixtisaslaşmışam və " data-en="I specialize in cybersecurity with ">Kiber təhlükəsizlik üzrə ixtisaslaşmışam və </span>
+<span class=highlight data-az="Red Teaming" data-en="Red Teaming">Red Teaming</span>
+<span data-az=" sahəsində real təcrübəyə sahibəm. " data-en=" hands-on experience. "> sahəsində real təcrübəyə sahibəm. </span>
+<span class=highlight data-az="AzInTelecom, MilliSec və Cyber Club ASOIU" data-en="AzInTelecom, MilliSec, and Cyber Club ASOIU">AzInTelecom, MilliSec və Cyber Club ASOIU</span>
+<span data-az="-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm." data-en="-provided me with practical knowledge. By participating in CTF competitions, I've developed both offensive and defensive skills. I have deep knowledge of modern cyber threats and defense methodologies.">
+-da əldə etdiyim praktiki biliklərlə yanaşı, CTF yarışlarında iştirak edərək hücum və müdafiə bacarıqlarımı inkişaf etdirmişəm. Müasir kiber təhdidlər və onlara qarşı mübarizə metodları üzrə dərin biliklərə sahibəm.
+</span>
+</p>
+<p class=about-text style=margin-top:20px>
+<span data-az="Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır." data-en="My goal is to further deepen my technical expertise and create value as a professional Penetration Tester and Red Teamer.">
+Məqsədim texniki biliklərimi daha da dərinləşdirmək və professional Penetration Tester və Red Teamer kimi dəyər yaratmaqdır.
+</span>
+</p>
+</div>
+</section>
+<section id=experience>
+<div class="section-header reveal">
+<h2 class=section-title data-az="İş Təcrübəsi" data-en="Work Experience">İş Təcrübəsi</h2>
+<p class=section-subtitle data-az="Professional təcrübəmin zaman xətti" data-en="Timeline of my professional experience">
+Professional təcrübəmin zaman xətti
+</p>
+</div>
+<div class=timeline>
+<div class="timeline-item reveal">
+<div class=timeline-dot></div>
+<div class=timeline-content>
+<div class=timeline-date>08/2025 - <span data-az=Hazırda data-en=Present>Hazırda</span></div>
+<div class=timeline-company>Cyber Club ASOIU</div>
+<span class=timeline-role data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
+<div class=timeline-details>
+<ul>
+<li data-az="Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi" data-en="Analyzed user behavior through Phishing Campaigns and Social Engineering Assessments">Phishing Campaigns və Social Engineering Assessments sınaqları ilə istifadəçi davranışlarını analiz etdi</li>
+<li data-az="OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı" data-en="Conducted reconnaissance on target infrastructure using OSINT techniques and mapped attack surface">OSINT texnikaları ilə hədəf infrastruktur haqqında kəşfiyyat apararaq attack surface xəritəsini hazırladı</li>
+<li data-az="Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi" data-en="Analyzed anomalies in real traffic using Network Sniffing and Packet Analysis">Network Sniffing və Packet Analysis vasitəsilə real trafik üzərində anomaliyaları təhlil etdi</li>
+<li data-az="Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi" data-en="Prepared Red Team Engagement Reports, documenting findings with risk scoring and CVSS methodologies">Red Team Engagement Reports hazırladı, tapıntıları risk scoring və CVSS metodologiyaları ilə sənədləşdirdi</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="timeline-item reveal">
+<div class=timeline-dot></div>
+<div class=timeline-content>
+<div class=timeline-date>06/2025 - 08/2025</div>
+<div class=timeline-company>AzInTelecom</div>
+<span class=timeline-role data-az="Kiber Təhlükəsizlik Mühəndisi" data-en="Cybersecurity Engineer">Kiber Təhlükəsizlik Mühəndisi</span>
+<div class=timeline-details>
+<ul>
+<li data-az="Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi" data-en="Optimized Web Application Firewall (WAF) rules to increase protection against OWASP Top 10 attacks">Web Application Firewall (WAF) qaydalarını optimallaşdıraraq OWASP Top 10 hücumlarının qarşısının alınma səviyyəsini yüksəltdi</li>
+<li data-az="Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı" data-en="Built log collection, parsing, and correlation rules in Elastic Stack (ELK) to automate anomaly detection">Elastic Stack (ELK) üzərində log collection, parsing və correlation rules quraraq anomaliya aşkarlanmasını avtomatlaşdırdı</li>
+<li data-az="CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi" data-en="Integrated security tests (SAST, DAST) into CI/CD pipelines for early vulnerability detection in deployment phase">CI/CD pipeline-larda təhlükəsizlik testləri (SAST, DAST) yerləşdirərək kodun deployment mərhələsində zəifliklərin erkən aşkarlanmasını təmin etdi</li>
+<li data-az="Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi" data-en="Configured Nginx Reverse Proxy for secure traffic routing and added security layers">Nginx Reverse Proxy konfiqurasiya edərək təhlükəsiz trafik routing-i təmin etdi və təhlükəsizlik qatları əlavə etdi</li>
+<li data-az="Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi" data-en="Conducted security testing in Docker environments, identifying container vulnerabilities and implementing hardening measures">Docker mühitlərində təhlükəsizlik testləri apararaq konteyner zəifliklərini müəyyən edib hardening tədbirləri həyata keçirdi</li>
+<li data-az="Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı" data-en="Executed Red Team scenarios for deep exploitation and post-exploitation testing of system vulnerabilities">Red Team ssenariləri həyata keçirərək sistem zəifliklərinin dərindən exploitasiya və post-exploitation testlərini apardı</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="timeline-item reveal">
+<div class=timeline-dot></div>
+<div class=timeline-content>
+<div class=timeline-date>10/2024 - 04/2025</div>
+<div class=timeline-company>MilliSec</div>
+<span class=timeline-role data-az="Red Teamer" data-en="Red Teamer">Red Teamer</span>
+<div class=timeline-details>
+<ul>
+<li data-az="Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi" data-en="Performed Web Application Security Testing, exploiting SQL Injection, XSS, CSRF, Command Injection, and other vulnerabilities">Web Application Security Testing apararaq SQL Injection, XSS, CSRF, Command Injection və digər zəifliklərin istismarını həyata keçirdi</li>
+<li data-az="Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi" data-en="Applied privilege escalation, lateral movement, and persistence techniques in Linux and Windows Active Directory environments">Linux və Windows Active Directory Environment üzərində privilege escalation, lateral movement və persistence techniques tətbiq etdi</li>
+<li data-az="Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi" data-en="Modeled attack scenarios using Cobalt Strike, Metasploit, Burp Suite Pro, and other Red Team tools">Cobalt Strike, Metasploit, Burp Suite Pro və digər Red Team alətləri ilə hücum ssenarilərini modelləşdirdi</li>
+<li data-az="MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi" data-en="Classified and prioritized vulnerabilities based on the MITRE ATT&CK Framework">MITRE ATT&CK Framework əsasında zəiflikləri təsnif edib prioritetləşdirdi</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id=education>
+<div class="section-header reveal">
+<h2 class=section-title data-az=Təhsil data-en=Education>Təhsil</h2>
+<p class=section-subtitle data-az="Akademik təhsil tarixçəm" data-en="My academic education history">
+Akademik təhsil tarixçəm
+</p>
+</div>
+<div class=education-timeline>
+<div class="edu-timeline-item reveal">
+<div class=edu-icon>
+<i class="fas fa-university"></i>
+</div>
+<div class=edu-content>
+<div class=edu-title data-az="Kompüter Mühəndisliyi (Bakalavr)" data-en="Computer Engineering (Bachelor's)">Kompüter Mühəndisliyi (Bakalavr)</div>
+<span class=edu-place data-az="Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)" data-en="Azerbaijan State Oil and Industry University (ASOIU)">Azərbaycan Dövlət Neft və Sənaye Universiteti (ASOIU)</span>
+<span class=edu-duration>2023 - 2027</span>
+</div>
+</div>
+<div class="edu-timeline-item reveal">
+<div class=edu-icon>
+<i class="fas fa-graduation-cap"></i>
+</div>
+<div class=edu-content>
+<div class=edu-title data-az="Kompüter Mühəndisliyi" data-en="Computer Engineering">Kompüter Mühəndisliyi</div>
+<span class=edu-place data-az="SABAH Qrupları (ASOIU)" data-en="SABAH Groups (ASOIU)">SABAH Qrupları (ASOIU)</span>
+<span class=edu-duration>2024 - 2027</span>
+</div>
+</div>
+</div>
+</section>
+<section id=certifications>
+<div class="section-header reveal">
+<h2 class=section-title data-az=Sertifikatlar data-en=Certifications>Sertifikatlar</h2>
+<p class=section-subtitle data-az="Peşəkar nailiyyətlərim" data-en="My professional achievements">
+Peşəkar nailiyyətlərim
+</p>
+</div>
+<div class=certifications-milestone>
+<div class="cert-card reveal">
+<div class=cert-badge>
+<i class="fas fa-shield-alt"></i>
+</div>
+<div class=cert-title>eWPTXv3 (Web Application Penetration Tester eXtreme)</div>
+<span class=cert-issuer>INE Security</span>
+<a href=https://certs.ine.com/c557e25a-307a-40e0-8f44-584c28dcbba0#acc.dwFmZoM5 target=_blank class=cert-verify>
+<i class="fas fa-external-link-alt"></i> <span data-az=Təsdiqlə data-en=Verify>Təsdiqlə</span>
+</a>
+</div>
+<div class="cert-card reveal">
+<div class=cert-badge>
+<i class="fas fa-bug"></i>
+</div>
+<div class=cert-title>CRTA (Certified Red Team Analyst)</div>
+<span class=cert-issuer>CyberWarFare Labs</span>
+<a href=https://www.credential.net/ed95f58b-9f09-42a3-94c0-c4dc3c207588#acc.jaJsiBfQ target=_blank class=cert-verify>
+<i class="fas fa-external-link-alt"></i> <span data-az=Təsdiqlə data-en=Verify>Təsdiqlə</span>
+</a>
+</div>
+<div class="cert-card reveal">
+<div class=cert-badge>
+<i class="fas fa-certificate"></i>
+</div>
+<div class=cert-title>FCAC (Fortinet Certified Associate Cybersecurity)</div>
+<span class=cert-issuer>Fortinet</span>
+<a href=https://www.credly.com/badges/a2172361-a0af-43e6-91a2-d5b4e380f849/linked_in_profile target=_blank class=cert-verify>
+<i class="fas fa-external-link-alt"></i> <span data-az=Təsdiqlə data-en=Verify>Təsdiqlə</span>
+</a>
+</div>
+</div>
+</section>
+<section id=skills>
+<div class="section-header reveal">
+<h2 class=section-title data-az="Texniki Bacarıqlar" data-en="Technical Skills">Texniki Bacarıqlar</h2>
+<p class=section-subtitle data-az="Sahə biliklərim və ixtisaslarım" data-en="My field knowledge and specializations">
+Sahə biliklərim və ixtisaslarım
+</p>
+</div>
+<div class=skills-container>
+<div class=skills-grid>
+<div class="glass-card skill-category reveal">
+<h3><i class="fas fa-bug"></i> <span data-az="Offensive Security" data-en="Offensive Security">Offensive Security</span></h3>
+<div class=tag-container>
+<span class=tag>Penetration Testing</span>
+<span class=tag>Red Teaming</span>
+<span class=tag>Web/API Pentesting</span>
+<span class=tag>Active Directory Pentest</span>
+<span class=tag>Wireless Security</span>
+<span class=tag>Social Engineering</span>
+<span class=tag>Network Attacks</span>
+<span class=tag>Malware Simulation</span>
+<span class=tag>C2 Tools (Cobalt Strike)</span>
+<span class=tag>Metasploit</span>
+<span class=tag>Burp Suite Pro</span>
+</div>
+</div>
+<div class="glass-card skill-category reveal">
+<h3><i class="fas fa-shield-alt"></i> <span data-az="Defensive Security" data-en="Defensive Security">Defensive Security</span></h3>
+<div class=tag-container>
+<span class=tag>SOC Operations</span>
+<span class=tag>SIEM (Splunk, QRadar)</span>
+<span class=tag>EDR/XDR (Bitdefender)</span>
+<span class=tag>IDS/IPS (Suricata)</span>
+<span class=tag>Network Monitoring</span>
+<span class=tag>WAF (Sucuri, ModSecurity)</span>
+<span class=tag>Firewall (Fortigate)</span>
+<span class=tag>CTI/XTI (SOCRadar)</span>
+<span class=tag>Manual Log Analysis</span>
+<span class=tag>Cloud Networking (Azure)</span>
+<span class=tag>Cisco Routing & Switching</span>
+</div>
+</div>
+<div class="glass-card skill-category reveal">
+<h3><i class="fas fa-code"></i> <span data-az="Programming & Tools" data-en="Programming & Tools">Programming & Tools</span></h3>
+<div class=tag-container>
+<span class=tag>Python</span>
+<span class=tag>SQL</span>
+<span class=tag>Node.js</span>
+<span class=tag>Express.js</span>
+<span class=tag>Docker</span>
+<span class=tag>ELK Stack</span>
+<span class=tag>Nginx/Apache</span>
+<span class=tag>Windows/Linux Admin</span>
+<span class=tag>Active Directory</span>
+<span class=tag>SAST (SonarQube)</span>
+<span class=tag>DAST (OWASP ZAP)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id=projects>
+<div class="section-header reveal">
+<h2 class=section-title data-az=Layihələr data-en=Projects>Layihələr</h2>
+<p class=section-subtitle data-az="Həyata keçirdiyim əsas layihələr" data-en="Main projects I have implemented">
+Həyata keçirdiyim əsas layihələr
+</p>
+</div>
+<div class=projects-grid>
+<div class="glass-card project-card reveal">
+<h3>The Advancement of Cybersecurity in Space through AI – IAC 2025</h3>
+<p class=project-desc data-az="Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi." data-en="International research project where I am a co-author of an abstract supported by Azercosmos and accepted by the International Astronautical Federation.">
+Azercosmos tərəfindən dəstəklənən və International Astronautical Federation tərəfindən qəbul edilmiş abstrakt ilə həmmüəllif olduğum beynəlxalq tədqiqat layihəsi.
+</p>
+<div class=project-tech>
+<span class=tag>AI</span>
+<span class=tag data-az="Space Security" data-en="Space Security">Space Security</span>
+<span class=tag data-az=Research data-en=Research>Research</span>
+</div>
+</div>
+<div class="glass-card project-card reveal">
+<h3>CyberCell Hackathon — "Falcons" Komandası</h3>
+<p class=project-desc data-az='"Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.' data-en='CyberCell Hackathon I participated in as a member of the "Falcons" team. Worked as a Red Teamer.'>
+"Falcons" komandasının üzvü kimi iştirak etdiyim CyberCell Hackathon. Red Teamer rolunda çalışdım.
+</p>
+<div class=project-tech>
+<span class=tag>Python</span>
+<span class=tag>Kali Linux</span>
+<span class=tag data-az=Hackathon data-en=Hackathon>Hackathon</span>
+</div>
+</div>
+<div class="glass-card project-card reveal">
+<h3>THM – MilliSec CTF Challenge</h3>
+<p class=project-desc data-az="Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması." data-en="CTF competition where I gained practical experience in real-life cyber attack simulations and defensive operations.">
+Real-həyat kiber hücum simulyasiyaları və müdafiə əməliyyatları üzrə praktiki təcrübə əldə etdiyim CTF yarışması.
+</p>
+<div class=project-tech>
+<span class=tag>CTF</span>
+<span class=tag data-az="Penetration Testing" data-en="Penetration Testing">Penetration Testing</span>
+<span class=tag>TryHackMe</span>
+</div>
+</div>
+<div class="glass-card project-card reveal">
+<h3>ModSecurity WAF + Docker Security Stack</h3>
+<p class=project-desc data-az="ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım." data-en="Developed a WAF system for containerized web applications using ModSecurity, Nginx, and Docker.">
+ModSecurity, Nginx və Docker istifadə edərək konteynerizasiya edilmiş web tətbiqləri üçün WAF sistemi hazırladım.
+</p>
+<div class=project-tech>
+<span class=tag>Docker</span>
+<span class=tag>WAF</span>
+<span class=tag data-az=Security data-en=Security>Security</span>
+</div>
+</div>
+<div class="glass-card project-card reveal">
+<h3>THM – V CTF Challenge</h3>
+<p class=project-desc data-az="Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı." data-en="Solving web and system-based CTF challenges, developing penetration testing skills.">
+Web və sistem əsaslı CTF tapşırıqlarının həlli, penetration testing bacarıqlarının inkişafı.
+</p>
+<div class=project-tech>
+<span class=tag data-az="Web Security" data-en="Web Security">Web Security</span>
+<span class=tag data-az=Exploitation data-en=Exploitation>Exploitation</span>
+<span class=tag>TryHackMe</span>
+</div>
+</div>
+<div class="glass-card project-card reveal">
+<h3>THM – MilliSec 1.0 CTF Challenge</h3>
+<p class=project-desc data-az="Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə." data-en="Project focused on vulnerability discovery and practical application of exploit techniques.">
+Təhlükəsizlik zəifliklərinin aşkarlanması və exploit texnikalarının praktik tətbiqi üzrə layihə.
+</p>
+<div class=project-tech>
+<span class=tag data-az="Vulnerability Assessment" data-en="Vulnerability Assessment">Vulnerability Assessment</span>
+<span class=tag>CTF</span>
+<span class=tag data-az="Security Testing" data-en="Security Testing">Security Testing</span>
+</div>
+</div>
+</div>
+</section>
+<footer class=contact-footer id=contact>
+<div class=footer-content>
+<div class=footer-logo>RUSLAN ƏMRAHOV</div>
+<p style=color:var(--text-muted);margin-bottom:30px>
+<span data-az="Cybersecurity Professional | Red Teamer | Penetration Tester" data-en="Cybersecurity Professional | Red Teamer | Penetration Tester">
+Cybersecurity Professional | Red Teamer | Penetration Tester
+</span>
+</p>
+<div class=hero-socials>
+<a href=mailto:ruslanemrahov001@gmail.com class=social-icon-btn title=Email>
+<i class="fas fa-envelope"></i>
+</a>
+<a href=https://linkedin.com/in/amrahov target=_blank class=social-icon-btn title=LinkedIn>
+<i class="fab fa-linkedin-in"></i>
+</a>
+<a href=https://github.com/ruslanemrahov target=_blank class=social-icon-btn title=GitHub>
+<i class="fab fa-github"></i>
+</a>
+<a href=https://www.youtube.com/channel/UCDqD3g4DKiq-Bt5kjKULi5Q target=_blank class=social-icon-btn title=YouTube>
+<i class="fab fa-youtube"></i>
+</a>
+</div>
+<div class=copyright>
+&copy; 2025 Ruslan Əmrahov. <span data-az="Bütün hüquqlar qorunur." data-en="All rights reserved.">Bütün hüquqlar qorunur.</span>
+</div>
+</div>
+</footer>
+<script>let currentLang="az";const langButtons=document.querySelectorAll(".lang-btn"),elementsToTranslate=document.querySelectorAll("[data-az], [data-en]");function initLanguage(){setLanguage(localStorage.getItem("preferredLang")||"az")}function setLanguage(e){currentLang=e,document.body.classList.add("fade-out"),langButtons.forEach((t=>{t.dataset.lang===e?t.classList.add("active"):t.classList.remove("active")})),document.documentElement.lang=e,setTimeout((()=>{elementsToTranslate.forEach((t=>{t.dataset[e]&&("INPUT"===t.tagName||"TEXTAREA"===t.tagName?t.value=t.dataset[e]:t.hasAttribute("placeholder")?t.placeholder=t.dataset[e]:t.textContent=t.dataset[e])})),document.body.classList.remove("fade-out"),localStorage.setItem("preferredLang",e),updateMusicStatus()}),300)}langButtons.forEach((e=>{e.addEventListener("click",(()=>{const t=e.dataset.lang;t!==currentLang&&setLanguage(t)}))}));const bgMusic=document.getElementById("bgMusic"),musicPlayer=document.getElementById("musicPlayer"),musicStatus=document.getElementById("musicStatus");let isPlaying=!1;function setupUserInteraction(){const e=()=>{bgMusic.play().then((()=>{isPlaying=!0,updateMusicStatus(),musicPlayer.classList.remove("paused")})),document.removeEventListener("click",e),document.removeEventListener("scroll",e),document.removeEventListener("keydown",e)};document.addEventListener("click",e,{once:!0}),document.addEventListener("scroll",e,{once:!0}),document.addEventListener("keydown",e,{once:!0})}function updateMusicStatus(){musicStatus.textContent="az"===currentLang?isPlaying?"MUSİQİ ÇALINIR":"MUSİQİ DAYANDIRILIB":isPlaying?"MUSIC PLAYING":"MUSIC PAUSED"}if(window.addEventListener("load",(()=>{bgMusic.volume=.12;const e=bgMusic.play();void 0!==e&&e.then((()=>{isPlaying=!0,updateMusicStatus()})).catch((()=>{setupUserInteraction()}))})),musicPlayer.addEventListener("click",(e=>{e.stopPropagation(),isPlaying?(bgMusic.pause(),isPlaying=!1,musicPlayer.classList.add("paused")):(bgMusic.play(),isPlaying=!0,musicPlayer.classList.remove("paused")),updateMusicStatus()})),window.matchMedia("(hover: hover) and (pointer: fine)").matches){const e=document.querySelector(".cursor"),t=document.querySelector(".cursor-dot");document.addEventListener("mousemove",(a=>{t.style.left=a.clientX+"px",t.style.top=a.clientY+"px",e.animate({left:a.clientX+"px",top:a.clientY+"px"},{duration:600,fill:"forwards",easing:"cubic-bezier(0.2, 0.8, 0.2, 1)"})})),document.querySelectorAll("a, button, .social-icon-btn, .music-player, .lang-btn").forEach((t=>{t.addEventListener("mouseenter",(()=>{e.style.width="40px",e.style.height="40px",e.style.borderColor="rgba(0, 240, 255, 0.6)"})),t.addEventListener("mouseleave",(()=>{e.style.width="22px",e.style.height="22px",e.style.borderColor="rgba(255, 255, 255, 0.6)"}))}))}const observerOptions={threshold:.1,rootMargin:"0px 0px -100px 0px"},observer=new IntersectionObserver((e=>{e.forEach((e=>{if(e.isIntersecting&&(e.target.classList.add("active"),e.target.classList.contains("reveal"))){const t=e.target.getAttribute("data-delay")||0;e.target.style.transitionDelay=`${t}ms`}}))}),observerOptions);document.querySelectorAll(".reveal").forEach(((e,t)=>{e.setAttribute("data-delay",t%5*100),observer.observe(e)}));const navbar=document.getElementById("mainNav");window.addEventListener("scroll",(()=>{window.scrollY>100?navbar.classList.add("scrolled"):navbar.classList.remove("scrolled")})),document.querySelectorAll('a[href^="#"]').forEach((e=>{e.addEventListener("click",(function(e){e.preventDefault();const t=this.getAttribute("href");if("#"===t)return;const a=document.querySelector(t);if(a){const e=navbar.offsetHeight,t=a.offsetTop-e-20;window.scrollTo({top:t,behavior:"smooth"})}}))})),window.addEventListener("DOMContentLoaded",(()=>{document.body.classList.add("fade-in"),initLanguage();const e=document.querySelector(".copyright");if(e){const t=(new Date).getFullYear();e.innerHTML=e.innerHTML.replace("2025",t)}updateMusicStatus()}))</script>
 </body>
 </html>
